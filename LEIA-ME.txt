@@ -1,0 +1,85 @@
+====================================================================
+ PORTFÓLIO — MAURICIO FERREIRA · Guia rápido
+====================================================================
+
+O QUE TEM NESTA PASTA
+---------------------
+  index.html      → o site (não precisa editar)
+  painel-admin-0504.html → PAINEL para adicionar/editar vídeos e a página Sobre
+  support.js      → arquivo interno do site (não apague)
+  image-slot.js   → arquivo interno do site (não apague)
+  videos.json     → seus vídeos (o painel gera este arquivo pra você)
+  images/         → coloque aqui suas imagens de capa e sua foto
+
+====================================================================
+ 1) COLOCAR O SITE NO AR (uma vez só) — Netlify, grátis
+====================================================================
+  1. Acesse  https://app.netlify.com/drop
+  2. Arraste ESTA pasta inteira ("publicar") para a página.
+  3. Pronto: o site fica no ar num endereço tipo
+     https://seunome.netlify.app
+  4. (Opcional) Em "Domain settings" você conecta um domínio
+     próprio (ex: mauricioferreira.com.br, ~R$40/ano).
+
+  Para atualizar depois: entre no painel da Netlify, aba "Deploys",
+  e arraste a pasta de novo. Ou edite os arquivos direto por lá.
+
+====================================================================
+ 2) ADICIONAR / EDITAR VÍDEOS — pelo PAINEL (mais fácil)
+====================================================================
+  1. Abra o  painel-admin-0504.html  no navegador. No site publicado:
+     https://seunome.netlify.app/painel-admin-0504.html
+  2. Preencha o formulário (título, ano, categoria, link do vídeo,
+     capa, descrição...) e clique em "Adicionar vídeo".
+     Para mexer num existente: clique em "Editar" na lista.
+  3. Clique em "↓ Baixar videos.json". Um arquivo videos.json novo
+     será baixado.
+  4. Substitua o videos.json antigo desta pasta pelo novo e arraste
+     a pasta no Netlify (ou só o videos.json) para publicar.
+
+  Categorias disponíveis: Institucional, Documentário, Curta, Sound design.
+
+  ------------------------------------------------------------------
+  Prefere editar na mão? Você também pode abrir o videos.json num
+  editor de texto: copie um bloco de projeto (de "{" até "}"), cole
+  no topo da lista "projects", ponha uma vírgula e troque os campos:
+       "id"       → apelido único, sem espaços (ex: "novo-clipe")
+       "cat"      → inst | doc | curta | sound
+       "year"     → o ano
+       "duration" → ex: "03:20"
+       "client"   → nome do cliente
+       "tools"    → programas usados
+       "video"    → o link do YouTube ou Vimeo
+       "title"    → título em português (pt) e inglês (en)
+       "desc"     → descrição em português (pt) e inglês (en)
+
+====================================================================
+ 3) CAPAS (THUMBNAILS) — 3 modos
+====================================================================
+  a) AUTOMÁTICA (YouTube):  "thumb": "auto"
+     → usa a capa do próprio vídeo do YouTube. Nada a fazer.
+
+  b) IMAGEM SUA:  "thumb": "images/nome-do-arquivo.jpg"
+     → salve a imagem na pasta "images" e aponte aqui.
+       Ideal: 16:9, ~1280x720px, .jpg ou .webp.
+
+  c) Enquanto não tiver link nem imagem, o site mostra uma capa
+     temporária automática. É só isso.
+
+====================================================================
+ 4) SEUS DADOS DE CONTATO
+====================================================================
+  No topo do videos.json, edite:
+     "email"     → seu e-mail
+     "instagram" → link do seu Instagram
+     "linkedin"  → link do seu LinkedIn
+
+  A sua foto de perfil e os textos da página "Sobre" ficam dentro
+  do site. Me chame que eu atualizo, ou arraste sua foto direto no
+  círculo da página Sobre (ela fica salva no seu navegador).
+
+====================================================================
+ DICA: sempre guarde uma cópia desta pasta antes de editar.
+       Se o videos.json ficar com erro (faltou uma vírgula, etc),
+       o site avisa e volta pros exemplos — nada quebra de vez.
+====================================================================

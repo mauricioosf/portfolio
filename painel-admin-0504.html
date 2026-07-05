@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Mauricio Ferreira — Admin</title>
+<link rel="icon" type="image/png" href="./images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0A0A0B; }
+  ::selection { background: #D9A441; color: #0A0A0B; }
+  input, select, textarea { font-family: 'Archivo', sans-serif; }
+  input::placeholder, textarea::placeholder { color: #5F5A50; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #D9A441 !important; }
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;">
+
+  <!-- TOP BAR -->
+  <div style="position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:20px 34px;background:rgba(10,10,11,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(236,231,222,0.1);">
+    <div>
+      <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:15px;letter-spacing:2px;text-transform:uppercase;">Painel do Portfólio</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8478;margin-top:5px;">{{ statusMsg }}</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A8478;">{{ countLabel }}</span>
+      <button onClick="{{ download }}" style="cursor:pointer;background:#D9A441;border:0;color:#0A0A0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 20px;border-radius:3px;white-space:nowrap;">↓ Baixar videos.json</button>
+    </div>
+  </div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:38px 34px 90px;display:grid;grid-template-columns:1fr 1.25fr;gap:40px;align-items:start;">
+
+    <!-- LEFT: contacts + list -->
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin-bottom:16px;">Contato</div>
+      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">E-mail</label>
+      <input name="email" value="{{ c.email }}" onInput="{{ onContact }}" placeholder="voce@dominio.com" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;margin-bottom:14px;">
+      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Instagram (link)</label>
+      <input name="instagram" value="{{ c.instagram }}" onInput="{{ onContact }}" placeholder="https://instagram.com/voce" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;margin-bottom:14px;">
+      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">LinkedIn (link)</label>
+      <input name="linkedin" value="{{ c.linkedin }}" onInput="{{ onContact }}" placeholder="https://linkedin.com/in/voce" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin:34px 0 16px;">Vídeos ({{ count }})</div>
+      <sc-for list="{{ rows }}" as="p" hint-placeholder-count="4">
+        <div style="{{ p.rowStyle }}">
+          <div style="min-width:0;">
+            <div style="font-family:'Newsreader',serif;font-size:18px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.title }}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8A8478;margin-top:4px;">{{ p.meta }}</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <button onClick="{{ p.edit }}" style="cursor:pointer;background:transparent;border:1px solid rgba(236,231,222,0.2);color:#ECE7DE;font-size:11px;padding:6px 11px;border-radius:3px;">Editar</button>
+            <button onClick="{{ p.remove }}" style="cursor:pointer;background:transparent;border:1px solid rgba(201,108,126,0.4);color:#C96C7E;font-size:11px;padding:6px 11px;border-radius:3px;">Excluir</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div style="background:#101012;border:1px solid rgba(236,231,222,0.1);border-radius:6px;padding:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+        <div style="font-family:'Newsreader',serif;font-weight:300;font-size:26px;">{{ formTitle }}</div>
+        <button onClick="{{ newProject }}" style="cursor:pointer;background:transparent;border:1px solid rgba(236,231,222,0.2);color:#ECE7DE;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;border-radius:3px;">+ Novo</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Título (PT)</label>
+          <input name="title_pt" value="{{ f.title_pt }}" onInput="{{ onField }}" placeholder="Ex: Horizonte" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Título (EN) <span style="color:#5F5A50;">— opcional</span></label>
+          <input name="title_en" value="{{ f.title_en }}" onInput="{{ onField }}" placeholder="Ex: Horizon" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Categoria</label>
+          <select name="cat" value="{{ f.cat }}" onChange="{{ onField }}" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+            <option value="inst">Institucional</option>
+            <option value="doc">Documentário</option>
+            <option value="curta">Curta</option>
+            <option value="sound">Sound design</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Ano</label>
+          <input name="year" value="{{ f.year }}" onInput="{{ onField }}" placeholder="2025" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Duração</label>
+          <input name="duration" value="{{ f.duration }}" onInput="{{ onField }}" placeholder="04:12" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Cliente</label>
+          <input name="client" value="{{ f.client }}" onInput="{{ onField }}" placeholder="Nome do cliente" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Função (PT)</label>
+          <input name="role_pt" value="{{ f.role_pt }}" onInput="{{ onField }}" placeholder="Ex: Montagem & cor" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Função (EN)</label>
+          <input name="role_en" value="{{ f.role_en }}" onInput="{{ onField }}" placeholder="Ex: Editing & grade" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Ferramentas</label>
+          <input name="tools" value="{{ f.tools }}" onInput="{{ onField }}" placeholder="Premiere Pro, After Effects" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Link do vídeo (YouTube ou Vimeo)</label>
+          <input name="video" value="{{ f.video }}" onInput="{{ onField }}" placeholder="https://youtu.be/..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Capa (thumbnail)</label>
+          <input name="thumb" value="{{ f.thumb }}" onInput="{{ onField }}" placeholder="auto  (ou images/arquivo.jpg)" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Use <b style="color:#8A8478;">auto</b> para pegar a capa do YouTube, ou aponte uma imagem sua na pasta images.</div>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Descrição (PT)</label>
+          <textarea name="desc_pt" value="{{ f.desc_pt }}" onInput="{{ onField }}" rows="3" placeholder="Sobre o projeto..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ f.desc_pt }}</textarea>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Descrição (EN) <span style="color:#5F5A50;">— opcional</span></label>
+          <textarea name="desc_en" value="{{ f.desc_en }}" onInput="{{ onField }}" rows="3" placeholder="About the project..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ f.desc_en }}</textarea>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:22px;">
+        <button onClick="{{ save }}" style="cursor:pointer;background:#ECE7DE;border:0;color:#0A0A0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px 22px;border-radius:3px;">{{ saveLabel }}</button>
+        <sc-if value="{{ isEditing }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ newProject }}" style="cursor:pointer;background:transparent;border:1px solid rgba(236,231,222,0.2);color:#ECE7DE;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:12px 22px;border-radius:3px;">Cancelar</button>
+        </sc-if>
+      </div>
+      <div style="{{ warnStyle }}">{{ warnMsg }}</div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE EDITOR -->
+  <div style="max-width:1080px;margin:0 auto;padding:0 34px 60px;">
+    <div style="background:#101012;border:1px solid rgba(236,231,222,0.1);border-radius:6px;padding:28px;">
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin-bottom:6px;">Página Sobre</div>
+      <div style="font-family:'Newsreader',serif;font-weight:300;font-size:24px;margin-bottom:22px;">Editar sua apresentação</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Seu nome (aparece no topo e no rodapé)</label>
+          <input name="name" value="{{ af.name }}" onInput="{{ onAbout }}" placeholder="Mauricio Ferreira" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Foto do Sobre (link ou images/arquivo.jpg)</label>
+          <input name="portrait" value="{{ af.portrait }}" onInput="{{ onAbout }}" placeholder="images/perfil.jpg" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <div style="font-size:11px;color:#5F5A50;margin-top:6px;">Salve a imagem na pasta images e aponte aqui, ou cole um link. Deixe em branco para arrastar a foto direto no site.</div>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Cargo (PT)</label>
+          <input name="role_pt" value="{{ af.role_pt }}" onInput="{{ onAbout }}" placeholder="Editor de vídeo" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Cargo (EN)</label>
+          <input name="role_en" value="{{ af.role_en }}" onInput="{{ onAbout }}" placeholder="Video editor" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Bio (PT) <span style="color:#5F5A50;">— tecle Enter para pular parágrafo</span></label>
+          <textarea name="bio_pt" value="{{ af.bio_pt }}" onInput="{{ onAbout }}" rows="7" placeholder="Sua história..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.bio_pt }}</textarea>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Bio (EN) <span style="color:#5F5A50;">— tecle Enter para pular parágrafo</span></label>
+          <textarea name="bio_en" value="{{ af.bio_en }}" onInput="{{ onAbout }}" rows="7" placeholder="Your story..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.bio_en }}</textarea>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Localização (PT)</label>
+          <input name="based_pt" value="{{ af.based_pt }}" onInput="{{ onAbout }}" placeholder="> Baseado em São Paulo, Brasil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Localização (EN)</label>
+          <input name="based_en" value="{{ af.based_en }}" onInput="{{ onAbout }}" placeholder="> Based in São Paulo, Brazil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (PT)</label>
+          <input name="exp_pt" value="{{ af.exp_pt }}" onInput="{{ onAbout }}" placeholder="> 8 anos editando" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN)</label>
+          <input name="exp_en" value="{{ af.exp_en }}" onInput="{{ onAbout }}" placeholder="> 8 years editing" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Especialidades (PT) <span style="color:#5F5A50;">— separe por vírgula</span></label>
+          <input name="skills_pt" value="{{ af.skills_pt }}" onInput="{{ onAbout }}" placeholder="Montagem, Motion design, Color grading" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Especialidades (EN) <span style="color:#5F5A50;">— separe por vírgula</span></label>
+          <input name="skills_en" value="{{ af.skills_en }}" onInput="{{ onAbout }}" placeholder="Editing, Motion design, Color grading" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Ferramentas (PT) <span style="color:#5F5A50;">— separe por vírgula</span></label>
+          <input name="tools_pt" value="{{ af.tools_pt }}" onInput="{{ onAbout }}" placeholder="Premiere Pro, After Effects" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Ferramentas (EN) <span style="color:#5F5A50;">— separe por vírgula</span></label>
+          <input name="tools_en" value="{{ af.tools_en }}" onInput="{{ onAbout }}" placeholder="Premiere Pro, After Effects" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (PT) <span style="color:#5F5A50;">— uma por linha: ano | cargo | lugar | texto extra</span></label>
+          <textarea name="timeline_pt" value="{{ af.timeline_pt }}" onInput="{{ onAbout }}" rows="4" placeholder="2022–25 | Editor sênior — Estúdio X | Marcas & documentário | Detalhes que aparecem ao expandir" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.timeline_pt }}</textarea>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | role | place | extra text</span></label>
+          <textarea name="timeline_en" value="{{ af.timeline_en }}" onInput="{{ onAbout }}" rows="4" placeholder="2022–25 | Senior editor — Studio X | Brands & documentary | Details shown when expanded" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.timeline_en }}</textarea>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação acadêmica (PT) <span style="color:#5F5A50;">— uma por linha: ano | curso | instituição</span></label>
+          <textarea name="education_pt" value="{{ af.education_pt }}" onInput="{{ onAbout }}" rows="3" placeholder="2015–18 | Cinema e Audiovisual | Universidade X" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.education_pt }}</textarea>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação acadêmica (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | course | institution</span></label>
+          <textarea name="education_en" value="{{ af.education_en }}" onInput="{{ onAbout }}" rows="3" placeholder="2015–18 | Film & Audiovisual | University X" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.education_en }}</textarea>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Licenças e certificados (PT) <span style="color:#5F5A50;">— uma por linha: ano | certificado | emissor</span></label>
+          <textarea name="licenses_pt" value="{{ af.licenses_pt }}" onInput="{{ onAbout }}" rows="3" placeholder="2021 | DaVinci Resolve Certified | Blackmagic Design" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.licenses_pt }}</textarea>
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Licenças e certificados (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | certificate | issuer</span></label>
+          <textarea name="licenses_en" value="{{ af.licenses_en }}" onInput="{{ onAbout }}" rows="3" placeholder="2021 | DaVinci Resolve Certified | Blackmagic Design" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.licenses_en }}</textarea>
+        </div>
+
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Frase de contato (PT)</label>
+          <input name="contact_pt" value="{{ af.contact_pt }}" onInput="{{ onAbout }}" placeholder="Vamos montar algo juntos?" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Frase de contato (EN)</label>
+          <input name="contact_en" value="{{ af.contact_en }}" onInput="{{ onAbout }}" placeholder="Shall we cut something together?" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+        </div>
+      </div>
+      <div style="font-size:12px;color:#5F5A50;margin-top:16px;">As alterações do Sobre entram no mesmo <b style="color:#8A8478;">videos.json</b> — é só baixar e publicar. A sua foto de perfil você arrasta direto no círculo da página Sobre.</div>
+    </div>
+  </div>
+
+  <div style="max-width:1080px;margin:0 auto;padding:0 34px 60px;">
+    <div style="border-top:1px solid rgba(236,231,222,0.1);padding-top:24px;font-size:13px;line-height:1.7;color:#8A8478;text-align:center;max-width:640px;margin:0 auto;">
+      <b style="color:#ECE7DE;">Como usar:</b> edite/adicione os vídeos aqui, clique em <b style="color:#ECE7DE;">Baixar videos.json</b> e substitua o arquivo antigo pelo novo. Depois arraste a pasta no Netlify (ou só o videos.json) para publicar. As mudanças ficam salvas neste navegador enquanto você trabalha. <span onClick="{{ reloadFile }}" style="color:#D9A441;cursor:pointer;border-bottom:1px solid rgba(217,164,65,0.4);">Recarregar do videos.json</span> (descarta o que ainda não foi baixado).
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+const EMPTY = { id:'', cat:'inst', year:'', duration:'', client:'', tools:'', video:'', thumb:'auto', title_pt:'', title_en:'', desc_pt:'', desc_en:'', role_pt:'', role_en:'' };
+const CAT_LABELS = { inst:'Institucional', doc:'Documentário', curta:'Curta', sound:'Sound design' };
+const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'' };
+
+function flattenAbout(a) {
+  a = a || {};
+  const L = (o) => (o && typeof o === 'object') ? (o.pt || '') : (o || '');
+  const LE = (o) => (o && typeof o === 'object') ? (o.en || '') : '';
+  // pick a language value from a possibly-bilingual field; legacy strings count as PT only
+  const pl = (v, lang) => (v && typeof v === 'object') ? (v[lang] || '') : (lang === 'pt' ? (v || '') : '');
+  // list field: array (legacy, PT only) or {pt:[],en:[]}
+  const listStr = (v, lang) => {
+    let arr;
+    if (Array.isArray(v)) arr = (lang === 'pt') ? v : [];
+    else if (v && typeof v === 'object') arr = v[lang] || [];
+    else arr = [];
+    return arr.join(', ');
+  };
+  const rowsStr = (arr, lang, withDetail) => (arr || []).map(t => {
+    const parts = [t.year || '', pl(t.role, lang), pl(t.place, lang)];
+    if (withDetail) parts.push(pl(t.detail, lang));
+    return parts.join(' | ');
+  }).join('\n');
+  // migrate legacy bio1/bio2 into a single bio field
+  const bioPt = L(a.bio) || [L(a.bio1), L(a.bio2)].filter(Boolean).join('\n\n');
+  const bioEn = LE(a.bio) || [LE(a.bio1), LE(a.bio2)].filter(Boolean).join('\n\n');
+  return {
+    name: a.name || '',
+    portrait: a.portrait || '',
+    role_pt: L(a.role), role_en: LE(a.role),
+    bio_pt: bioPt, bio_en: bioEn,
+    based_pt: L(a.based), based_en: LE(a.based),
+    exp_pt: L(a.exp), exp_en: LE(a.exp),
+    contact_pt: L(a.contactTitle), contact_en: LE(a.contactTitle),
+    skills_pt: listStr(a.skills, 'pt'), skills_en: listStr(a.skills, 'en'),
+    tools_pt: listStr(a.tools, 'pt'), tools_en: listStr(a.tools, 'en'),
+    timeline_pt: rowsStr(a.timeline, 'pt', true), timeline_en: rowsStr(a.timeline, 'en', true),
+    education_pt: rowsStr(a.education, 'pt', false), education_en: rowsStr(a.education, 'en', false),
+    licenses_pt: rowsStr(a.licenses, 'pt', false), licenses_en: rowsStr(a.licenses, 'en', false),
+  };
+}
+function buildAbout(f) {
+  const pair = (pt, en) => ({ pt: pt || '', en: en || pt || '' });
+  const list = (s) => (s || '').split(',').map(x => x.trim()).filter(Boolean);
+  const cells = (s) => (s || '').split('\n').map(l => l.split('|').map(x => x.trim()));
+  // build bilingual rows: PT lines drive count + year; EN lines matched by index, fall back to PT
+  const rowsBi = (ptStr, enStr, withDetail) => {
+    const pRows = cells(ptStr), eRows = cells(enStr), out = [];
+    for (let i = 0; i < pRows.length; i++) {
+      const p = pRows[i], e = eRows[i] || [];
+      const has = p[0] || p[1] || p[2] || (withDetail && p[3]);
+      if (!has) continue;
+      const row = { year: p[0] || '', role: pair(p[1], e[1]), place: pair(p[2], e[2]) };
+      if (withDetail) row.detail = pair(p[3], e[3]);
+      out.push(row);
+    }
+    return out;
+  };
+  return {
+    name: f.name || '',
+    portrait: f.portrait || '',
+    role: pair(f.role_pt, f.role_en),
+    bio: pair(f.bio_pt, f.bio_en),
+    based: pair(f.based_pt, f.based_en),
+    exp: pair(f.exp_pt, f.exp_en),
+    contactTitle: pair(f.contact_pt, f.contact_en),
+    skills: { pt: list(f.skills_pt), en: list(f.skills_en) },
+    tools: { pt: list(f.tools_pt), en: list(f.tools_en) },
+    timeline: rowsBi(f.timeline_pt, f.timeline_en, true),
+    education: rowsBi(f.education_pt, f.education_en, false),
+    licenses: rowsBi(f.licenses_pt, f.licenses_en, false),
+  };
+}
+
+function slugify(str) {
+  return (str || 'projeto').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'projeto';
+}
+
+class Component extends DCLogic {
+  state = {
+    email: '', instagram: '', linkedin: '',
+    projects: [],
+    form: Object.assign({}, EMPTY),
+    aboutForm: Object.assign({}, ABOUT_EMPTY),
+    editIndex: -1,
+    loaded: false,
+    warn: '',
+    saved: '',
+  };
+
+  ingest(d) {
+    this.setState({
+      email: d.email || '', instagram: d.instagram || '', linkedin: d.linkedin || '',
+      projects: d.projects || [],
+      aboutForm: flattenAbout(d.about),
+      loaded: true,
+    });
+  }
+
+  componentDidMount() {
+    // restore working copy from this browser if present
+    let restored = null;
+    try { const raw = localStorage.getItem('portfolioAdminData'); if (raw) restored = JSON.parse(raw); } catch (e) {}
+    if (restored && restored.projects) { this.ingest(restored); return; }
+    fetch('./videos.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.projects) this.ingest(d); else this.setState({ loaded: true }); })
+      .catch(() => this.setState({ loaded: true }));
+  }
+
+  persist(next) {
+    const data = {
+      email: next.email !== undefined ? next.email : this.state.email,
+      instagram: next.instagram !== undefined ? next.instagram : this.state.instagram,
+      linkedin: next.linkedin !== undefined ? next.linkedin : this.state.linkedin,
+      about: buildAbout(next.aboutForm !== undefined ? next.aboutForm : this.state.aboutForm),
+      projects: next.projects !== undefined ? next.projects : this.state.projects,
+    };
+    try { localStorage.setItem('portfolioAdminData', JSON.stringify(data)); } catch (e) {}
+  }
+
+  flatten(p) {
+    return {
+      id: p.id || '', cat: p.cat || 'inst', year: '' + (p.year || ''),
+      duration: p.duration || '', client: p.client || '', tools: p.tools || '',
+      video: p.video || '', thumb: p.thumb || 'auto',
+      title_pt: (p.title && p.title.pt) || '', title_en: (p.title && p.title.en) || '',
+      desc_pt: (p.desc && p.desc.pt) || '', desc_en: (p.desc && p.desc.en) || '',
+      role_pt: (p.role && p.role.pt) || '', role_en: (p.role && p.role.en) || '',
+    };
+  }
+
+  build(f, existingId) {
+    return {
+      id: (f.id && f.id.trim()) || existingId || slugify(f.title_pt),
+      cat: f.cat || 'inst',
+      year: parseInt(f.year, 10) || new Date().getFullYear(),
+      duration: f.duration || '',
+      client: f.client || '',
+      tools: f.tools || '',
+      video: f.video || '',
+      thumb: (f.thumb && f.thumb.trim()) || 'auto',
+      role: { pt: f.role_pt || '', en: f.role_en || f.role_pt || '' },
+      title: { pt: f.title_pt || '', en: f.title_en || f.title_pt || '' },
+      desc: { pt: f.desc_pt || '', en: f.desc_en || f.desc_pt || '' },
+    };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const projects = st.projects || [];
+
+    const rows = projects.map((p, i) => ({
+      title: (p.title && p.title.pt) || '(sem título)',
+      meta: (CAT_LABELS[p.cat] || p.cat) + '  ·  ' + (p.year || '') + (p.video ? '  ·  ▶ vídeo' : '  ·  sem link'),
+      rowStyle: 'display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid rgba(236,231,222,0.08);' + (st.editIndex === i ? 'opacity:1;' : ''),
+      edit: () => this.setState({ form: this.flatten(p), editIndex: i, warn: '' }),
+      remove: () => {
+        const next = projects.slice(); next.splice(i, 1);
+        const ei = st.editIndex === i ? -1 : (st.editIndex > i ? st.editIndex - 1 : st.editIndex);
+        this.setState({ projects: next, editIndex: ei, form: ei === -1 ? Object.assign({}, EMPTY) : st.form });
+        this.persist({ projects: next });
+      },
+    }));
+
+    const isEditing = st.editIndex >= 0;
+
+    return {
+      c: { email: st.email, instagram: st.instagram, linkedin: st.linkedin },
+      f: st.form,
+      af: st.aboutForm,
+      onAbout: (e) => {
+        const { name, value } = e.target;
+        this.setState(s => ({ aboutForm: Object.assign({}, s.aboutForm, { [name]: value }) }));
+        this.persist({ aboutForm: Object.assign({}, st.aboutForm, { [name]: value }) });
+      },
+      rows, count: projects.length,
+      countLabel: projects.length + ' vídeo' + (projects.length === 1 ? '' : 's'),
+      isEditing,
+      formTitle: isEditing ? 'Editar vídeo' : 'Adicionar vídeo',
+      saveLabel: isEditing ? 'Salvar alterações' : 'Adicionar vídeo',
+      statusMsg: st.saved ? st.saved : (st.loaded ? 'Pronto para editar' : 'Carregando...'),
+      warnMsg: st.warn,
+      warnStyle: 'font-size:12px;color:#C96C7E;margin-top:12px;min-height:16px;' + (st.warn ? '' : 'opacity:0;'),
+
+      onContact: (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+        this.persist({ [name]: value });
+      },
+      onField: (e) => {
+        const { name, value } = e.target;
+        this.setState(s => ({ form: Object.assign({}, s.form, { [name]: value }) }));
+      },
+      newProject: () => this.setState({ form: Object.assign({}, EMPTY), editIndex: -1, warn: '' }),
+      save: () => {
+        const f = st.form;
+        if (!f.title_pt || !f.title_pt.trim()) { this.setState({ warn: 'Dê um título ao vídeo (PT).' }); return; }
+        const next = projects.slice();
+        if (isEditing) {
+          next[st.editIndex] = this.build(f, projects[st.editIndex].id);
+        } else {
+          next.unshift(this.build(f));
+        }
+        this.setState({ projects: next, editIndex: -1, form: Object.assign({}, EMPTY), warn: '', saved: 'Salvo neste navegador' });
+        this.persist({ projects: next });
+        setTimeout(() => this.setState({ saved: '' }), 2500);
+      },
+      reloadFile: () => {
+        if (typeof window !== 'undefined' && !window.confirm('Recarregar do videos.json e descartar alterações não baixadas?')) return;
+        try { localStorage.removeItem('portfolioAdminData'); } catch (e) {}
+        fetch('./videos.json?' + Date.now())
+          .then(r => r.ok ? r.json() : null)
+          .then(d => {
+            if (d && d.projects) { this.ingest(d); this.setState({ form: Object.assign({}, EMPTY), editIndex: -1, warn: '', saved: 'Recarregado' }); }
+            setTimeout(() => this.setState({ saved: '' }), 2000);
+          })
+          .catch(() => {});
+      },
+      download: () => {
+        const out = {
+          email: st.email, instagram: st.instagram, linkedin: st.linkedin,
+          _ajuda: "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound.",
+          about: buildAbout(st.aboutForm),
+          projects: projects,
+        };
+        const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'videos.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

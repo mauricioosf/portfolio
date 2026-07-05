@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Mauricio Ferreira — Portfólio</title>
+<link rel="icon" type="image/png" href="./images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0A0A0B; }
+  ::selection { background: #D9A441; color: #0A0A0B; }
+  image-slot::part(ring) { display: none !important; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pageIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  image-slot { display: block; }
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;position:relative;overflow-x:hidden;">
+
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 80% at 50% -10%, rgba(217,164,65,0.06), transparent 60%), radial-gradient(100% 60% at 50% 120%, rgba(255,255,255,0.03), transparent 70%);"></div>
+
+  <!-- NAV -->
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;backdrop-filter:blur(14px);background:linear-gradient(180deg, rgba(10,10,11,0.92), rgba(10,10,11,0));">
+    <div onClick="{{ goHome }}" style="cursor:pointer;">
+      <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:1;">{{ aboutName }}</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;">{{ aboutRole }}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:30px;">
+      <div style="position:relative;display:flex;align-items:center;" onMouseEnter="{{ worksOn }}" onMouseLeave="{{ worksOff }}">
+        <div style="{{ catsStyle }}">
+          <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5">
+            <span onClick="{{ c.onClick }}" onMouseEnter="{{ c.onMouseEnter }}" onMouseLeave="{{ c.onMouseLeave }}" style="{{ c.style }}">{{ c.label }}</span>
+          </sc-for>
+        </div>
+        <span onClick="{{ worksToggle }}" onMouseEnter="{{ navWorkEnter }}" onMouseLeave="{{ navLeave }}" style="{{ worksLabelStyle }}">{{ t.navWork }}</span>
+      </div>
+      <span onClick="{{ goAbout }}" onMouseEnter="{{ navAboutEnter }}" onMouseLeave="{{ navLeave }}" style="cursor:pointer;font-size:13px;letter-spacing:0.4px;transition:color .2s;color:{{ aboutColorFinal }};">{{ t.navAbout }}</span>
+      <button onClick="{{ toggleLang }}" onMouseEnter="{{ navLangEnter }}" onMouseLeave="{{ navLeave }}" style="{{ langBtnStyle }}">{{ langLabel }}</button>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main style="position:relative;z-index:1;padding:150px 44px 100px;max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;">
+    <!-- SORT -->
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:16px;margin-bottom:22px;">
+      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5F5A50;">{{ t.sortLabel }}</span>
+      <div style="display:flex;gap:6px;">
+        <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="2">
+          <span onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <!-- GRID -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
+        <div onClick="{{ v.open }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;animation:fadeUp .6s ease both;">
+          <div style="{{ v.imgStyle }}">
+            <image-slot id="{{ v.posterId }}" src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+          </div>
+          <div style="position:absolute;top:14px;right:14px;z-index:2;pointer-events:none;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.35);">
+            <div style="width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #141416;margin-left:2px;"></div>
+          </div>
+          <div style="{{ v.overlayStyle }}">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <span style="font-family:'Newsreader',serif;font-weight:400;font-size:clamp(21px,2.4vw,28px);line-height:1.15;color:#FFFFFF;text-shadow:0 1px 12px rgba(0,0,0,0.6);">{{ v.title }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;">{{ v.metaLine }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <!-- ABOUT + CONTACT -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
+  <main style="position:relative;z-index:1;padding:150px 44px 110px;max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;">
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:72px;align-items:start;">
+      <!-- LEFT -->
+      <div>
+        <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="circle" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:220px;height:220px;border-radius:50%;border:1px solid rgba(236,231,222,0.15);display:block;margin:0 auto 34px;"></image-slot>
+        <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:34px;">
+          <div>{{ aboutBased }}</div>
+          <div>{{ aboutExp }}</div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:12px;border-bottom:1px solid rgba(236,231,222,0.1);margin-bottom:12px;">{{ t.skillsLabel }}</div>
+        <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
+          <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ s }}</div>
+        </sc-for>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:12px;border-bottom:1px solid rgba(236,231,222,0.1);margin:30px 0 12px;">{{ t.toolsLabel }}</div>
+        <sc-for list="{{ tools }}" as="tl" hint-placeholder-count="4">
+          <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ tl }}</div>
+        </sc-for>
+      </div>
+      <!-- RIGHT -->
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:24px;">{{ t.aboutKicker }}</div>
+        <p style="font-size:17px;line-height:1.85;color:#B4AEA3;margin:0 0 58px;max-width:620px;white-space:pre-line;">{{ aboutBio }}</p>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin-bottom:4px;">{{ t.expLabel }}</div>
+        <sc-for list="{{ timeline }}" as="row" hint-placeholder-count="3">
+          <div style="padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+            <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;">
+              <div>
+                <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+                <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+              </div>
+              <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
+            </div>
+            <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ row.detailStyle }}">
+                <p style="font-size:14px;line-height:1.7;color:#A8A297;margin:0;max-width:580px;white-space:pre-line;">{{ row.detail }}</p>
+              </div>
+              <span onClick="{{ row.toggle }}" style="display:inline-block;margin-top:10px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ hasEducation }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin:44px 0 4px;">{{ t.eduLabel }}</div>
+        <sc-for list="{{ education }}" as="row" hint-placeholder-count="2">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+            <div>
+              <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+              <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+            </div>
+            <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
+          </div>
+        </sc-for>
+        </sc-if>
+        <sc-if value="{{ hasLicenses }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin:44px 0 4px;">{{ t.certLabel }}</div>
+        <sc-for list="{{ licenses }}" as="row" hint-placeholder-count="2">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+            <div>
+              <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+              <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+            </div>
+            <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
+          </div>
+        </sc-for>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- CONTACT (simpler) -->
+    <div style="margin-top:110px;padding-top:58px;border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:16px;">{{ t.contactKicker }}</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(28px,3.4vw,46px);line-height:1.08;letter-spacing:-1px;margin:0;">{{ aboutContactTitle }}</h2>
+      </div>
+      <a href="{{ mailto }}" style="font-family:'Newsreader',serif;font-size:clamp(22px,2.6vw,32px);color:#ECE7DE;text-decoration:none;border-bottom:1px solid rgba(236,231,222,0.25);padding-bottom:8px;transition:color .25s,border-color .25s;white-space:nowrap;" style-hover="color:#D9A441;border-color:#D9A441;">{{ email }} ↗</a>
+    </div>
+  </main>
+  </sc-if>
+
+  <!-- CONTACT PAGE (merged into About) -->
+
+  <!-- CONTACT PAGE (merged into About) -->
+
+  <!-- FOOTER -->
+  <footer style="position:relative;z-index:1;padding:44px 44px;border-top:1px solid rgba(236,231,222,0.08);display:flex;flex-direction:column;align-items:center;gap:18px;">
+    <div style="display:flex;gap:16px;align-items:center;">
+      <a href="{{ instagramUrl }}" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+      </a>
+      <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.73 24 10.06 24 14.9V24h-5v-8.07c0-1.92-.03-4.39-2.68-4.39-2.68 0-3.09 2.09-3.09 4.25V24H8V8h-.5z"></path></svg>
+      </a>
+    </div>
+    <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#5F5A50;">{{ aboutName }} © {{ yearNow }}</span>
+  </footer>
+
+  <!-- PROJECT DETAIL -->
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeVideo }}" data-detail-scroll="" style="position:fixed;inset:0;z-index:60;background:#0A0A0B;overflow-y:auto;overscroll-behavior:none;animation:fadeIn .3s ease both;">
+    <button onClick="{{ closeVideo }}" aria-label="Fechar" style="position:fixed;top:26px;right:32px;z-index:70;cursor:pointer;background:rgba(10,10,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(236,231,222,0.25);color:#ECE7DE;width:46px;height:46px;border-radius:50%;font-size:17px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
+    <div onClick="{{ stop }}" style="max-width:1120px;margin:0 auto;padding:104px 48px 110px;animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;">
+      <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.05;letter-spacing:-1px;margin:0 0 34px;">{{ sel.title }}</h1>
+      <div style="position:relative;aspect-ratio:16/9;background:#141416;border:1px solid rgba(236,231,222,0.12);overflow:hidden;margin-bottom:64px;">
+        <sc-if value="{{ sel.playing }}" hint-placeholder-val="{{ false }}">
+          <iframe src="{{ sel.embed }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+        </sc-if>
+        <sc-if value="{{ sel.showPoster }}" hint-placeholder-val="{{ true }}">
+          <div onClick="{{ playVideo }}" style="position:absolute;inset:0;cursor:pointer;">
+            <image-slot id="{{ sel.posterId }}" src="{{ sel.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,10,11,0.1),rgba(10,10,11,0.45));">
+              <div style="width:84px;height:84px;border-radius:50%;border:1px solid rgba(236,231,222,0.75);display:flex;align-items:center;justify-content:center;background:rgba(10,10,11,0.4);backdrop-filter:blur(4px);transition:transform .25s;" style-hover="transform:scale(1.08);">
+                <div style="width:0;height:0;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent #ECE7DE;margin-left:4px;"></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:72px;align-items:start;">
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8A8478;margin-bottom:22px;">{{ t.projectAbout }}</div>
+          <p style="font-size:17px;line-height:1.85;color:#B4AEA3;margin:0;max-width:640px;">{{ sel.desc }}</p>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:6px;">{{ t.fichaLabel }}</div>
+          <sc-for list="{{ sel.fichaRows }}" as="row" hint-placeholder-count="6">
+            <div style="display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+              <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8A8478;">{{ row.k }}</span>
+              <span style="font-size:14px;color:#ECE7DE;text-align:right;">{{ row.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+const CATS = [
+  { id: 'all',    label: { pt: 'Todos',         en: 'All' },          accent: '#D9A441' },
+  { id: 'inst',   label: { pt: 'Institucional', en: 'Corporate' },    accent: '#7FA9C4' },
+  { id: 'doc',    label: { pt: 'Documentário',  en: 'Documentary' },  accent: '#C88A5B' },
+  { id: 'curta',  label: { pt: 'Curta',         en: 'Short film' },   accent: '#B58AD1' },
+  { id: 'sound',  label: { pt: 'Sound design',  en: 'Sound design' }, accent: '#C96C7E' },
+];
+
+const VIDEOS = [
+  { id: 'horizonte', cat: 'doc',    year: 2025, duration: '04:12', client: 'Instituto Maré', tools: 'DaVinci Resolve, Premiere Pro',
+    role: { pt: 'Montagem & cor', en: 'Editing & grade' },
+    title: { pt: 'Horizonte', en: 'Horizon' },
+    desc:  { pt: 'Documentário curto sobre pescadores artesanais e a linha onde o mar encontra o esquecimento. Montagem contemplativa, cor dessaturada e som ambiente captado em locação.',
+             en: 'A short documentary about artisanal fishermen and the line where the sea meets oblivion. Contemplative editing, desaturated color and on-location ambient sound.' } },
+  { id: 'handmade', cat: 'inst',   year: 2024, duration: '02:30', client: 'Marcenaria Nó', tools: 'Premiere Pro, After Effects',
+    role: { pt: 'Montagem & finalização', en: 'Editing & finishing' },
+    title: { pt: 'Feito à Mão', en: 'Handmade' },
+    desc:  { pt: 'Filme institucional para uma marca de mobiliário. Ritmo preciso entre detalhes de oficina e planos abertos, com transições no corte para acompanhar o gesto do artesão.',
+             en: 'Brand film for a furniture maker. Precise rhythm between workshop details and wide shots, with match cuts following the craftsman’s gesture.' } },
+  { id: 'pulso', cat: 'curta',    year: 2025, duration: '03:48', client: 'Selo Âmbar', tools: 'Premiere Pro, After Effects',
+    role: { pt: 'Montagem & motion', en: 'Editing & motion' },
+    title: { pt: 'Pulso', en: 'Pulse' },
+    desc:  { pt: 'Clipe musical editado no ritmo da batida. Trocas rápidas, flicker controlado e correção de cor em tons de âmbar e azul-noite.',
+             en: 'Music video cut to the beat. Rapid changes, controlled flicker and color grade in amber and midnight-blue tones.' } },
+  { id: 'cidade', cat: 'doc',    year: 2024, duration: '06:20', client: 'TV Documenta', tools: 'DaVinci Resolve',
+    role: { pt: 'Montagem', en: 'Editing' },
+    title: { pt: 'Cidade Invisível', en: 'Invisible City' },
+    desc:  { pt: 'Retrato documental do trabalho noturno em uma metrópole. Estrutura em capítulos, entrevistas em voz-off e desenho sonoro urbano.',
+             en: 'Documentary portrait of night labor in a metropolis. Chaptered structure, voice-over interviews and an urban sound design.' } },
+  { id: 'safra', cat: 'inst',   year: 2023, duration: '01:55', client: 'AgroVale', tools: 'Premiere Pro, DaVinci Resolve',
+    role: { pt: 'Montagem & cor', en: 'Editing & grade' },
+    title: { pt: 'Nova Safra', en: 'New Harvest' },
+    desc:  { pt: 'Vídeo institucional para o agronegócio. Aéreas amplas, timelapses de colheita e uma narrativa de continuidade entre gerações.',
+             en: 'Corporate film for agribusiness. Sweeping aerials, harvest timelapses and a narrative of continuity across generations.' } },
+  { id: 'ruido', cat: 'sound', year: 2025, duration: '00:45', client: 'Projeto pessoal', tools: 'After Effects, Cinema 4D',
+    role: { pt: 'Motion design', en: 'Motion design' },
+    title: { pt: 'Ruído Branco', en: 'White Noise' },
+    desc:  { pt: 'Peça de motion design com tipografia cinética e transições em glitch. Explora textura, grão e a estética analógica do VHS.',
+             en: 'Motion design piece with kinetic typography and glitch transitions. Explores texture, grain and analog VHS aesthetics.' } },
+  { id: 'travessia', cat: 'curta',    year: 2025, duration: '05:30', client: 'Estrada Filmes', tools: 'Premiere Pro',
+    role: { pt: 'Montagem', en: 'Editing' },
+    title: { pt: 'Travessia', en: 'Crossing' },
+    desc:  { pt: 'Documentário de estrada seguindo um caminhoneiro por três estados. Montagem observacional, luz natural e planos-sequência longos.',
+             en: 'A road documentary following a truck driver across three states. Observational editing, natural light and long takes.' } },
+  { id: 'marca', cat: 'inst',   year: 2024, duration: '02:10', client: 'Grupo Vértice', tools: 'Premiere Pro, After Effects',
+    role: { pt: 'Montagem & motion', en: 'Editing & motion' },
+    title: { pt: 'Marca Viva', en: 'Living Brand' },
+    desc:  { pt: 'Manifesto de marca com narração e montagem de alto impacto. Combina imagens de arquivo, motion e captação original.',
+             en: 'Brand manifesto with narration and high-impact editing. Blends archival footage, motion graphics and original capture.' } },
+  { id: 'frequencia', cat: 'sound', year: 2023, duration: '01:20', client: 'Canal Onda', tools: 'After Effects, Cinema 4D',
+    role: { pt: 'Motion & abertura', en: 'Motion & titles' },
+    title: { pt: 'Frequência', en: 'Frequency' },
+    desc:  { pt: 'Abertura animada para série documental. Sistema visual baseado em ondas sonoras, com animação por keyframes e trilha original.',
+             en: 'Animated title sequence for a documentary series. A visual system built on sound waves, keyframe animation and an original score.' } },
+];
+
+const STRINGS = {
+  pt: {
+    navWork: 'Trabalhos', navAbout: 'Sobre', navContact: 'Contato',
+    role: 'Editor de vídeo',
+    fichaLabel: 'Ficha técnica', projectAbout: 'Sobre o projeto',
+    fCategory: 'Categoria', fYear: 'Ano', fDuration: 'Duração', fClient: 'Cliente', fRole: 'Função', fTools: 'Ferramentas',
+    sortLabel: 'Ordenar', sortNewest: 'Recentes', sortOldest: 'Antigos',
+    prevProject: 'Projeto anterior', nextProject: 'Próximo projeto',
+    dropPoster: 'Arraste um frame do vídeo',
+    dropPortrait: 'Arraste seu retrato',
+    aboutKicker: 'Sobre mim',
+    aboutTitle: 'Conto histórias no ritmo do corte.',
+    bio1: '[ Escreva aqui a sua história. ] Sou editor de vídeo e motion designer com foco em narrativas de marca e documentário. Trabalho o material bruto até encontrar o ritmo, a emoção e a clareza que cada projeto pede.',
+    bio2: '[ Continue aqui. ] Da decupagem à finalização de cor, cuido de todas as etapas da pós-produção — sempre buscando a decisão de montagem que faz a diferença entre um vídeo e um filme.',
+    skillsLabel: 'Especialidades', toolsLabel: 'Ferramentas',
+    expLabel: 'Experiência',
+    eduLabel: 'Formação acadêmica',
+    certLabel: 'Licenças e certificados',
+    based: '> Baseado em [ Cidade, País ]',
+    exp: '> [ X ] anos editando',
+    contactKicker: 'Contato',
+    contactTitle: 'Vamos montar algo juntos?',
+    availLabel: 'Disponibilidade', availValue: 'Aberto a novos projetos',
+    locLabel: 'Localização', locValue: '[ Cidade, País ]',
+    footerNote: 'Editado no escuro',
+  },
+  en: {
+    navWork: 'Work', navAbout: 'About', navContact: 'Contact',
+    role: 'Video editor',
+    fichaLabel: 'Credits', projectAbout: 'About the project',
+    fCategory: 'Category', fYear: 'Year', fDuration: 'Duration', fClient: 'Client', fRole: 'Role', fTools: 'Tools',
+    sortLabel: 'Sort', sortNewest: 'Newest', sortOldest: 'Oldest',
+    prevProject: 'Previous project', nextProject: 'Next project',
+    dropPoster: 'Drop a video frame',
+    dropPortrait: 'Drop your portrait',
+    aboutKicker: 'About me',
+    aboutTitle: 'I tell stories in the rhythm of the cut.',
+    bio1: '[ Write your story here. ] I’m a video editor and motion designer focused on brand and documentary storytelling. I work the raw material until it finds the rhythm, emotion and clarity each project asks for.',
+    bio2: '[ Continue here. ] From assembly to color finishing, I handle every stage of post-production — always chasing the edit decision that turns a video into a film.',
+    skillsLabel: 'Specialties', toolsLabel: 'Tools',
+    expLabel: 'Experience',
+    eduLabel: 'Education',
+    certLabel: 'Licenses & certificates',
+    based: '> Based in [ City, Country ]',
+    exp: '> [ X ] years editing',
+    contactKicker: 'Contact',
+    contactTitle: 'Shall we cut something together?',
+    availLabel: 'Availability', availValue: 'Open to new projects',
+    locLabel: 'Location', locValue: '[ City, Country ]',
+    footerNote: 'Edited in the dark',
+  },
+};
+
+const SKILLS = {
+  pt: ['Montagem & edição', 'Motion design', 'Color grading', 'Sound design'],
+  en: ['Editing & assembly', 'Motion design', 'Color grading', 'Sound design'],
+};
+const TOOLS = ['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'Cinema 4D'];
+const TIMELINE = {
+  pt: [
+    { year: '2022–25', role: 'Editor sênior — [ Estúdio ]', place: 'Marcas & documentário' },
+    { year: '2019–22', role: 'Motion designer — [ Produtora ]', place: 'Publicidade & branded content' },
+    { year: '2017–19', role: 'Assistente de edição — [ Empresa ]', place: 'Onde tudo começou' },
+  ],
+  en: [
+    { year: '2022–25', role: 'Senior editor — [ Studio ]', place: 'Brands & documentary' },
+    { year: '2019–22', role: 'Motion designer — [ Production co. ]', place: 'Advertising & branded content' },
+    { year: '2017–19', role: 'Assistant editor — [ Company ]', place: 'Where it all started' },
+  ],
+};
+
+// About-page content defaults (overridden by videos.json → "about")
+const ABOUT_DEFAULT = {
+  name: 'Mauricio Ferreira',
+  role: { pt: 'Editor de vídeo', en: 'Video editor' },
+  portrait: 'https://picsum.photos/seed/mauricio-portrait/500/500',
+  bio: { pt: STRINGS.pt.bio1 + '\n\n' + STRINGS.pt.bio2, en: STRINGS.en.bio1 + '\n\n' + STRINGS.en.bio2 },
+  based: { pt: STRINGS.pt.based, en: STRINGS.en.based },
+  exp: { pt: STRINGS.pt.exp, en: STRINGS.en.exp },
+  contactTitle: { pt: STRINGS.pt.contactTitle, en: STRINGS.en.contactTitle },
+  skills: SKILLS.pt,
+  tools: TOOLS,
+  timeline: TIMELINE.pt,
+  education: [],
+  licenses: [],
+};
+
+// Fallback data used only if videos.json fails to load
+const DEFAULT_DATA = { email: 'ola@seudominio.com', instagram: 'https://instagram.com/seu_usuario', linkedin: 'https://linkedin.com/in/seu-usuario', about: ABOUT_DEFAULT, projects: VIDEOS };
+
+function parseVideo(url) {
+  if (!url) return { embed: '', ytid: '' };
+  let m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/);
+  if (m) return { embed: 'https://www.youtube.com/embed/' + m[1], ytid: m[1] };
+  m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (m) return { embed: 'https://player.vimeo.com/video/' + m[1], ytid: '' };
+  return { embed: url, ytid: '' };
+}
+function thumbFor(v) {
+  if (v.thumb && v.thumb !== 'auto') return v.thumb;
+  const p = parseVideo(v.video);
+  if (p.ytid) return 'https://img.youtube.com/vi/' + p.ytid + '/maxresdefault.jpg';
+  return 'https://picsum.photos/seed/' + v.id + '/1200/675';
+}
+
+class Component extends DCLogic {
+  state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {} };
+
+  componentDidMount() {
+    fetch('./videos.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.projects) this.setState({ data: d }); })
+      .catch(() => {});
+  }
+
+  componentDidUpdate(prevProps, prevState) {}
+
+  lockScroll(on) {
+    if (typeof document === 'undefined') return;
+    const b = document.body;
+    if (on) {
+      if (b.hasAttribute('data-locked')) return;
+      this._scrollY = window.scrollY || 0;
+      b.setAttribute('data-locked', '');
+      b.style.position = 'fixed';
+      b.style.top = (-this._scrollY) + 'px';
+      b.style.left = '0';
+      b.style.right = '0';
+      b.style.width = '100%';
+      b.style.overflow = 'hidden';
+    } else {
+      if (!b.hasAttribute('data-locked')) return;
+      b.removeAttribute('data-locked');
+      b.style.position = '';
+      b.style.top = '';
+      b.style.left = '';
+      b.style.right = '';
+      b.style.width = '';
+      b.style.overflow = '';
+      if (typeof window !== 'undefined') window.scrollTo({ top: this._scrollY || 0 });
+    }
+  }
+
+  openProject(v) { this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
+  closeProject() { this.lockScroll(false); this.setState({ selected: null, playing: false }); }
+
+  goto(page) { this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+
+  renderVals() {
+    const L = this.state.lang;
+    const t = STRINGS[L];
+    const cat = this.state.category;
+    const activeNav = '#ECE7DE';
+    const idleNav = '#8A8478';
+
+    const idleChip = "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:2px;border:1px solid rgba(236,231,222,0.14);background:transparent;color:#8A8478;transition:all .2s;";
+    const activeChip = "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:2px;border:1px solid #D9A441;background:#D9A441;color:#0A0A0B;transition:all .2s;";
+
+    const catLabel = (id) => (CATS.find(c => c.id === id) || {}).label[L];
+    const catAccent = (id) => (CATS.find(c => c.id === id) || {}).accent;
+    const hovered = this.state.hovered;
+    const overlayBase = 'position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(0deg, rgba(8,8,9,0.92), rgba(8,8,9,0.3));transition:opacity .35s;opacity:';
+
+    const DATA = this.state.data || DEFAULT_DATA;
+    const PROJECTS = DATA.projects || [];
+    const sort = this.state.sort;
+    const filtered = PROJECTS
+      .filter(v => cat === 'all' || v.cat === cat)
+      .sort((a, b) => sort === 'newest' ? b.year - a.year : a.year - b.year);
+
+    const videos = filtered
+      .map(v => ({
+        id: v.id, year: v.year, duration: v.duration,
+        title: v.title[L], desc: v.desc[L],
+        catLabel: catLabel(v.cat), accent: catAccent(v.cat),
+        posterId: 'poster-' + v.id,
+        poster: thumbFor(v),
+        metaLine: catLabel(v.cat) + '  \u00b7  ' + v.year,
+        imgStyle: 'position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(' + (hovered === v.id ? '1.05' : '1') + ');',
+        overlayStyle: overlayBase + (hovered === v.id ? '1' : '0') + ';',
+        hover: () => this.setState({ hovered: v.id }),
+        open: () => this.openProject(v),
+      }));
+
+    const chips = CATS.map(c => ({
+      id: c.id, label: c.label[L],
+      style: cat === c.id ? activeChip : idleChip,
+      onClick: () => this.setState({ category: c.id }),
+    }));
+
+    const sortChip = (active) => "cursor:pointer;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 11px;border-radius:2px;transition:all .2s;border:1px solid " + (active ? '#D9A441' : 'rgba(236,231,222,0.14)') + ';background:' + (active ? '#D9A441' : 'transparent') + ';color:' + (active ? '#0A0A0B' : '#8A8478') + ';';
+    const sortOpts = [
+      { id: 'newest', label: t.sortNewest, style: sortChip(sort === 'newest'), onClick: () => this.setState({ sort: 'newest' }) },
+      { id: 'oldest', label: t.sortOldest, style: sortChip(sort === 'oldest'), onClick: () => this.setState({ sort: 'oldest' }) },
+    ];
+
+    const worksHover = this.state.worksHover || this.state.worksPinned;
+    const amber = '#D9A441';
+    const nh = this.state.navHover;
+    const navCatStyle = (active, hov) => "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;padding-bottom:2px;border-bottom:1px solid " + (active ? '#D9A441' : 'transparent') + ";color:" + (hov ? amber : (active ? '#ECE7DE' : '#8A8478')) + ";";
+    const navCats = CATS.map(c => ({
+      id: c.id, label: c.label[L],
+      style: navCatStyle(cat === c.id, nh === 'cat-' + c.id),
+      onMouseEnter: () => this.setState({ navHover: 'cat-' + c.id }),
+      onMouseLeave: () => this.setState({ navHover: null }),
+      onClick: () => this.setState({ category: c.id, page: 'home', selected: null, worksPinned: true }),
+    }));
+    const catsStyle = 'position:absolute;right:100%;top:50%;display:flex;align-items:center;gap:18px;white-space:nowrap;padding-right:26px;transition:opacity .35s ease, transform .35s ease;transform:translateY(-50%) translateX(' + (worksHover ? '0' : '14px') + ');opacity:' + (worksHover ? '1' : '0') + ';pointer-events:' + (worksHover ? 'auto' : 'none') + ';';
+    const worksActive = this.state.page === 'home';
+    const worksColor = (worksActive ? activeNav : idleNav);
+    const worksLabelStyle = 'cursor:pointer;font-size:13px;letter-spacing:0.4px;transition:transform .35s ease, color .2s;transform:translateX(' + (worksHover ? '-4px' : '0') + ');color:' + (nh === 'work' ? amber : worksColor) + ';';
+    const aboutColorFinal = nh === 'about' ? amber : (this.state.page === 'about' ? activeNav : idleNav);
+    const langBtnStyle = 'cursor:pointer;background:transparent;font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:1px;padding:6px 12px;border-radius:2px;transition:border-color .2s,color .2s;border:1px solid ' + (nh === 'lang' ? amber : 'rgba(236,231,222,0.18)') + ';color:' + (nh === 'lang' ? amber : '#ECE7DE') + ';';
+
+    const s = this.state.selected;
+    let sel;
+    if (s) {
+      const pv = parseVideo(s.video);
+      const playing = this.state.playing && !!pv.embed;
+      sel = {
+        posterId: 'poster-' + s.id, year: s.year, duration: s.duration,
+        title: s.title[L], desc: s.desc[L],
+        catLabel: catLabel(s.cat), accent: catAccent(s.cat),
+        client: s.client, role: s.role[L], tools: s.tools,
+        metaLine: catLabel(s.cat) + '  \u00b7  ' + s.year + '  \u00b7  ' + s.duration,
+        poster: thumbFor(s),
+        embed: pv.embed ? pv.embed + (pv.embed.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1' : '',
+        hasVideo: !!pv.embed,
+        playing: playing,
+        showPoster: !playing,
+      };
+      sel.fichaRows = [
+        { k: t.fCategory, v: sel.catLabel },
+        { k: t.fYear, v: '' + s.year },
+        { k: t.fDuration, v: s.duration },
+        { k: t.fClient, v: s.client },
+        { k: t.fRole, v: sel.role },
+        { k: t.fTools, v: s.tools },
+      ];
+    } else {
+      sel = { posterId: '', year: '', duration: '', title: '', desc: '', catLabel: '', accent: '#D9A441', poster: '', client: '', role: '', tools: '', metaLine: '', fichaRows: [], embed: '', hasVideo: false, playing: false, showPoster: false };
+    }
+
+    // prev / next within current filtered+sorted list (cycles)
+    let prevProject = { title: '', onClick: () => {} };
+    let nextProject = { title: '', onClick: () => {} };
+    if (s) {
+      const idx = filtered.findIndex(v => v.id === s.id);
+      if (idx !== -1 && filtered.length > 1) {
+        const p = filtered[(idx - 1 + filtered.length) % filtered.length];
+        const n = filtered[(idx + 1) % filtered.length];
+        prevProject = { title: p.title[L], onClick: () => { this.openProject(p); } };
+        nextProject = { title: n.title[L], onClick: () => { this.openProject(n); } };
+      }
+    }
+
+    const email = DATA.email || 'ola@seudominio.com';
+
+    // About-page content (merge defaults with videos.json overrides)
+    const ab = Object.assign({}, ABOUT_DEFAULT, DATA.about || {});
+    const pick = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[L] || v.pt || '') : (v || '');
+    const listL = (v) => { if (Array.isArray(v)) return v; if (v && typeof v === 'object') return (v[L] && v[L].length) ? v[L] : (v.pt || []); return []; };
+    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: pick(r.detail) }));
+    const aboutName = ab.name || 'Mauricio Ferreira';
+    const aboutRole = pick(ab.role);
+    const aboutSkills = (listL(ab.skills).length ? listL(ab.skills) : SKILLS[L]);
+    const aboutTools = (listL(ab.tools).length ? listL(ab.tools) : TOOLS);
+    const expanded = this.state.expanded || {};
+    const aboutTimeline = rowsL(ab.timeline).map((r, i) => {
+      const open = !!expanded['exp' + i];
+      return {
+        year: r.year, role: r.role, place: r.place, detail: r.detail,
+        hasDetail: !!(r.detail && r.detail.trim()),
+        isOpen: open,
+        toggleLabel: open ? (L === 'pt' ? '– menos' : '– less') : (L === 'pt' ? '+ mais' : '+ more'),
+        detailStyle: 'overflow:hidden;transition:max-height .4s ease,opacity .35s ease,margin-top .35s ease;max-height:' + (open ? '460px' : '0') + ';opacity:' + (open ? '1' : '0') + ';margin-top:' + (open ? '12px' : '0') + ';',
+        toggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e['exp' + i] = !e['exp' + i]; return { expanded: e }; }),
+      };
+    });
+    const aboutEducation = rowsL(ab.education);
+    const aboutLicenses = rowsL(ab.licenses);
+
+    return {
+      t, chips, videos, sel, sortOpts, prevProject, nextProject,
+      aboutName, aboutRole,
+      aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
+      aboutBio: pick(ab.bio),
+      aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
+      aboutContactTitle: pick(ab.contactTitle),
+      education: aboutEducation, licenses: aboutLicenses,
+      hasEducation: aboutEducation.length > 0, hasLicenses: aboutLicenses.length > 0,
+      playVideo: () => this.setState({ playing: true }),
+      navCats, catsStyle, worksLabelStyle, aboutColorFinal, langBtnStyle,
+      navWorkEnter: () => this.setState({ navHover: 'work' }),
+      navAboutEnter: () => this.setState({ navHover: 'about' }),
+      navLangEnter: () => this.setState({ navHover: 'lang' }),
+      navLeave: () => this.setState({ navHover: null }),
+      studioName: 'Estúdio', studioRole: 'REEL',
+      isHome: this.state.page === 'home',
+      isAbout: this.state.page === 'about',
+      isOpen: !!this.state.selected,
+      heroLine1: L === 'pt' ? 'Histórias' : 'Stories',
+      heroLine2: L === 'pt' ? 'contadas no corte.' : 'told in the cut.',
+      navWorkColor: this.state.page === 'home' ? activeNav : idleNav,
+      navAboutColor: this.state.page === 'about' ? activeNav : idleNav,
+      langLabel: L === 'pt' ? 'EN' : 'PT',
+      skills: aboutSkills, tools: aboutTools, timeline: aboutTimeline,
+      email, mailto: 'mailto:' + email,
+      instagramUrl: DATA.instagram || 'https://instagram.com/seu_usuario',
+      linkedinUrl: DATA.linkedin || 'https://linkedin.com/in/seu-usuario',
+      yearNow: 2026,
+      goHome: () => this.goto('home'),
+      goAbout: () => this.goto('about'),
+      toggleLang: () => this.setState(st => ({ lang: st.lang === 'pt' ? 'en' : 'pt' })),
+      closeVideo: () => this.closeProject(),
+      leave: () => this.setState({ hovered: null }),
+      worksOn: () => this.setState({ worksHover: true }),
+      worksOff: () => this.setState({ worksHover: false }),
+      worksToggle: () => this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })),
+      stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+    };
+  }
+}
+</script>
+</body>
+</html>

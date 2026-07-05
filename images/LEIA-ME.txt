@@ -1,0 +1,14 @@
+Coloque aqui as imagens de capa (thumbnails) e sua foto de perfil.
+
+Como usar:
+1. Exporte um frame do seu vídeo (ex: horizonte.jpg) e salve NESTA pasta.
+2. No arquivo videos.json, no projeto correspondente, troque:
+      "thumb": "auto"
+   por:
+      "thumb": "images/horizonte.jpg"
+
+Formatos recomendados: .jpg ou .webp, proporção 16:9, ~1280x720px.
+
+Dica: se o vídeo estiver no YouTube, você pode deixar "thumb": "auto"
+que a capa do próprio YouTube é usada automaticamente — sem precisar
+de imagem aqui.
