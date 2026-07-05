@@ -12,23 +12,42 @@ O QUE TEM NESTA PASTA
   images/         → coloque aqui suas imagens de capa e sua foto
 
 ====================================================================
- 1) COLOCAR O SITE NO AR (uma vez só) — Netlify, grátis
+ 1) COLOCAR O SITE NO AR (uma vez só) — GitHub Pages, grátis
 ====================================================================
-  1. Acesse  https://app.netlify.com/drop
-  2. Arraste ESTA pasta inteira ("publicar") para a página.
-  3. Pronto: o site fica no ar num endereço tipo
-     https://seunome.netlify.app
-  4. (Opcional) Em "Domain settings" você conecta um domínio
-     próprio (ex: mauricioferreira.com.br, ~R$40/ano).
+  1. Entre em  https://github.com  e clique em "New repository".
+     - Dê um nome (ex: portfolio), deixe "Public" e crie.
+  2. Na página do repositório novo, clique em
+     "uploading an existing file".
+  3. Arraste TUDO QUE ESTÁ DENTRO desta pasta ("publicar"):
+     index.html, support.js, image-slot.js, videos.json,
+     painel-admin-0504.html e a pasta images/.
+     (Arraste o CONTEÚDO, não a pasta em si.)
+  4. Clique em "Commit changes".
+  5. Vá em "Settings" > "Pages".
+     - Em "Source": "Deploy from a branch".
+     - Branch: "main"  |  Pasta: "/ (root)".  Salve.
+  6. Em ~1 minuto o site fica no ar num endereço tipo:
+     https://seuusuario.github.io/portfolio/
 
-  Para atualizar depois: entre no painel da Netlify, aba "Deploys",
-  e arraste a pasta de novo. Ou edite os arquivos direto por lá.
+  IMPORTANTE: no GitHub Pages o endereço tem o nome do repositório
+  no meio (/portfolio/). Isso funciona normal. Só não renomeie o
+  index.html — ele precisa desse nome pra abrir como página inicial.
+
+  Para atualizar depois: no repositório, "Add file" > "Upload files"
+  e envie o arquivo novo (ex: videos.json) por cima do antigo.
+  Clique em "Commit changes" e o site atualiza sozinho.
+
+  ------------------------------------------------------------------
+  Alternativa (Netlify): se preferir, acesse
+  https://app.netlify.com/drop  e arraste ESTA pasta inteira
+  ("publicar"). O site fica no ar num endereço tipo
+  https://seunome.netlify.app  — sem o nome no meio.
 
 ====================================================================
  2) ADICIONAR / EDITAR VÍDEOS — pelo PAINEL (mais fácil)
 ====================================================================
   1. Abra o  painel-admin-0504.html  no navegador. No site publicado:
-     https://seunome.netlify.app/painel-admin-0504.html
+     https://seuusuario.github.io/portfolio/painel-admin-0504.html
   2. Preencha o formulário (título, ano, categoria, link do vídeo,
      capa, descrição...) e clique em "Adicionar vídeo".
      Para mexer num existente: clique em "Editar" na lista.

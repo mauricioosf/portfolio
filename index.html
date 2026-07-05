@@ -31,12 +31,14 @@
   <div style="position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 80% at 50% -10%, rgba(217,164,65,0.06), transparent 60%), radial-gradient(100% 60% at 50% 120%, rgba(255,255,255,0.03), transparent 70%);"></div>
 
   <!-- NAV -->
-  <nav style="position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:28px 48px;backdrop-filter:blur(14px);background:linear-gradient(180deg, rgba(10,10,11,0.92), rgba(10,10,11,0));">
-    <div onClick="{{ goHome }}" style="cursor:pointer;">
-      <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:1;">{{ aboutName }}</div>
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;">{{ aboutRole }}</div>
+  <nav style="{{ navStyle }}">
+    <div onClick="{{ goHome }}" style="cursor:pointer;min-width:0;">
+      <sc-for list="{{ nameLines }}" as="ln" hint-placeholder-count="1">
+        <div style="{{ logoNameStyle }}">{{ ln }}</div>
+      </sc-for>
+      <div style="{{ logoRoleStyle }}">{{ aboutRole }}</div>
     </div>
-    <div style="display:flex;align-items:center;gap:30px;">
+    <div style="{{ navClusterStyle }}">
       <div style="position:relative;display:flex;align-items:center;" onMouseEnter="{{ worksOn }}" onMouseLeave="{{ worksOff }}">
         <div style="{{ catsStyle }}">
           <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5">
@@ -52,8 +54,32 @@
 
   <!-- HOME -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-  <main style="position:relative;z-index:1;padding:150px 44px 100px;max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;">
-    <!-- SORT -->
+  <main style="{{ homeMainStyle }}">
+    <!-- MOBILE CONTROLS: category dropdown + compact sort -->
+    <sc-if value="{{ showMobileCats }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;position:relative;z-index:15;">
+      <div style="position:relative;">
+        <button onClick="{{ catMenuToggle }}" style="{{ catMenuBtnStyle }}">
+          <span>{{ catCurrentLabel }}</span>
+          <span style="{{ catCaretStyle }}">▾</span>
+        </button>
+        <sc-if value="{{ catMenuOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:calc(100% + 6px);left:0;z-index:20;background:#141416;border:1px solid rgba(236,231,222,0.16);border-radius:4px;padding:5px;min-width:180px;box-shadow:0 14px 34px rgba(0,0,0,0.55);animation:fadeUp .2s ease both;">
+          <sc-for list="{{ catMenuItems }}" as="c" hint-placeholder-count="5">
+            <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</div>
+          </sc-for>
+        </div>
+        </sc-if>
+      </div>
+      <div style="display:flex;gap:5px;">
+        <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="2">
+          <span onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+    <!-- SORT (desktop) -->
+    <sc-if value="{{ showDesktopSort }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;justify-content:flex-end;align-items:center;gap:16px;margin-bottom:22px;">
       <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5F5A50;">{{ t.sortLabel }}</span>
       <div style="display:flex;gap:6px;">
@@ -62,8 +88,9 @@
         </sc-for>
       </div>
     </div>
+    </sc-if>
     <!-- GRID -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;">
+    <div style="{{ gridStyle }}">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
         <div onClick="{{ v.open }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;animation:fadeUp .6s ease both;">
           <div style="{{ v.imgStyle }}">
@@ -86,8 +113,8 @@
 
   <!-- ABOUT + CONTACT -->
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
-  <main style="position:relative;z-index:1;padding:150px 44px 110px;max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;">
-    <div style="display:grid;grid-template-columns:290px 1fr;gap:72px;align-items:start;">
+  <main style="{{ aboutMainStyle }}">
+    <div style="{{ aboutGridStyle }}">
       <!-- LEFT -->
       <div>
         <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="circle" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:220px;height:220px;border-radius:50%;border:1px solid rgba(236,231,222,0.15);display:block;margin:0 auto 34px;"></image-slot>
@@ -154,7 +181,7 @@
     </div>
 
     <!-- CONTACT (simpler) -->
-    <div style="margin-top:110px;padding-top:58px;border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;">
+    <div style="{{ contactRowStyle }}">
       <div>
         <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:16px;">{{ t.contactKicker }}</div>
         <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(28px,3.4vw,46px);line-height:1.08;letter-spacing:-1px;margin:0;">{{ aboutContactTitle }}</h2>
@@ -184,8 +211,8 @@
   <!-- PROJECT DETAIL -->
   <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
   <div onClick="{{ closeVideo }}" data-detail-scroll="" style="position:fixed;inset:0;z-index:60;background:#0A0A0B;overflow-y:auto;overscroll-behavior:none;animation:fadeIn .3s ease both;">
-    <button onClick="{{ closeVideo }}" aria-label="Fechar" style="position:fixed;top:26px;right:32px;z-index:70;cursor:pointer;background:rgba(10,10,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(236,231,222,0.25);color:#ECE7DE;width:46px;height:46px;border-radius:50%;font-size:17px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
-    <div onClick="{{ stop }}" style="max-width:1120px;margin:0 auto;padding:104px 48px 110px;animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;">
+    <button onClick="{{ closeVideo }}" aria-label="Fechar" style="{{ closeBtnStyle }}" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
+    <div onClick="{{ stop }}" style="{{ detailInnerStyle }}">
       <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.05;letter-spacing:-1px;margin:0 0 34px;">{{ sel.title }}</h1>
       <div style="position:relative;aspect-ratio:16/9;background:#141416;border:1px solid rgba(236,231,222,0.12);overflow:hidden;margin-bottom:64px;">
         <sc-if value="{{ sel.playing }}" hint-placeholder-val="{{ false }}">
@@ -202,7 +229,7 @@
           </div>
         </sc-if>
       </div>
-      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:72px;align-items:start;">
+      <div style="{{ detailGridStyle }}">
         <div>
           <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8A8478;margin-bottom:22px;">{{ t.projectAbout }}</div>
           <p style="font-size:17px;line-height:1.85;color:#B4AEA3;margin:0;max-width:640px;">{{ sel.desc }}</p>
@@ -386,13 +413,22 @@ function thumbFor(v) {
 }
 
 class Component extends DCLogic {
-  state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {} };
+  state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {}, isMobile: false, catMenuOpen: false };
 
   componentDidMount() {
     fetch('./videos.json')
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d && d.projects) this.setState({ data: d }); })
       .catch(() => {});
+    this._onResize = () => {
+      const m = (typeof window !== 'undefined') && window.innerWidth < 760;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    if (typeof window !== 'undefined') { this._onResize(); window.addEventListener('resize', this._onResize); }
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined' && this._onResize) window.removeEventListener('resize', this._onResize);
   }
 
   componentDidUpdate(prevProps, prevState) {}
@@ -432,11 +468,29 @@ class Component extends DCLogic {
     const L = this.state.lang;
     const t = STRINGS[L];
     const cat = this.state.category;
+    const mob = this.state.isMobile;
     const activeNav = '#ECE7DE';
     const idleNav = '#8A8478';
 
-    const idleChip = "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:2px;border:1px solid rgba(236,231,222,0.14);background:transparent;color:#8A8478;transition:all .2s;";
-    const activeChip = "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 16px;border-radius:2px;border:1px solid #D9A441;background:#D9A441;color:#0A0A0B;transition:all .2s;";
+    // Responsive container styles (viewport-driven; computed here so all styling stays inline)
+    const navStyle = 'position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:' + (mob ? '38px 20px 18px' : '28px 48px') + ';backdrop-filter:blur(14px);background:linear-gradient(180deg, rgba(10,10,11,0.92), rgba(10,10,11,0));';
+    const navClusterStyle = 'flex-shrink:0;display:flex;align-items:center;gap:' + (mob ? '22px' : '30px') + ';';
+    const logoNameStyle = "white-space:nowrap;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:" + (mob ? '1.1' : '1') + ";";
+    const logoRoleStyle = "white-space:nowrap;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;";
+    const homeMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 64px' : '150px 44px 100px') + ';max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;';
+    const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';';
+    const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
+    const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
+    const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
+    const detailInnerStyle = 'max-width:1120px;margin:0 auto;padding:' + (mob ? '80px 18px 72px' : '104px 48px 110px') + ';animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;';
+    const detailGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '1.6fr 1fr') + ';gap:' + (mob ? '40px' : '72px') + ';align-items:start;';
+    const closeBtnStyle = 'position:fixed;top:' + (mob ? '14px' : '26px') + ';right:' + (mob ? '14px' : '32px') + ';z-index:70;cursor:pointer;background:rgba(10,10,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(236,231,222,0.25);color:#ECE7DE;width:44px;height:44px;border-radius:50%;font-size:17px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;';
+
+    const chipFont = mob ? '10px' : '11px';
+    const chipPad = mob ? '7px 11px' : '9px 16px';
+    const chipLs = mob ? '1px' : '1.5px';
+    const idleChip = "white-space:nowrap;cursor:pointer;font-family:'Space Mono',monospace;font-size:" + chipFont + ";letter-spacing:" + chipLs + ";text-transform:uppercase;padding:" + chipPad + ";border-radius:2px;border:1px solid rgba(236,231,222,0.14);background:transparent;color:#8A8478;transition:all .2s;";
+    const activeChip = "white-space:nowrap;cursor:pointer;font-family:'Space Mono',monospace;font-size:" + chipFont + ";letter-spacing:" + chipLs + ";text-transform:uppercase;padding:" + chipPad + ";border-radius:2px;border:1px solid #D9A441;background:#D9A441;color:#0A0A0B;transition:all .2s;";
 
     const catLabel = (id) => (CATS.find(c => c.id === id) || {}).label[L];
     const catAccent = (id) => (CATS.find(c => c.id === id) || {}).accent;
@@ -476,7 +530,18 @@ class Component extends DCLogic {
       { id: 'oldest', label: t.sortOldest, style: sortChip(sort === 'oldest'), onClick: () => this.setState({ sort: 'oldest' }) },
     ];
 
-    const worksHover = this.state.worksHover || this.state.worksPinned;
+    // Mobile category dropdown
+    const catMenuOpen = this.state.catMenuOpen;
+    const catCurrentLabel = catLabel(cat);
+    const catMenuBtnStyle = "display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 13px;border-radius:2px;border:1px solid " + (catMenuOpen ? '#D9A441' : 'rgba(236,231,222,0.2)') + ";background:transparent;color:" + (catMenuOpen ? '#D9A441' : '#ECE7DE') + ";transition:all .2s;";
+    const catCaretStyle = 'display:inline-block;font-size:9px;transition:transform .2s;transform:rotate(' + (catMenuOpen ? '180deg' : '0deg') + ');';
+    const catMenuItems = CATS.map(c => ({
+      id: c.id, label: c.label[L],
+      style: "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;border-radius:2px;white-space:nowrap;transition:background .15s,color .15s;color:" + (cat === c.id ? '#0A0A0B' : '#D8D2C7') + ';background:' + (cat === c.id ? '#D9A441' : 'transparent') + ';',
+      onClick: () => this.setState({ category: c.id, catMenuOpen: false }),
+    }));
+
+    const worksHover = (this.state.worksHover || this.state.worksPinned) && !mob;
     const amber = '#D9A441';
     const nh = this.state.navHover;
     const navCatStyle = (active, hov) => "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;padding-bottom:2px;border-bottom:1px solid " + (active ? '#D9A441' : 'transparent') + ";color:" + (hov ? amber : (active ? '#ECE7DE' : '#8A8478')) + ";";
@@ -564,6 +629,13 @@ class Component extends DCLogic {
 
     return {
       t, chips, videos, sel, sortOpts, prevProject, nextProject,
+      navStyle, navClusterStyle, logoNameStyle, logoRoleStyle, homeMainStyle, gridStyle,
+      aboutMainStyle, aboutGridStyle, contactRowStyle, detailInnerStyle, detailGridStyle, closeBtnStyle,
+      showMobileCats: mob && this.state.page === 'home',
+      showDesktopSort: !mob,
+      nameLines: mob ? String(aboutName).trim().split(/\s+/) : [aboutName],
+      catMenuOpen, catCurrentLabel, catMenuBtnStyle, catCaretStyle, catMenuItems,
+      catMenuToggle: () => this.setState(st => ({ catMenuOpen: !st.catMenuOpen })),
       aboutName, aboutRole,
       aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
       aboutBio: pick(ab.bio),
