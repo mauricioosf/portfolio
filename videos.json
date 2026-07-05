@@ -7,16 +7,16 @@
     "name": "Mauricio Ferreira",
     "portrait": "images/foto-mauricio.png",
     "role": {
-      "pt": "Editor de Vídeo / Cineasta",
-      "en": "Video Editor / Filmmaker"
+      "pt": "Editor de Vídeo",
+      "en": "Video Editor"
     },
     "bio": {
       "pt": "Sou editor de vídeos há cerca de seis anos e, ao longo desse tempo, tive a oportunidade de trabalhar com diferentes pessoas, formatos, plataformas e softwares, sempre explorando novas formas de contar histórias.\n\nAtualmente, curso Cinema e Audiovisual, mas minha forma de pensar sobre narrativas é influenciada por diversas perspectivas, muitas delas desenvolvidas durante o período em que estudei Sociologia. Naquela época, aprimorei um olhar atento para as várias camadas da sociedade e para os detalhes que revelam o que há de mais humano nas relações, além de entender como essas realidades podem ser refletidas e traduzidas por meio da montagem audiovisual. Para mim, a edição não é apenas uma questão técnica, mas uma ferramenta poderosa para dar ritmo, emoção e significado às imagens, criando conteúdos que não só capturam a atenção, mas também provocam reflexão e conexão.\n\nDesde 2022, venho aprofundando minha atuação na Comunicação Interna e no Endomarketing, cultivando conexões entre pessoas, culturas e territórios diversos por meio de uma comunicação que escuta, acolhe e potencializa as vozes e vivências de cada um. Meu objetivo é ajudar a transformar ambientes de trabalho em espaços mais vivos, conectados e humanos, onde cada história possa encontrar seu lugar e inspirar outras. Acredito que essa conexão verdadeira entre as pessoas é a base para que as organizações cresçam de forma sustentável, alinhando propósito e resultados.",
       "en": "I have been working as a video editor for approximately six years, and throughout that time I have had the opportunity to collaborate with different people, work across a variety of formats and platforms, and master multiple software tools, always exploring new ways to tell compelling stories.\n\nI am currently pursuing a degree in Film and Audiovisual Studies, but my approach to storytelling has been shaped by a range of perspectives, many of them developed during my time studying Sociology. That experience sharpened my ability to observe the many layers of society and recognize the details that reveal the most human aspects of our relationships. It also taught me how these realities can be reflected and translated through audiovisual editing. To me, editing is more than a technical process. It is a powerful storytelling tool that brings rhythm, emotion, and meaning to images, creating content that not only captures attention but also inspires reflection and genuine connection.\n\nSince 2022, I have been expanding my work in Endomarketing and Employer Branding, fostering connections between peoples, cultures, and diverse communities through communication that listens, embraces, and amplifies each person's voice and experiences. My goal is to help transform workplaces into more vibrant, connected, and human-centered environments, where every story has a place and the power to inspire others. I believe that authentic human connection is the foundation for organizations to grow sustainably, aligning purpose with meaningful results."
     },
     "based": {
-      "pt": "> Baseado em Rio de Janeiro, Brasil",
-      "en": "> Based in Rio de Janeiro, Brasil"
+      "pt": "> Rio de Janeiro, Brasil",
+      "en": "> Rio de Janeiro, Brazil"
     },
     "exp": {
       "pt": "> 6  anos editando",
@@ -34,7 +34,13 @@
         "Sound Design",
         "Live Streaming"
       ],
-      "en": []
+      "en": [
+        "Editing",
+        "Motion Design",
+        "Color Grading",
+        "Sound Design",
+        "Live Streaming"
+      ]
     },
     "tools": {
       "pt": [
@@ -47,11 +53,20 @@
         "Adobe Illustrator",
         "Notion"
       ],
-      "en": []
+      "en": [
+        "Adobe Premiere Pro",
+        "DaVinci Resolve",
+        "Adobe After Effects",
+        "OBS Studio / Wirecast",
+        "Adobe Photoshop",
+        "Adobe Lightroom",
+        "Adobe Illustrator",
+        "Notion"
+      ]
     },
     "timeline": [
       {
-        "year": "JUN 25 – HOJE",
+        "year": "JUN 25 – ATUALMENTE",
         "role": {
           "pt": "Assistente de Comunicação, Cultura e Engajamento",
           "en": "Assistente de Comunicação, Cultura e Engajamento"
@@ -61,12 +76,12 @@
           "en": "zhouse"
         },
         "detail": {
-          "pt": "",
-          "en": ""
+          "pt": "Minha atuação no time de Comunicação Interna da zhouse tem como propósito aproximar pessoas e dar vida às histórias que conectam todos os territórios onde atuamos, do escritório ao campo, da mesa de reunião à horta, garantindo uma comunicação que fala com todos e para todos. O trabalho que iniciei como estagiário segue fazendo parte da minha rotina: participei da criação e estruturação dos nossos principais canais, como a TV interna e o aplicativo Conexão, e hoje continuo responsável pela evolução e manutenção desses projetos, buscando garantir uma comunicação clara, acessível e relevante para todos os públicos da empresa.",
+          "en": "My role on zhouse's endomarketing team is to bring people closer together and bring to life the stories that connect every part of our organization, from the office to the field, from the meeting room to the farm, ensuring communication that speaks to everyone and for everyone. The work I began as an intern remains a core part of my responsibilities: I helped create and structure our main internal communication channels, including our internal TV network and the Conexão app, and today I continue to oversee their development and maintenance, ensuring our communication remains clear, accessible, and relevant to every audience across the company."
         }
       },
       {
-        "year": "SET 23 – JUN 25",
+        "year": "SET 2023 – JUN 2025",
         "role": {
           "pt": "Estagiário de Comunicação, Cultura e Engajamento",
           "en": "Estagiário de Comunicação, Cultura e Engajamento"
@@ -76,12 +91,12 @@
           "en": "zhouse"
         },
         "detail": {
-          "pt": "Minha atuação no time de Comunicação Interna da zhouse tem como propósito aproximar pessoas e dar vida às histórias que conectam todos os territórios onde atuamos, seja do escritório ao campo, da mesa de reunião à horta, garantindo uma comunicação que fala com todos e para todos. Participei da criação e estruturação dos nossos principais canais, como a TV interna e o aplicativo Conexão, e sigo cuidando deles com dedicação para garantir que nossa comunicação seja clara, inclusiva e chegue a todos. Tenho um olhar especial para a edição de vídeos, transformando as histórias e vivências que percorrem todos os nossos territórios em conteúdos que refletem o dia a dia da empresa e fortalecem nossa cultura. Além disso, colaboro na criação de peças visuais, na gestão de brindes e na organização de eventos internos que ajudam a integrar e engajar o time em cada canto do Brasil.",
-          "en": "Minha atuação no time de Comunicação Interna da zhouse tem como propósito aproximar pessoas e dar vida às histórias que conectam todos os territórios onde atuamos, seja do escritório ao campo, da mesa de reunião à horta, garantindo uma comunicação que fala com todos e para todos. Participei da criação e estruturação dos nossos principais canais, como a TV interna e o aplicativo Conexão, e sigo cuidando deles com dedicação para garantir que nossa comunicação seja clara, inclusiva e chegue a todos. Tenho um olhar especial para a edição de vídeos, transformando as histórias e vivências que percorrem todos os nossos territórios em conteúdos que refletem o dia a dia da empresa e fortalecem nossa cultura. Além disso, colaboro na criação de peças visuais, na gestão de brindes e na organização de eventos internos que ajudam a integrar e engajar o time em cada canto do Brasil."
+          "pt": "",
+          "en": ""
         }
       },
       {
-        "year": "NOV 22 – AGO 23",
+        "year": "NOV 2022 – AGO 2023",
         "role": {
           "pt": "Estagiário de Gente, Cultura e Carreira",
           "en": "Estagiário de Gente, Cultura e Carreira"
@@ -91,21 +106,32 @@
           "en": "Grupo Cataratas"
         },
         "detail": {
-          "pt": "",
-          "en": ""
+          "pt": "Fiz parte do time de Comunicação Interna responsável por conectar os parques do Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu e a Holding, contribuindo para iniciativas de comunicação interna e employer branding. Minha atuação teve foco principal na pré-produção, produção e pós-produção de vídeos para os canais da empresa no Instagram e LinkedIn, criando conteúdos que aproximavam pessoas e fortaleciam a cultura organizacional. Também participei da organização de eventos internos e externos, de campanhas de atração de talentos, de ações de engajamento e do acompanhamento de indicadores de comunicação, colaborando com diferentes equipes e parceiros para desenvolver projetos integrados.",
+          "en": "I was part of the endomarketing team responsible for connecting teams across Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu, and the corporate office, contributing to internal communications and employer branding initiatives. My primary focus was the pre-production, production, and post-production of videos for the company's Instagram and LinkedIn channels, creating content that brought people closer together and strengthened the organization's culture. I also contributed to the planning and execution of internal and external events, talent attraction campaigns, employee engagement initiatives, and communication performance analysis, collaborating with different teams and partners to deliver integrated communication projects."
         }
       }
     ],
     "education": [
       {
-        "year": "2015–18",
+        "year": "2022 – 2025",
         "role": {
-          "pt": "[ Curso — ex: Cinema e Audiovisual ]",
-          "en": "[ Curso — ex: Cinema e Audiovisual ]"
+          "pt": "Bacharelado em Cinema & Audiovisual",
+          "en": "Bachelor's Degree in Film & Audiovisual"
         },
         "place": {
-          "pt": "[ Instituição ]",
-          "en": "[ Instituição ]"
+          "pt": "Universidade Estácio de Sá",
+          "en": "Estácio de Sá University"
+        }
+      },
+      {
+        "year": "2020 – 2021",
+        "role": {
+          "pt": "Formação Livre em Edição",
+          "en": "Certificate Program in Film Editing"
+        },
+        "place": {
+          "pt": "Academia Internacional de Cinema",
+          "en": "Academia Internacional de Cinema"
         }
       }
     ],
@@ -114,7 +140,7 @@
         "year": "ABR 25",
         "role": {
           "pt": "XI Oficina de Produção Audiovisual",
-          "en": "XI Oficina de Produção Audiovisual"
+          "en": "XI Audiovisual Production Workshop"
         },
         "place": {
           "pt": "FGV CPDOC / IMS-RJ",
@@ -125,11 +151,11 @@
         "year": "JAN 25",
         "role": {
           "pt": "Assistência de Direção para Cinema",
-          "en": "Assistência de Direção para Cinema"
+          "en": "Assistant Directing for Film"
         },
         "place": {
           "pt": "28ª Mostra de Cinema de Tiradentes",
-          "en": "28ª Mostra de Cinema de Tiradentes"
+          "en": "28th Tiradentes Film Festival"
         }
       },
       {
@@ -140,18 +166,18 @@
         },
         "place": {
           "pt": "Blackmagic Design / Proclass",
-          "en": "Blackmagic Design / Proclass"
+          "en": "Blackmagic Design / ProClass"
         }
       },
       {
         "year": "AGO 21",
         "role": {
           "pt": "Trilha Sonora para Cinema e TV",
-          "en": "Trilha Sonora para Cinema e TV"
+          "en": "Film and TV Soundtrack"
         },
         "place": {
           "pt": "Academia Internacional de Cinema",
-          "en": "Academia Internacional de Cinema"
+          "en": "Academia Internacional de Cinema (AIC)"
         }
       },
       {
@@ -162,7 +188,7 @@
         },
         "place": {
           "pt": "Blackmagic Design / Proclass",
-          "en": "Blackmagic Design / Proclass"
+          "en": "Blackmagic Design / ProClass"
         }
       }
     ]
