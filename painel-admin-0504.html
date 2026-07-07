@@ -48,6 +48,11 @@
       <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">LinkedIn (link)</label>
       <input name="linkedin" value="{{ c.linkedin }}" onInput="{{ onContact }}" placeholder="https://linkedin.com/in/voce" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
 
+      <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin:34px 0 16px;">Bunny Stream</div>
+      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Endereço do CDN (pull zone)</label>
+      <input name="bunnyHost" value="{{ bunnyHost }}" onInput="{{ onBunnyHost }}" placeholder="vz-xxxxxxxx-xxx.b-cdn.net" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+      <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Fixo para todos os seus vídeos. Preenchido uma vez, as capas em <b style="color:#8A8478;">auto</b> passam a ser geradas sozinhas.</div>
+
       <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin:34px 0 16px;">Vídeos ({{ count }})</div>
       <sc-for list="{{ rows }}" as="p" hint-placeholder-count="4">
         <div style="{{ p.rowStyle }}">
@@ -117,13 +122,14 @@
         </div>
 
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Link do vídeo (YouTube ou Vimeo)</label>
-          <input name="video" value="{{ f.video }}" onInput="{{ onField }}" placeholder="https://youtu.be/..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Link do vídeo (Bunny Stream)</label>
+          <input name="video" value="{{ f.video }}" onInput="{{ onField }}" placeholder="https://player.mediadelivery.net/play/..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Cole o link do player do Bunny (Embed / Direct Play URL).</div>
         </div>
         <div style="grid-column:1 / -1;">
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Capa (thumbnail)</label>
           <input name="thumb" value="{{ f.thumb }}" onInput="{{ onField }}" placeholder="auto  (ou images/arquivo.jpg)" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
-          <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Use <b style="color:#8A8478;">auto</b> para pegar a capa do YouTube, ou aponte uma imagem sua na pasta images.</div>
+          <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Use <b style="color:#8A8478;">auto</b> para gerar a capa do Bunny automaticamente, ou cole a URL da thumbnail (ou uma imagem sua na pasta images).</div>
         </div>
 
         <div style="grid-column:1 / -1;">
@@ -256,7 +262,7 @@
 
   <div style="max-width:1080px;margin:0 auto;padding:0 34px 60px;">
     <div style="border-top:1px solid rgba(236,231,222,0.1);padding-top:24px;font-size:13px;line-height:1.7;color:#8A8478;text-align:center;max-width:640px;margin:0 auto;">
-      <b style="color:#ECE7DE;">Como usar:</b> edite/adicione os vídeos aqui, clique em <b style="color:#ECE7DE;">Baixar videos.json</b> e substitua o arquivo antigo pelo novo. Depois arraste a pasta no Netlify (ou só o videos.json) para publicar. As mudanças ficam salvas neste navegador enquanto você trabalha. <span onClick="{{ reloadFile }}" style="color:#D9A441;cursor:pointer;border-bottom:1px solid rgba(217,164,65,0.4);">Recarregar do videos.json</span> (descarta o que ainda não foi baixado).
+      <b style="color:#ECE7DE;">Como usar:</b> edite/adicione os vídeos aqui, clique em <b style="color:#ECE7DE;">Baixar videos.json</b> e substitua o arquivo antigo pelo novo no seu repositório do GitHub Pages. As mudanças ficam salvas neste navegador enquanto você trabalha. <span onClick="{{ reloadFile }}" style="color:#D9A441;cursor:pointer;border-bottom:1px solid rgba(217,164,65,0.4);">Recarregar do videos.json</span> (descarta o que ainda não foi baixado).
     </div>
   </div>
 
@@ -344,7 +350,7 @@ function slugify(str) {
 
 class Component extends DCLogic {
   state = {
-    email: '', instagram: '', linkedin: '',
+    email: '', instagram: '', linkedin: '', bunnyHost: '',
     projects: [],
     form: Object.assign({}, EMPTY),
     aboutForm: Object.assign({}, ABOUT_EMPTY),
@@ -356,7 +362,7 @@ class Component extends DCLogic {
 
   ingest(d) {
     this.setState({
-      email: d.email || '', instagram: d.instagram || '', linkedin: d.linkedin || '',
+      email: d.email || '', instagram: d.instagram || '', linkedin: d.linkedin || '', bunnyHost: d.bunnyHost || '',
       projects: d.projects || [],
       aboutForm: flattenAbout(d.about),
       loaded: true,
@@ -379,6 +385,7 @@ class Component extends DCLogic {
       email: next.email !== undefined ? next.email : this.state.email,
       instagram: next.instagram !== undefined ? next.instagram : this.state.instagram,
       linkedin: next.linkedin !== undefined ? next.linkedin : this.state.linkedin,
+      bunnyHost: next.bunnyHost !== undefined ? next.bunnyHost : this.state.bunnyHost,
       about: buildAbout(next.aboutForm !== undefined ? next.aboutForm : this.state.aboutForm),
       projects: next.projects !== undefined ? next.projects : this.state.projects,
     };
@@ -454,6 +461,12 @@ class Component extends DCLogic {
         this.setState({ [name]: value });
         this.persist({ [name]: value });
       },
+      bunnyHost: st.bunnyHost,
+      onBunnyHost: (e) => {
+        const value = e.target.value;
+        this.setState({ bunnyHost: value });
+        this.persist({ bunnyHost: value });
+      },
       onField: (e) => {
         const { name, value } = e.target;
         this.setState(s => ({ form: Object.assign({}, s.form, { [name]: value }) }));
@@ -486,7 +499,8 @@ class Component extends DCLogic {
       download: () => {
         const out = {
           email: st.email, instagram: st.instagram, linkedin: st.linkedin,
-          _ajuda: "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound.",
+          bunnyHost: st.bunnyHost || '',
+          _ajuda: "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
           about: buildAbout(st.aboutForm),
           projects: projects,
         };
