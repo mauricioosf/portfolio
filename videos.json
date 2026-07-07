@@ -196,6 +196,50 @@
   },
   "projects": [
     {
+      "id": "chegada-do-tupa",
+      "cat": "inst",
+      "year": 2026,
+      "duration": "",
+      "client": "Centros de Fauna Trijunção",
+      "tools": "Premiere Pro, After Effects",
+      "video": "",
+      "thumb": "auto",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Chegada do Tupã",
+        "en": "Chegada do Tupã (Tupã's Arrival)"
+      },
+      "desc": {
+        "pt": "Chegada do Tupã é um vídeo institucional produzido para o Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã ao Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
+        "en": "Chegada do Tupã is an institutional film produced for the Centros de Fauna da Trijunção that documents the arrival of the maned wolf Tupã at the conservation center following his rescue. Featuring footage captured by the team itself, the film tells his story, highlights the collaborative work of institutions dedicated to the conservation of Brazilian wildlife, and emphasizes the importance of care, rehabilitation, and conservation in ensuring the survival of the species."
+      }
+    },
+    {
+      "id": "bicudos-da-trijuncao",
+      "cat": "inst",
+      "year": 2026,
+      "duration": "05:01",
+      "client": "Centros de Fauna Trijunção",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/d764e17d-970f-4615-a28e-709dab1548ce",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Bicudos da Trijunção",
+        "en": "Bicudos da Trijunção (Trijunção's Seedeaters)"
+      },
+      "desc": {
+        "pt": "Bicudos da Trijunção é um vídeo institucional produzido para o Centro de Fauna da Trijunção que documenta o projeto de reintrodução do bicudo, uma das aves mais ameaçadas do Brasil. Com imagens captadas pelos próprios colaboradores da equipe, o filme registra os primeiros marcos da iniciativa e revela o trabalho de conservação desenvolvido em parceria com instituições de pesquisa para devolver a espécie ao seu habitat natural.",
+        "en": "Trijunção's Seedeaters is an institutional film produced for the Centros de Fauna Trijunção, documenting the reintroduction project of the Bicudos, one of Brazil's most endangered bird species. Featuring footage captured by the wildlife team itself, the film chronicles the project's first milestones and showcases the conservation efforts carried out in partnership with research institutions to help restore the species to its natural habitat."
+      }
+    },
+    {
       "id": "janelas",
       "cat": "curta",
       "year": 2022,
@@ -227,8 +271,8 @@
       "video": "https://player.mediadelivery.net/play/698884/9060a29f-e306-49f7-9e21-2882607406d4",
       "thumb": "https://vz-892d060b-7a1.b-cdn.net/9060a29f-e306-49f7-9e21-2882607406d4/thumbnail_30a31e98.jpg",
       "role": {
-        "pt": "Decupagem, Montagem, Finalização",
-        "en": "Shot Logging, Editing, Post-Production Finishing"
+        "pt": "Montagem, Color Grading, Finalização",
+        "en": "Editing, Color Grading, Post-Production Finishing"
       },
       "title": {
         "pt": "Espírito do Mar",
