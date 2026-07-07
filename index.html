@@ -7,9 +7,23 @@
 </head>
 <body>
 <x-dc>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A0A0B"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#D9A441"/><path d="M45 42 L45 58 L59 50 Z" fill="#0A0A0B"/></svg></template>
 <helmet>
 <title>Mauricio Ferreira — Portfólio</title>
 <link rel="icon" type="image/png" href="./images/favicon.png">
+<meta name="description" content="Mauricio Ferreira — Editor de vídeo e motion designer. Montagem, color grading e sound design para marcas e documentário.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mauricio Ferreira — Editor de vídeo">
+<meta property="og:description" content="Portfólio de vídeos: montagem, color grading, motion e sound design para marcas e documentário.">
+<meta property="og:image" content="https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Mauricio Ferreira — Portfólio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mauricio Ferreira — Editor de vídeo">
+<meta name="twitter:description" content="Portfólio de vídeos: montagem, color grading, motion e sound design para marcas e documentário.">
+<meta name="twitter:image" content="https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -221,7 +235,13 @@
   <div data-detail-scroll="" style="position:fixed;inset:0;z-index:60;background:#0A0A0B;overflow-y:auto;overscroll-behavior:none;animation:fadeIn .3s ease both;">
     <button onClick="{{ closeVideo }}" aria-label="Fechar" style="{{ closeBtnStyle }}" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
     <div onClick="{{ stop }}" style="{{ detailInnerStyle }}">
-      <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.05;letter-spacing:-1px;margin:0 0 34px;">{{ sel.title }}</h1>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin:0 0 34px;">
+        <h1 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(30px,4vw,52px);line-height:1.05;letter-spacing:-1px;margin:0;">{{ sel.title }}</h1>
+        <button onClick="{{ doShare }}" style="{{ shareBtnStyle }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"></line><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line></svg>
+          <span>{{ shareLabel }}</span>
+        </button>
+      </div>
       <div style="position:relative;aspect-ratio:16/9;background:#141416;overflow:hidden;margin-bottom:64px;">
         <sc-if value="{{ sel.playing }}" hint-placeholder-val="{{ false }}">
           <iframe src="{{ sel.embed }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
@@ -239,7 +259,7 @@
       </div>
       <div style="{{ detailGridStyle }}">
         <div>
-          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8A8478;margin-bottom:22px;">{{ t.projectAbout }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin-bottom:22px;">{{ t.projectAbout }}</div>
           {{ sel.descEl }}
         </div>
         <div>
@@ -320,6 +340,7 @@ const STRINGS = {
     navWork: 'Trabalhos', navAbout: 'Sobre', navContact: 'Contato',
     role: 'Editor de vídeo',
     fichaLabel: 'Ficha técnica', projectAbout: 'Sobre o projeto',
+    share: 'Compartilhar', shared: 'Link copiado!',
     fCategory: 'Categoria', fYear: 'Ano', fDuration: 'Duração', fClient: 'Cliente', fRole: 'Função', fTools: 'Ferramentas',
     sortLabel: 'Ordenar', sortNewest: 'Recentes', sortOldest: 'Antigos',
     prevProject: 'Projeto anterior', nextProject: 'Próximo projeto',
@@ -345,6 +366,7 @@ const STRINGS = {
     navWork: 'Work', navAbout: 'About', navContact: 'Contact',
     role: 'Video editor',
     fichaLabel: 'Credits', projectAbout: 'About the project',
+    share: 'Share', shared: 'Link copied!',
     fCategory: 'Category', fYear: 'Year', fDuration: 'Duration', fClient: 'Client', fRole: 'Role', fTools: 'Tools',
     sortLabel: 'Sort', sortNewest: 'Newest', sortOldest: 'Oldest',
     prevProject: 'Previous project', nextProject: 'Next project',
@@ -454,13 +476,16 @@ function inlineEl(str) {
 }
 
 class Component extends DCLogic {
-  state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {}, isMobile: false, catMenuOpen: false };
+  state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {}, isMobile: false, catMenuOpen: false, gridVisible: true, copied: false };
 
   componentDidMount() {
     fetch('./videos.json')
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d && d.projects) { this.preloadPosters(d); this.setState({ data: d }); } })
+      .then(d => { if (d && d.projects) { this.preloadPosters(d); this.setState({ data: d }, () => this.applyHash()); } })
       .catch(() => {});
+    this._onHash = () => this.applyHash();
+    this._onKey = (e) => { if (e.key === 'Escape' && this.state.selected) this.closeProject(); };
+    if (typeof window !== 'undefined') { window.addEventListener('hashchange', this._onHash); window.addEventListener('keydown', this._onKey); this.applyHash(); }
     this._onResize = () => {
       const m = (typeof window !== 'undefined') && window.innerWidth < 760;
       if (m !== this.state.isMobile) this.setState({ isMobile: m });
@@ -470,6 +495,59 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     if (typeof window !== 'undefined' && this._onResize) window.removeEventListener('resize', this._onResize);
+    if (typeof window !== 'undefined' && this._onHash) window.removeEventListener('hashchange', this._onHash);
+    if (typeof window !== 'undefined' && this._onKey) window.removeEventListener('keydown', this._onKey);
+    if (this._catT) clearTimeout(this._catT);
+    if (this._copyT) clearTimeout(this._copyT);
+  }
+
+  // Change category with a soft cross-fade of the grid.
+  selectCategory(id, extra) {
+    extra = extra || {};
+    if (id === this.state.category) { this.setState(extra); return; }
+    this.setState(Object.assign({ gridVisible: false }, extra));
+    if (this._catT) clearTimeout(this._catT);
+    this._catT = setTimeout(() => this.setState({ category: id, gridVisible: true }), 190);
+  }
+
+  // Copy the current project's direct link to the clipboard.
+  shareProject() {
+    if (typeof window === 'undefined' || !this.state.selected) return;
+    if (window.location.hash.indexOf('projeto/') === -1) this.setHash(this.state.selected.id);
+    const url = window.location.href;
+    const done = () => { this.setState({ copied: true }); if (this._copyT) clearTimeout(this._copyT); this._copyT = setTimeout(() => this.setState({ copied: false }), 2000); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).then(done, done); }
+      else { const ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+    } catch (e) { done(); }
+  }
+
+  // Sync the URL hash with the currently open project so each project has a
+  // shareable direct link (…#projeto/<id>). Also reads the hash on load.
+  applyHash() {
+    if (typeof window === 'undefined') return;
+    const m = (window.location.hash || '').match(/projeto\/([\w-]+)/);
+    const wantId = m ? m[1] : null;
+    const list = (this.state.data && this.state.data.projects) || [];
+    if (wantId) {
+      if (this.state.selected && this.state.selected.id === wantId) return;
+      const v = list.find(p => p.id === wantId);
+      if (v) { this.openProject(v, true); return; }
+      // hash points at a project but data isn't ready yet — wait for load
+      if (!this.state.data) return;
+    }
+    // no project in hash → make sure detail is closed
+    if (this.state.selected) this.closeProject(true);
+  }
+
+  setHash(id) {
+    if (typeof window === 'undefined') return;
+    const target = id ? ('#projeto/' + id) : '';
+    if (id) {
+      if (window.location.hash !== target) window.location.hash = target;
+    } else if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   }
 
   // As soon as the data arrives, tell the browser to start fetching every poster
@@ -487,7 +565,14 @@ class Component extends DCLogic {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (typeof document === 'undefined') return;
+    const s = this.state.selected;
+    if (s !== prevState.selected || this.state.lang !== prevState.lang) {
+      const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
+      document.title = s ? (s.title[this.state.lang] + ' · ' + base) : base;
+    }
+  }
 
   lockScroll(on) {
     if (typeof document === 'undefined') return;
@@ -515,10 +600,10 @@ class Component extends DCLogic {
     }
   }
 
-  openProject(v) { this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
-  closeProject() { this.lockScroll(false); this.setState({ selected: null, playing: false }); }
+  openProject(v, fromHash) { if (!fromHash) this.setHash(v.id); this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
+  closeProject(fromHash) { if (!fromHash) this.setHash(null); this.lockScroll(false); this.setState({ selected: null, playing: false }); }
 
-  goto(page) { this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+  goto(page) { this.setHash(null); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
 
   renderVals() {
     const L = this.state.lang;
@@ -534,7 +619,7 @@ class Component extends DCLogic {
     const logoNameStyle = "white-space:nowrap;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:" + (mob ? '1.1' : '1') + ";";
     const logoRoleStyle = "white-space:nowrap;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;";
     const homeMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 64px' : '150px 44px 100px') + ';max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;';
-    const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';';
+    const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
     const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
     const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
     const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
@@ -582,7 +667,7 @@ class Component extends DCLogic {
     const chips = CATS.map(c => ({
       id: c.id, label: c.label[L],
       style: cat === c.id ? activeChip : idleChip,
-      onClick: () => this.setState({ category: c.id }),
+      onClick: () => this.selectCategory(c.id),
     }));
 
     const sortChip = (active) => "cursor:pointer;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 11px;border-radius:2px;transition:all .2s;border:1px solid " + (active ? '#D9A441' : 'rgba(236,231,222,0.14)') + ';background:' + (active ? '#D9A441' : 'transparent') + ';color:' + (active ? '#0A0A0B' : '#8A8478') + ';';
@@ -599,7 +684,7 @@ class Component extends DCLogic {
     const catMenuItems = CATS.map(c => ({
       id: c.id, label: c.label[L],
       style: "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;border-radius:2px;white-space:nowrap;transition:background .15s,color .15s;color:" + (cat === c.id ? '#0A0A0B' : '#D8D2C7') + ';background:' + (cat === c.id ? '#D9A441' : 'transparent') + ';',
-      onClick: () => this.setState({ category: c.id, catMenuOpen: false }),
+      onClick: () => this.selectCategory(c.id, { catMenuOpen: false }),
     }));
 
     const worksHover = (this.state.worksHover || this.state.worksPinned) && !mob;
@@ -611,7 +696,7 @@ class Component extends DCLogic {
       style: navCatStyle(cat === c.id, nh === 'cat-' + c.id),
       onMouseEnter: () => this.setState({ navHover: 'cat-' + c.id }),
       onMouseLeave: () => this.setState({ navHover: null }),
-      onClick: () => this.setState({ category: c.id, page: 'home', selected: null, worksPinned: true }),
+      onClick: () => { this.setHash(null); this.selectCategory(c.id, { page: 'home', selected: null, worksPinned: true }); },
     }));
     const catsStyle = 'position:absolute;right:100%;top:50%;display:flex;align-items:center;gap:18px;white-space:nowrap;padding-right:26px;transition:opacity .35s ease, transform .35s ease;transform:translateY(-50%) translateX(' + (worksHover ? '0' : '14px') + ');opacity:' + (worksHover ? '1' : '0') + ';pointer-events:' + (worksHover ? 'auto' : 'none') + ';';
     const worksActive = this.state.page === 'home';
@@ -707,6 +792,10 @@ class Component extends DCLogic {
       education: aboutEducation, licenses: aboutLicenses,
       hasEducation: aboutEducation.length > 0, hasLicenses: aboutLicenses.length > 0,
       playVideo: () => this.setState({ playing: true }),
+      shareLabel: this.state.copied ? t.shared : t.share,
+      shareCopied: this.state.copied,
+      shareBtnStyle: "display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:2px;transition:all .2s;border:1px solid " + (this.state.copied ? '#D9A441' : 'rgba(236,231,222,0.22)') + ';background:' + (this.state.copied ? '#D9A441' : 'transparent') + ';color:' + (this.state.copied ? '#0A0A0B' : '#ECE7DE') + ';',
+      doShare: () => this.shareProject(),
       navCats, catsStyle, worksLabelStyle, aboutColorFinal, langBtnStyle,
       navWorkEnter: () => this.setState({ navHover: 'work' }),
       navAboutEnter: () => this.setState({ navHover: 'about' }),
