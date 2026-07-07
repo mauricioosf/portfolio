@@ -2,6 +2,8 @@
   "email": "mauriciosf@id.uff.br",
   "instagram": "https://www.instagram.com/mauricioo_s/",
   "linkedin": "https://www.linkedin.com/in/mauricioosf/",
+  "gumletWorkspace": "6a4c50ad3c4dfef3a4116bcf",
+  "bunnyHost": "vz-1104b846-a66.b-cdn.net",
   "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound.",
   "about": {
     "name": "Mauricio Ferreira",
@@ -377,8 +379,8 @@
       "duration": "15:38",
       "client": "Rafael Romão",
       "tools": "After Effects, Cinema 4D",
-      "video": "https://youtu.be/aGAxLpjkwfs",
-      "thumb": "auto",
+      "video": "https://player.mediadelivery.net/play/698856/31473024-aa39-4688-9ced-c06cc37df6d5",
+      "thumb": "https://vz-1104b846-a66.b-cdn.net/31473024-aa39-4688-9ced-c06cc37df6d5/thumbnail_8137b2c0.jpg",
       "role": {
         "pt": "Motion & abertura",
         "en": "Motion & titles"
