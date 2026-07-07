@@ -196,6 +196,28 @@
   },
   "projects": [
     {
+      "id": "janelas",
+      "cat": "curta",
+      "year": 2022,
+      "duration": "04:04",
+      "client": "Estácio de Sá",
+      "tools": "Premiere Pro",
+      "video": "https://player.mediadelivery.net/play/698884/8784e03a-f00c-4661-9986-ba7fc9f2bec1",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/8784e03a-f00c-4661-9986-ba7fc9f2bec1/thumbnail_36338577.jpg",
+      "role": {
+        "pt": "Captação, Montagem, Color Grading",
+        "en": "Camera Operation, Editing, Color Grading"
+      },
+      "title": {
+        "pt": "Janelas",
+        "en": "Windows"
+      },
+      "desc": {
+        "pt": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
+        "en": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva"
+      }
+    },
+    {
       "id": "cidade",
       "cat": "doc",
       "year": 2021,
