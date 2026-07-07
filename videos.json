@@ -2,9 +2,8 @@
   "email": "mauriciosf@id.uff.br",
   "instagram": "https://www.instagram.com/mauricioo_s/",
   "linkedin": "https://www.linkedin.com/in/mauricioosf/",
-  "gumletWorkspace": "6a4c50ad3c4dfef3a4116bcf",
   "bunnyHost": "vz-1104b846-a66.b-cdn.net",
-  "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound.",
+  "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
   "about": {
     "name": "Mauricio Ferreira",
     "portrait": "images/foto-mauricio.png",
@@ -46,23 +45,23 @@
     },
     "tools": {
       "pt": [
-        "Adobe Premiere Pro",
+        "Premiere Pro",
         "DaVinci Resolve",
-        "Adobe After Effects",
+        "After Effects",
         "OBS Studio / Wirecast",
-        "Adobe Photoshop",
-        "Adobe Lightroom",
-        "Adobe Illustrator",
+        "Photoshop",
+        "Lightroom",
+        "Illustrator",
         "Notion"
       ],
       "en": [
-        "Adobe Premiere Pro",
+        "Premiere Pro",
         "DaVinci Resolve",
-        "Adobe After Effects",
+        "After Effects",
         "OBS Studio / Wirecast",
-        "Adobe Photoshop",
-        "Adobe Lightroom",
-        "Adobe Illustrator",
+        "Photoshop",
+        "Lightroom",
+        "Illustrator",
         "Notion"
       ]
     },
@@ -197,179 +196,25 @@
   },
   "projects": [
     {
-      "id": "horizonte",
-      "cat": "doc",
-      "year": 2025,
-      "duration": "04:12",
-      "client": "Instituto Maré",
-      "tools": "DaVinci Resolve, Premiere Pro",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem & cor",
-        "en": "Editing & grade"
-      },
-      "title": {
-        "pt": "Horizonte",
-        "en": "Horizon"
-      },
-      "desc": {
-        "pt": "Documentário curto sobre pescadores artesanais e a linha onde o mar encontra o esquecimento. Montagem contemplativa, cor dessaturada e som ambiente captado em locação.",
-        "en": "A short documentary about artisanal fishermen and the line where the sea meets oblivion. Contemplative editing, desaturated color and on-location ambient sound."
-      }
-    },
-    {
-      "id": "handmade",
-      "cat": "inst",
-      "year": 2024,
-      "duration": "02:30",
-      "client": "Marcenaria Nó",
-      "tools": "Premiere Pro, After Effects",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem & finalização",
-        "en": "Editing & finishing"
-      },
-      "title": {
-        "pt": "Feito à Mão",
-        "en": "Handmade"
-      },
-      "desc": {
-        "pt": "Filme institucional para uma marca de mobiliário. Ritmo preciso entre detalhes de oficina e planos abertos, com transições no corte para acompanhar o gesto do artesão.",
-        "en": "Brand film for a furniture maker. Precise rhythm between workshop details and wide shots, with match cuts following the craftsman’s gesture."
-      }
-    },
-    {
-      "id": "pulso",
-      "cat": "curta",
-      "year": 2025,
-      "duration": "03:48",
-      "client": "Selo Âmbar",
-      "tools": "Premiere Pro, After Effects",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem & motion",
-        "en": "Editing & motion"
-      },
-      "title": {
-        "pt": "Pulso",
-        "en": "Pulse"
-      },
-      "desc": {
-        "pt": "Clipe musical editado no ritmo da batida. Trocas rápidas, flicker controlado e correção de cor em tons de âmbar e azul-noite.",
-        "en": "Music video cut to the beat. Rapid changes, controlled flicker and color grade in amber and midnight-blue tones."
-      }
-    },
-    {
       "id": "cidade",
       "cat": "doc",
-      "year": 2024,
-      "duration": "06:20",
-      "client": "TV Documenta",
-      "tools": "DaVinci Resolve",
-      "video": "",
+      "year": 2021,
+      "duration": "15:16",
+      "client": "AIC",
+      "tools": "Premire Pro, DaVinci Resolve",
+      "video": "https://player.mediadelivery.net/play/698856/06e040c4-5875-4769-9374-9d4dcc83e440",
       "thumb": "auto",
       "role": {
-        "pt": "Montagem",
-        "en": "Editing"
+        "pt": "Decupagem, Montagem, Finalização",
+        "en": "Shot Logging, Editing, Post-Production Finishing"
       },
       "title": {
-        "pt": "Cidade Invisível",
-        "en": "Invisible City"
+        "pt": "Espírito do Mar",
+        "en": "Spirit of the Sea"
       },
       "desc": {
-        "pt": "Retrato documental do trabalho noturno em uma metrópole. Estrutura em capítulos, entrevistas em voz-off e desenho sonoro urbano.",
-        "en": "Documentary portrait of night labor in a metropolis. Chaptered structure, voice-over interviews and an urban sound design."
-      }
-    },
-    {
-      "id": "safra",
-      "cat": "inst",
-      "year": 2023,
-      "duration": "01:55",
-      "client": "AgroVale",
-      "tools": "Premiere Pro, DaVinci Resolve",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem & cor",
-        "en": "Editing & grade"
-      },
-      "title": {
-        "pt": "Nova Safra",
-        "en": "New Harvest"
-      },
-      "desc": {
-        "pt": "Vídeo institucional para o agronegócio. Aéreas amplas, timelapses de colheita e uma narrativa de continuidade entre gerações.",
-        "en": "Corporate film for agribusiness. Sweeping aerials, harvest timelapses and a narrative of continuity across generations."
-      }
-    },
-    {
-      "id": "ruido",
-      "cat": "sound",
-      "year": 2025,
-      "duration": "00:45",
-      "client": "Projeto pessoal",
-      "tools": "After Effects, Cinema 4D",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Motion design",
-        "en": "Motion design"
-      },
-      "title": {
-        "pt": "Ruído Branco",
-        "en": "White Noise"
-      },
-      "desc": {
-        "pt": "Peça de motion design com tipografia cinética e transições em glitch. Explora textura, grão e a estética analógica do VHS.",
-        "en": "Motion design piece with kinetic typography and glitch transitions. Explores texture, grain and analog VHS aesthetics."
-      }
-    },
-    {
-      "id": "travessia",
-      "cat": "curta",
-      "year": 2025,
-      "duration": "05:30",
-      "client": "Estrada Filmes",
-      "tools": "Premiere Pro",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem",
-        "en": "Editing"
-      },
-      "title": {
-        "pt": "Travessia",
-        "en": "Crossing"
-      },
-      "desc": {
-        "pt": "Documentário de estrada seguindo um caminhoneiro por três estados. Montagem observacional, luz natural e planos-sequência longos.",
-        "en": "A road documentary following a truck driver across three states. Observational editing, natural light and long takes."
-      }
-    },
-    {
-      "id": "marca",
-      "cat": "inst",
-      "year": 2024,
-      "duration": "02:10",
-      "client": "Grupo Vértice",
-      "tools": "Premiere Pro, After Effects",
-      "video": "",
-      "thumb": "auto",
-      "role": {
-        "pt": "Montagem & motion",
-        "en": "Editing & motion"
-      },
-      "title": {
-        "pt": "Marca Viva",
-        "en": "Living Brand"
-      },
-      "desc": {
-        "pt": "Manifesto de marca com narração e montagem de alto impacto. Combina imagens de arquivo, motion e captação original.",
-        "en": "Brand manifesto with narration and high-impact editing. Blends archival footage, motion graphics and original capture."
+        "pt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.",
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum."
       }
     },
     {
@@ -377,21 +222,21 @@
       "cat": "doc",
       "year": 2022,
       "duration": "15:38",
-      "client": "Rafael Romão",
-      "tools": "After Effects, Cinema 4D",
+      "client": "Miragem Produtora",
+      "tools": "Adobe Premiere Pro",
       "video": "https://player.mediadelivery.net/play/698856/31473024-aa39-4688-9ced-c06cc37df6d5",
-      "thumb": "https://vz-1104b846-a66.b-cdn.net/31473024-aa39-4688-9ced-c06cc37df6d5/thumbnail_8137b2c0.jpg",
+      "thumb": "auto",
       "role": {
-        "pt": "Motion & abertura",
-        "en": "Motion & titles"
+        "pt": "Som Direto, Montagem, Color Grading",
+        "en": "Production Sound, Editing, Color Grading"
       },
       "title": {
         "pt": "As Fibras do Mundo",
         "en": "Fibers of the World"
       },
       "desc": {
-        "pt": "Abertura animada para série documental. Sistema visual baseado em ondas sonoras, com animação por keyframes e trilha original.",
-        "en": "Animated title sequence for a documentary series. A visual system built on sound waves, keyframe animation and an original score."
+        "pt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\nFicha Técnica:\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira",
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\nFicha Técnica:\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira"
       }
     }
   ]
