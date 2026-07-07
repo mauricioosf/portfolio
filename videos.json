@@ -372,20 +372,20 @@
     },
     {
       "id": "frequencia",
-      "cat": "sound",
-      "year": 2023,
-      "duration": "01:20",
-      "client": "Canal Onda",
+      "cat": "doc",
+      "year": 2022,
+      "duration": "15:38",
+      "client": "Rafael Romão",
       "tools": "After Effects, Cinema 4D",
-      "video": "",
+      "video": "https://youtu.be/aGAxLpjkwfs",
       "thumb": "auto",
       "role": {
         "pt": "Motion & abertura",
         "en": "Motion & titles"
       },
       "title": {
-        "pt": "Frequência",
-        "en": "Frequency"
+        "pt": "As Fibras do Mundo",
+        "en": "Fibers of the World"
       },
       "desc": {
         "pt": "Abertura animada para série documental. Sistema visual baseado em ondas sonoras, com animação por keyframes e trilha original.",
