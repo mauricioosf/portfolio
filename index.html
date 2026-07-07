@@ -245,7 +245,7 @@
           <sc-for list="{{ sel.fichaRows }}" as="row" hint-placeholder-count="6">
             <div style="display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
               <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8A8478;">{{ row.k }}</span>
-              <span style="font-size:14px;color:#ECE7DE;text-align:right;">{{ row.v }}</span>
+              {{ row.vEl }}
             </div>
           </sc-for>
         </div>
@@ -430,14 +430,23 @@ function thumbFor(v, ws, bunnyHost) {
   if (p.bid && bunnyHost) return 'https://' + bunnyHost + '/' + p.bid + '/thumbnail.jpg';
   return 'https://picsum.photos/seed/' + v.id + '/1200/675';
 }
-// Convert plain text to safe HTML: escape, then **bold** → <strong>. Line breaks are kept via white-space:pre-line.
+// Convert plain text to safe HTML: escape, then [text](url) → link and **bold** → <strong>. Line breaks kept via white-space:pre-line.
 function richHtml(str) {
   const esc = (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  return esc.replace(/\*\*([^*]+?)\*\*/g, '<strong style="color:#ECE7DE;font-weight:600;">$1</strong>');
+  return esc
+    .replace(/\[([^\]]+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#D9A441;text-decoration:none;border-bottom:1px solid rgba(217,164,65,0.4);">$1</a>')
+    .replace(/\*\*([^*]+?)\*\*/g, '<strong style="color:#ECE7DE;font-weight:600;">$1</strong>');
 }
 function descEl(str) {
   return React.createElement('p', {
     style: { fontSize: '17px', lineHeight: 1.85, color: '#B4AEA3', margin: 0, maxWidth: '640px', whiteSpace: 'pre-line' },
+    dangerouslySetInnerHTML: { __html: richHtml(str) },
+  });
+}
+// Inline rich text (no line-break handling) for the sidebar ficha rows.
+function inlineEl(str) {
+  return React.createElement('span', {
+    style: { fontSize: '14px', color: '#ECE7DE', textAlign: 'right' },
     dangerouslySetInnerHTML: { __html: richHtml(str) },
   });
 }
@@ -528,7 +537,10 @@ class Component extends DCLogic {
     const overlayBase = 'position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(0deg, rgba(8,8,9,0.92), rgba(8,8,9,0.3));transition:opacity .35s;opacity:';
 
     const DATA = this.state.data || DEFAULT_DATA;
-    const PROJECTS = DATA.projects || [];
+    // Only show real projects once videos.json has loaded — avoids a flash of
+    // placeholder images from the fallback data on first paint.
+    const dataReady = !!this.state.data;
+    const PROJECTS = dataReady ? (DATA.projects || []) : [];
     const GWS = DATA.gumletWorkspace || '';
     const BHOST = DATA.bunnyHost || '';
     const sort = this.state.sort;
@@ -615,7 +627,9 @@ class Component extends DCLogic {
         { k: t.fClient, v: s.client },
         { k: t.fRole, v: sel.role },
         { k: t.fTools, v: s.tools },
-      ];
+      ].filter(function (r) { return r.v; }).map(function (r) {
+        return { k: r.k, vEl: inlineEl(r.v) };
+      });
     } else {
       sel = { posterId: '', year: '', duration: '', title: '', desc: '', descEl: null, catLabel: '', accent: '#D9A441', poster: '', client: '', role: '', tools: '', metaLine: '', fichaRows: [], embed: '', hasVideo: false, playing: false, showPoster: false };
     }
