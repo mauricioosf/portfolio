@@ -251,7 +251,7 @@
       root.innerHTML =
         '<style>' + stylesheet + '</style>' +
         '<div class="frame" part="frame">' +
-        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <img part="image" alt="" draggable="false" loading="lazy" decoding="async" style="display:none;opacity:0;transition:opacity .45s ease">' +
         '  <div class="empty" part="empty">' + icon +
         '    <div class="cap"></div>' +
         '    <div class="sub">or <u>browse files</u></div></div>' +
@@ -640,8 +640,14 @@
       // the display:flex / display:block rules in the stylesheet above.
       if (url) {
         if (this._img.getAttribute('src') !== url) {
+          this._img.style.opacity = '0';
+          const fadeIn = () => { this._img.style.opacity = '1'; };
+          this._img.onload = fadeIn;
           this._img.src = url;
           this._ghost.src = url;
+          if (this._img.complete && this._img.naturalWidth) fadeIn();
+        } else {
+          this._img.style.opacity = '1';
         }
         this._img.style.display = 'block';
         this._empty.style.display = 'none';

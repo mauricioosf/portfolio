@@ -196,72 +196,6 @@
   },
   "projects": [
     {
-      "id": "ordenha-na-fazenda-candeia",
-      "cat": "inst",
-      "year": 2025,
-      "duration": "04:54",
-      "client": "Fazenda Candeia",
-      "tools": "Premiere Pro, After Effects",
-      "video": "https://player.mediadelivery.net/play/698884/86ca8500-4ea0-4225-b1b7-2458a6ee7a35",
-      "thumb": "https://vz-892d060b-7a1.b-cdn.net/86ca8500-4ea0-4225-b1b7-2458a6ee7a35/thumbnail_b6c1a655.jpg",
-      "role": {
-        "pt": "Montagem, Color Grading, Motion Design",
-        "en": "Editing, Color Grading, Motion Design"
-      },
-      "title": {
-        "pt": "Ordenha na Fazenda Candeia",
-        "en": "Ordenha na Fazenda Candeia (Milking at Candeia Farm)"
-      },
-      "desc": {
-        "pt": "Ordenha na Fazenda Candeia é um vídeo institucional que documenta, em detalhes, o processo completo de ordenha na fazenda. Narrado por Diego, colaborador responsável pela atividade, o filme acompanha todas as etapas da operação, desde a higienização dos equipamentos até o retorno dos animais ao confinamento, passando pelos testes de qualidade do leite, pelas práticas de bem-estar animal e pelo manejo sustentável dos resíduos. O resultado é um registro do cuidado técnico, operacional e humano que sustenta a produção leiteira no dia a dia da Fazenda Candeia.",
-        "en": "Milking at Candeia Farm is an institutional film that documents, in detail, the farm's complete milking process. Narrated by Diego, the employee responsible for the operation, the film follows every stage of the workflow, from equipment sanitation to the cows' return to the barn, while also showcasing milk quality testing, animal welfare practices, and the sustainable management of agricultural waste. The result is a comprehensive record of the technical expertise, operational care, and human dedication that underpin dairy production at Fazenda Candeia."
-      }
-    },
-    {
-      "id": "chegada-do-tupa",
-      "cat": "inst",
-      "year": 2025,
-      "duration": "02:49",
-      "client": "Centros de Fauna Trijunção",
-      "tools": "Premiere Pro, After Effects",
-      "video": "https://player.mediadelivery.net/play/698884/4533c8d8-917e-4070-b504-55714d60f2a5",
-      "thumb": "https://vz-892d060b-7a1.b-cdn.net/4533c8d8-917e-4070-b504-55714d60f2a5/thumbnail_33394620.jpg",
-      "role": {
-        "pt": "Montagem, Color Grading, Motion Design",
-        "en": "Editing, Color Grading, Motion Design"
-      },
-      "title": {
-        "pt": "Chegada do Tupã",
-        "en": "Chegada do Tupã (Tupã's Arrival)"
-      },
-      "desc": {
-        "pt": "Chegada do Tupã é um vídeo institucional produzido para o Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã ao Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
-        "en": "Tupã's Arrival is an institutional film produced for the Centros de Fauna da Trijunção that documents the arrival of the maned wolf Tupã at the conservation center following his rescue. Featuring footage captured by the team itself, the film tells his story, highlights the collaborative work of institutions dedicated to the conservation of Brazilian wildlife, and emphasizes the importance of care, rehabilitation, and conservation in ensuring the survival of the species."
-      }
-    },
-    {
-      "id": "bicudos-da-trijuncao",
-      "cat": "inst",
-      "year": 2026,
-      "duration": "05:01",
-      "client": "Centros de Fauna Trijunção",
-      "tools": "Premiere Pro, After Effects",
-      "video": "https://player.mediadelivery.net/play/698884/d764e17d-970f-4615-a28e-709dab1548ce",
-      "thumb": "https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg",
-      "role": {
-        "pt": "Montagem, Color Grading, Motion Design",
-        "en": "Editing, Color Grading, Motion Design"
-      },
-      "title": {
-        "pt": "Bicudos da Trijunção",
-        "en": "Bicudos da Trijunção (Trijunção's Seedeaters)"
-      },
-      "desc": {
-        "pt": "Bicudos da Trijunção é um vídeo institucional produzido para o Centro de Fauna da Trijunção que documenta o projeto de reintrodução do bicudo, uma das aves mais ameaçadas do Brasil. Com imagens captadas pelos próprios colaboradores da equipe, o filme registra os primeiros marcos da iniciativa e revela o trabalho de conservação desenvolvido em parceria com instituições de pesquisa para devolver a espécie ao seu habitat natural.",
-        "en": "Trijunção's Seedeaters is an institutional film produced for the Centros de Fauna Trijunção, documenting the reintroduction project of the Bicudos, one of Brazil's most endangered bird species. Featuring footage captured by the wildlife team itself, the film chronicles the project's first milestones and showcases the conservation efforts carried out in partnership with research institutions to help restore the species to its natural habitat."
-      }
-    },
-    {
       "id": "janelas",
       "cat": "curta",
       "year": 2022,
@@ -279,8 +213,8 @@
         "en": "Windows"
       },
       "desc": {
-        "pt": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
-        "en": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva"
+        "pt": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
+        "en": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva"
       }
     },
     {
@@ -293,8 +227,8 @@
       "video": "https://player.mediadelivery.net/play/698884/9060a29f-e306-49f7-9e21-2882607406d4",
       "thumb": "https://vz-892d060b-7a1.b-cdn.net/9060a29f-e306-49f7-9e21-2882607406d4/thumbnail_30a31e98.jpg",
       "role": {
-        "pt": "Montagem, Color Grading, Finalização",
-        "en": "Editing, Color Grading, Post-Production Finishing"
+        "pt": "Decupagem, Montagem, Finalização",
+        "en": "Shot Logging, Editing, Post-Production Finishing"
       },
       "title": {
         "pt": "Espírito do Mar",
@@ -323,8 +257,8 @@
         "en": "Fibers of the World"
       },
       "desc": {
-        "pt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira",
-        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira"
+        "pt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira",
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed mauris ante. Maecenas sagittis bibendum urna eget tincidunt. Fusce pretium massa quis fermentum malesuada. Ut suscipit id ex ut iaculis. Curabitur ac justo malesuada, convallis ligula nec, egestas nibh. Maecenas tellus sem, aliquam id nunc vitae, fermentum sodales sem. Vivamus suscipit mi sit amet fringilla finibus.\n\nVestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Ficha Técnica:**\n\nEntrevistado - Luiz Paulo Vieira\nDireção - Diana Seelaender\nRoteiro - Diana Seelaender e Maria Clara Franco\nAssistência de Roteiro - Talles Nunes e Thiago Pereira\nProdução - Diana Seelaender e Helena Duclos\nDireção de Fotografia - Luzia Simi, Pedro Paiva, Ton Gadioli\nCâmera - Luzia Simi e Ton Gadioli\nDireção de Arte - Matheus du Bocage\nMontagem e Colorização - Mauricio Ferreira\nSom Direto - Eduardo Rodrigues e Mauricio Ferreira"
       }
     }
   ]
