@@ -196,9 +196,31 @@
   },
   "projects": [
     {
+      "id": "ordenha-na-fazenda-candeia",
+      "cat": "inst",
+      "year": 2025,
+      "duration": "04:54",
+      "client": "Fazenda Candeia",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/86ca8500-4ea0-4225-b1b7-2458a6ee7a35",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/86ca8500-4ea0-4225-b1b7-2458a6ee7a35/thumbnail_b6c1a655.jpg",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Ordenha na Fazenda Candeia",
+        "en": "Ordenha na Fazenda Candeia (Milking at Candeia Farm)"
+      },
+      "desc": {
+        "pt": "Ordenha na Fazenda Candeia é um vídeo institucional que documenta, em detalhes, o processo completo de ordenha na fazenda. Narrado por Diego, colaborador responsável pela atividade, o filme acompanha todas as etapas da operação, desde a higienização dos equipamentos até o retorno dos animais ao confinamento, passando pelos testes de qualidade do leite, pelas práticas de bem-estar animal e pelo manejo sustentável dos resíduos. O resultado é um registro do cuidado técnico, operacional e humano que sustenta a produção leiteira no dia a dia da Fazenda Candeia.",
+        "en": "Milking at Candeia Farm is an institutional film that documents, in detail, the farm's complete milking process. Narrated by Diego, the employee responsible for the operation, the film follows every stage of the workflow, from equipment sanitation to the cows' return to the barn, while also showcasing milk quality testing, animal welfare practices, and the sustainable management of agricultural waste. The result is a comprehensive record of the technical expertise, operational care, and human dedication that underpin dairy production at Fazenda Candeia."
+      }
+    },
+    {
       "id": "chegada-do-tupa",
       "cat": "inst",
-      "year": 2026,
+      "year": 2025,
       "duration": "02:49",
       "client": "Centros de Fauna Trijunção",
       "tools": "Premiere Pro, After Effects",
@@ -214,7 +236,7 @@
       },
       "desc": {
         "pt": "Chegada do Tupã é um vídeo institucional produzido para o Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã ao Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
-        "en": "Chegada do Tupã is an institutional film produced for the Centros de Fauna da Trijunção that documents the arrival of the maned wolf Tupã at the conservation center following his rescue. Featuring footage captured by the team itself, the film tells his story, highlights the collaborative work of institutions dedicated to the conservation of Brazilian wildlife, and emphasizes the importance of care, rehabilitation, and conservation in ensuring the survival of the species."
+        "en": "Tupã's Arrival is an institutional film produced for the Centros de Fauna da Trijunção that documents the arrival of the maned wolf Tupã at the conservation center following his rescue. Featuring footage captured by the team itself, the film tells his story, highlights the collaborative work of institutions dedicated to the conservation of Brazilian wildlife, and emphasizes the importance of care, rehabilitation, and conservation in ensuring the survival of the species."
       }
     },
     {
