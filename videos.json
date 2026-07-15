@@ -196,6 +196,28 @@
   },
   "projects": [
     {
+      "id": "colheita-de-milho-na-fazenda-candeia",
+      "cat": "inst",
+      "year": 2025,
+      "duration": "02:13",
+      "client": "Fazenda Candeia",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/85baa5d5-f34b-4027-a910-ba6e54174238",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/85baa5d5-f34b-4027-a910-ba6e54174238/thumbnail_3cb32975.jpg",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Colheita de Milho na Fazenda Candeia",
+        "en": "Corn Harvest at Fazenda Candeia"
+      },
+      "desc": {
+        "pt": "Colheita de Milho na Fazenda Candeia é um vídeo institucional que apresenta, pela voz de Bianca, a estratégia nutricional da fazenda para o rebanho. O vídeo fala sobre o ciclo do plantio do milho até o processo de ensilagem, que permite armazenar o alimento por até dois anos e garantir a nutrição dos animais em qualquer época, seca ou chuvosa. Também apresenta a expansão da área de plantio em Cunha, refletindo o planejamento da fazenda para acompanhar o crescimento do rebanho.",
+        "en": "Corn Harvest at Fazenda Candeia is an institutional video that presents, through Bianca's voice, the farm's nutritional strategy for its herd. The video covers the cycle from corn planting through the silage process, which allows the feed to be stored for up to two years and ensures the animals' nutrition year round, whether in the dry or rainy season. It also showcases the expansion of the planting area in Cunha, reflecting the farm's planning to keep pace with the herd's growth."
+      }
+    },
+    {
       "id": "ordenha-na-fazenda-candeia",
       "cat": "inst",
       "year": 2025,
@@ -210,11 +232,11 @@
       },
       "title": {
         "pt": "Ordenha na Fazenda Candeia",
-        "en": "Ordenha na Fazenda Candeia (Milking at Candeia Farm)"
+        "en": "Milking at Fazenda Candeia"
       },
       "desc": {
         "pt": "Ordenha na Fazenda Candeia é um vídeo institucional que documenta, em detalhes, o processo completo de ordenha na fazenda. Narrado por Diego, colaborador responsável pela atividade, o filme acompanha todas as etapas da operação, desde a higienização dos equipamentos até o retorno dos animais ao confinamento, passando pelos testes de qualidade do leite, pelas práticas de bem-estar animal e pelo manejo sustentável dos resíduos. O resultado é um registro do cuidado técnico, operacional e humano que sustenta a produção leiteira no dia a dia da Fazenda Candeia.",
-        "en": "Milking at Candeia Farm is an institutional film that documents, in detail, the farm's complete milking process. Narrated by Diego, the employee responsible for the operation, the film follows every stage of the workflow, from equipment sanitation to the cows' return to the barn, while also showcasing milk quality testing, animal welfare practices, and the sustainable management of agricultural waste. The result is a comprehensive record of the technical expertise, operational care, and human dedication that underpin dairy production at Fazenda Candeia."
+        "en": "Milking at Fazenda Candeia is an institutional film that documents, in detail, the farm's complete milking process. Narrated by Diego, the employee responsible for the operation, the film follows every stage of the workflow, from equipment sanitation to the cows' return to the barn, while also showcasing milk quality testing, animal welfare practices, and the sustainable management of agricultural waste. The result is a comprehensive record of the technical expertise, operational care, and human dedication that underpin dairy production at Fazenda Candeia."
       }
     },
     {
@@ -232,7 +254,7 @@
       },
       "title": {
         "pt": "Chegada do Tupã",
-        "en": "Chegada do Tupã (Tupã's Arrival)"
+        "en": "Tupã's Arrival"
       },
       "desc": {
         "pt": "Chegada do Tupã é um vídeo institucional produzido para o Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã ao Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
@@ -254,7 +276,7 @@
       },
       "title": {
         "pt": "Bicudos da Trijunção",
-        "en": "Bicudos da Trijunção (Trijunção's Seedeaters)"
+        "en": "Trijunção's Seedeaters"
       },
       "desc": {
         "pt": "Bicudos da Trijunção é um vídeo institucional produzido para o Centro de Fauna da Trijunção que documenta o projeto de reintrodução do bicudo, uma das aves mais ameaçadas do Brasil. Com imagens captadas pelos próprios colaboradores da equipe, o filme registra os primeiros marcos da iniciativa e revela o trabalho de conservação desenvolvido em parceria com instituições de pesquisa para devolver a espécie ao seu habitat natural.",
