@@ -239,11 +239,11 @@
         </div>
 
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (PT) <span style="color:#5F5A50;">— uma por linha: ano | cargo | lugar | texto extra</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (PT) <span style="color:#5F5A50;">— uma por linha: ano | cargo | lugar | texto extra · use <b style="color:#D9A441;">//</b> para pular parágrafo dentro do texto</span></label>
           <textarea name="timeline_pt" value="{{ af.timeline_pt }}" onInput="{{ onAbout }}" rows="4" placeholder="2022–25 | Editor sênior — Estúdio X | Marcas & documentário | Detalhes que aparecem ao expandir" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.timeline_pt }}</textarea>
         </div>
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | role | place | extra text</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | role | place | extra text · <b style="color:#D9A441;">//</b> = novo parágrafo</span></label>
           <textarea name="timeline_en" value="{{ af.timeline_en }}" onInput="{{ onAbout }}" rows="4" placeholder="2022–25 | Senior editor — Studio X | Brands & documentary | Details shown when expanded" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.timeline_en }}</textarea>
         </div>
 
@@ -299,27 +299,34 @@ function isBlank(v) {
   if (typeof v === 'object') return Object.keys(v).every(k => isBlank(v[k]));
   return false;
 }
+function stampOf(d) {
+  d = d || {};
+  return JSON.stringify({
+    email: d.email || '', whatsapp: d.whatsapp || '', linkedin: d.linkedin || '',
+    bunnyHost: d.bunnyHost || '', about: d.about || {},
+  });
+}
+
 function mergeData(saved, file) {
   if (!file) return saved;
   const out = Object.assign({}, file, saved);
   for (const k of Object.keys(file)) if (isBlank(out[k])) out[k] = file[k];
   // Projects: the local working copy is the user's own newer work, so it wins.
   out.projects = (saved.projects && saved.projects.length) ? saved.projects : (file.projects || []);
-  // About: whichever side changed last wins. _aboutBase records the videos.json
-  // "about" that this browser last saw, so a file edited afterwards takes over,
-  // while local edits made on top of an unchanged file are preserved.
-  const fileAbout = file.about || {};
-  const fileStamp = JSON.stringify(fileAbout);
-  const fileChanged = saved._aboutBase === undefined || saved._aboutBase !== fileStamp;
-  if (fileChanged || !saved.about) {
-    out.about = fileAbout;
+  // Contact scalars + about: whichever side changed last wins. _baseStamp records
+  // the videos.json values this browser last saw, so a file edited afterwards
+  // takes over, while local edits on top of an unchanged file are preserved.
+  const fileStamp = stampOf(file);
+  const fileChanged = saved._baseStamp === undefined || saved._baseStamp !== fileStamp;
+  if (fileChanged) {
+    out.email = file.email || '';
+    out.whatsapp = file.whatsapp || '';
+    out.linkedin = file.linkedin || '';
+    out.bunnyHost = file.bunnyHost || '';
+    out.about = file.about || {};
     out._aboutStale = true;
-  } else {
-    const about = Object.assign({}, fileAbout, saved.about);
-    for (const k of Object.keys(fileAbout)) if (isBlank(about[k])) about[k] = fileAbout[k];
-    out.about = about;
   }
-  out._aboutBase = fileStamp;
+  out._baseStamp = fileStamp;
   return out;
 }
 
@@ -337,9 +344,12 @@ function flattenAbout(a) {
     else arr = [];
     return arr.join(', ');
   };
+  // Inside a single-line row, `//` stands in for a paragraph break so the user
+  // can't split the row by pressing Enter.
+  const encodeBreaks = (s) => String(s || '').replace(/\n{2,}/g, ' // ').replace(/\n/g, ' // ');
   const rowsStr = (arr, lang, withDetail) => (arr || []).map(t => {
     const parts = [t.year || '', pl(t.role, lang), pl(t.place, lang)];
-    if (withDetail) parts.push(pl(t.detail, lang));
+    if (withDetail) parts.push(encodeBreaks(pl(t.detail, lang)));
     return parts.join(' | ');
   }).join('\n');
   // migrate legacy bio1/bio2 into a single bio field
@@ -366,6 +376,8 @@ function buildAbout(f) {
   const pair = (pt, en) => ({ pt: pt || '', en: en || pt || '' });
   const list = (s) => (s || '').split(',').map(x => x.trim()).filter(Boolean);
   const cells = (s) => (s || '').split('\n').map(l => l.split('|').map(x => x.trim()));
+  // `//` typed in a detail cell becomes a real paragraph break on the site.
+  const decodeBreaks = (s) => String(s || '').split(/(?:^|\s)\/\/(?:\s|$)/).map(x => x.trim()).filter(Boolean).join('\n\n');
   // build bilingual rows: PT lines drive count + year; EN lines matched by index, fall back to PT
   const rowsBi = (ptStr, enStr, withDetail) => {
     const pRows = cells(ptStr), eRows = cells(enStr), out = [];
@@ -374,7 +386,7 @@ function buildAbout(f) {
       const has = p[0] || p[1] || p[2] || (withDetail && p[3]);
       if (!has) continue;
       const row = { year: p[0] || '', role: pair(p[1], e[1]), place: pair(p[2], e[2]) };
-      if (withDetail) row.detail = pair(p[3], e[3]);
+      if (withDetail) row.detail = pair(decodeBreaks(p[3]), decodeBreaks(e[3]));
       out.push(row);
     }
     return out;
@@ -419,8 +431,8 @@ class Component extends DCLogic {
       email: d.email || '', whatsapp: d.whatsapp || '', linkedin: d.linkedin || '', bunnyHost: d.bunnyHost || '',
       projects: d.projects || [],
       aboutForm: flattenAbout(d.about),
-      aboutBase: d._aboutBase !== undefined ? d._aboutBase : JSON.stringify(d.about || {}),
-      saved: d._aboutStale ? 'Sobre atualizado a partir do videos.json' : '',
+      aboutBase: d._baseStamp !== undefined ? d._baseStamp : stampOf(d),
+      saved: d._aboutStale ? 'Dados atualizados a partir do videos.json' : '',
       loaded: true,
     });
     if (d._aboutStale) setTimeout(() => this.setState({ saved: '' }), 4000);
@@ -447,7 +459,7 @@ class Component extends DCLogic {
       linkedin: next.linkedin !== undefined ? next.linkedin : this.state.linkedin,
       bunnyHost: next.bunnyHost !== undefined ? next.bunnyHost : this.state.bunnyHost,
       about: buildAbout(next.aboutForm !== undefined ? next.aboutForm : this.state.aboutForm),
-      _aboutBase: this.state.aboutBase || '',
+      _baseStamp: this.state.aboutBase || '',
       projects: next.projects !== undefined ? next.projects : this.state.projects,
     };
     try { localStorage.setItem('portfolioAdminData', JSON.stringify(data)); } catch (e) {}
