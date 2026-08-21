@@ -153,6 +153,7 @@
         <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:260px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
         <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:22px;">
           <div>{{ aboutBased }}</div>
+          <div>{{ aboutAge }}</div>
           <div>{{ aboutExp }}</div>
           <div>{{ t.assocLabel }} <a href="https://www.instagram.com/edt.br/" target="_blank" rel="noopener" style="color:#D9A441;text-decoration:none;border-bottom:1px solid rgba(217,164,65,0.35);transition:border-color .2s;" style-hover="border-color:#D9A441;">@edt.br</a></div>
         </div>
@@ -885,6 +886,7 @@ class Component extends DCLogic {
       aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
       aboutBio: pick(ab.bio),
       aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
+      aboutAge: pick(ab.age) || (L === 'pt' ? '28 anos' : '28 years old'),
       aboutPositioning: pick(ab.positioning),
       aboutAvailability: pick(ab.availability),
       hasPositioning: !!pick(ab.positioning),
