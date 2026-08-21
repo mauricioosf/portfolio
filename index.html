@@ -156,18 +156,18 @@
           <div>{{ aboutExp }}</div>
           <div>{{ t.assocLabel }} <a href="https://www.instagram.com/edt.br/" target="_blank" rel="noopener" style="color:#D9A441;text-decoration:none;border-bottom:1px solid rgba(217,164,65,0.35);transition:border-color .2s;" style-hover="border-color:#D9A441;">@edt.br</a></div>
         </div>
-        <sc-if value="{{ hasAvailability }}" hint-placeholder-val="{{ true }}">
-          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.availLabel }}</div>
-          <div style="font-size:14px;line-height:1.7;color:#D8D2C7;margin:0 auto 34px;max-width:260px;text-wrap:pretty;">{{ aboutAvailability }}</div>
-        </sc-if>
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.skillsLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-indent:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.skillsLabel }}</div>
         <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
           <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ s }}</div>
         </sc-for>
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin:30px 0 10px;">{{ t.toolsLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-indent:4px;text-transform:uppercase;color:#D9A441;margin:30px 0 10px;">{{ t.toolsLabel }}</div>
         <sc-for list="{{ tools }}" as="tl" hint-placeholder-count="4">
           <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ tl }}</div>
         </sc-for>
+        <sc-if value="{{ hasAvailability }}" hint-placeholder-val="{{ true }}">
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-indent:4px;text-transform:uppercase;color:#D9A441;margin:30px 0 10px;">{{ t.availLabel }}</div>
+          <div style="font-size:14px;line-height:1.7;color:#D8D2C7;margin:0 auto;max-width:260px;text-wrap:pretty;">{{ aboutAvailability }}</div>
+        </sc-if>
       </div>
       <!-- RIGHT -->
       <div>
@@ -583,9 +583,13 @@ class Component extends DCLogic {
   }
 
   // Copy the current project's direct link to the clipboard.
-  shareProject() {
-    if (typeof window === 'undefined' || !this.state.selected) return;
-    if (window.location.hash.indexOf('projeto/') === -1) this.setHash(this.state.selected.id);
+  shareProject(kind) {
+    if (typeof window === 'undefined') return;
+    if (kind === 'about') { this.setHash('about'); }
+    else {
+      if (!this.state.selected) return;
+      if (window.location.hash.indexOf('projeto/') === -1) this.setHash(this.state.selected.id);
+    }
     const url = window.location.href;
     const done = () => { this.setState({ copied: true }); if (this._copyT) clearTimeout(this._copyT); this._copyT = setTimeout(() => this.setState({ copied: false }), 2000); };
     try {
@@ -598,23 +602,29 @@ class Component extends DCLogic {
   // shareable direct link (…#projeto/<id>). Also reads the hash on load.
   applyHash() {
     if (typeof window === 'undefined') return;
-    const m = (window.location.hash || '').match(/projeto\/([\w-]+)/);
+    const h = window.location.hash || '';
+    const m = h.match(/projeto\/([\w-]+)/);
     const wantId = m ? m[1] : null;
+    const wantAbout = /^#(sobre|about)$/.test(h);
     const list = (this.state.data && this.state.data.projects) || [];
     if (wantId) {
       if (this.state.selected && this.state.selected.id === wantId) return;
       const v = list.find(p => p.id === wantId);
       if (v) { this.openProject(v, true); return; }
-      // hash points at a project but data isn't ready yet — wait for load
       if (!this.state.data) return;
     }
-    // no project in hash → make sure detail is closed
+    if (wantAbout) {
+      if (this.state.selected) this.closeProject(true);
+      if (this.state.page !== 'about') this.goto('about', true);
+      return;
+    }
+    if (this.state.page === 'about') this.goto('home', true);
     if (this.state.selected) this.closeProject(true);
   }
 
   setHash(id) {
     if (typeof window === 'undefined') return;
-    const target = id ? ('#projeto/' + id) : '';
+    const target = id ? (id === 'about' ? '#sobre' : '#projeto/' + id) : '';
     if (id) {
       if (window.location.hash !== target) window.location.hash = target;
     } else if (window.location.hash) {
@@ -676,7 +686,7 @@ class Component extends DCLogic {
   openProject(v, fromHash) { if (!fromHash) this.setHash(v.id); this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
   closeProject(fromHash) { if (!fromHash) this.setHash(null); this.lockScroll(false); this.setState({ selected: null, playing: false }); }
 
-  goto(page) { this.setHash(null); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+  goto(page, fromHash) { if (!fromHash) this.setHash(page === 'about' ? 'about' : null); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
 
   renderVals() {
     const L = this.state.lang;
@@ -832,7 +842,8 @@ class Component extends DCLogic {
     const ab = Object.assign({}, ABOUT_DEFAULT, DATA.about || {});
     const pick = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[L] || v.pt || '') : (v || '');
     const listL = (v) => { if (Array.isArray(v)) return v; if (v && typeof v === 'object') return (v[L] && v[L].length) ? v[L] : (v.pt || []); return []; };
-    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: pick(r.detail), summary: pick(r.summary) }));
+    const unslash = (s) => String(s || '').split(/(?:^|\s)\/\/(?:\s|$)/).map(x => x.trim()).filter(Boolean).join('\n\n');
+    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: unslash(pick(r.detail)), summary: pick(r.summary) }));
     const aboutName = ab.name || 'Mauricio Ferreira';
     const aboutRole = pick(ab.role);
     const aboutSkills = (listL(ab.skills).length ? listL(ab.skills) : SKILLS[L]);
@@ -899,6 +910,7 @@ class Component extends DCLogic {
       shareCopied: this.state.copied,
       shareBtnStyle: "display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:2px;transition:all .2s;border:1px solid " + (this.state.copied ? '#D9A441' : 'rgba(236,231,222,0.22)') + ';background:' + (this.state.copied ? '#D9A441' : 'transparent') + ';color:' + (this.state.copied ? '#0A0A0B' : '#ECE7DE') + ';',
       doShare: () => this.shareProject(),
+      doShareAbout: () => this.shareProject('about'),
       navCats, catsStyle, worksLabelStyle, aboutColorFinal, aboutLinkStyle, langBtnStyle,
       showHeaderShare: !mob,
       showFooterShare: mob,
@@ -926,7 +938,7 @@ class Component extends DCLogic {
       leave: () => this.setState({ hovered: null }),
       worksOn: () => this.setState({ worksHover: true }),
       worksOff: () => this.setState({ worksHover: false }),
-      worksToggle: () => this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })),
+      worksToggle: () => { this.setHash(null); this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })); },
       stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
     };
   }
