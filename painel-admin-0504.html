@@ -32,6 +32,7 @@
     </div>
     <div style="display:flex;gap:10px;align-items:center;">
       <span style="font-family:'Space Mono',monospace;font-size:11px;color:#8A8478;">{{ countLabel }}</span>
+      <button onClick="{{ reloadFile }}" title="Descarta as alterações salvas neste navegador e recarrega o videos.json" style="cursor:pointer;background:transparent;border:1px solid rgba(236,231,222,0.22);color:#D8D2C7;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 14px;border-radius:3px;transition:border-color .2s,color .2s;" style-hover="border-color:#D9A441;color:#D9A441;">↻ Recarregar do arquivo</button>
       <button onClick="{{ download }}" style="cursor:pointer;background:#D9A441;border:0;color:#0A0A0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:11px 20px;border-radius:3px;white-space:nowrap;">↓ Baixar videos.json</button>
     </div>
   </div>
@@ -43,8 +44,8 @@
       <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;margin-bottom:16px;">Contato</div>
       <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">E-mail</label>
       <input name="email" value="{{ c.email }}" onInput="{{ onContact }}" placeholder="voce@dominio.com" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;margin-bottom:14px;">
-      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Instagram (link)</label>
-      <input name="instagram" value="{{ c.instagram }}" onInput="{{ onContact }}" placeholder="https://instagram.com/voce" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;margin-bottom:14px;">
+      <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">WhatsApp <span style="color:#5F5A50;">— só números, com DDI e DDD</span></label>
+      <input name="whatsapp" value="{{ c.whatsapp }}" onInput="{{ onContact }}" placeholder="5521996697004" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;margin-bottom:14px;">
       <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">LinkedIn (link)</label>
       <input name="linkedin" value="{{ c.linkedin }}" onInput="{{ onContact }}" placeholder="https://linkedin.com/in/voce" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
 
@@ -178,6 +179,15 @@
         </div>
 
         <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Frase de posicionamento (PT) <span style="color:#5F5A50;">— destaque no topo do Sobre</span></label>
+          <textarea name="pos_pt" value="{{ af.pos_pt }}" onInput="{{ onAbout }}" rows="2" placeholder="Uso a montagem para contar histórias de pessoas dentro de organizações." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.pos_pt }}</textarea>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Frase de posicionamento (EN)</label>
+          <textarea name="pos_en" value="{{ af.pos_en }}" onInput="{{ onAbout }}" rows="2" placeholder="I use editing to tell the stories of people inside organizations." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.pos_en }}</textarea>
+        </div>
+
+        <div>
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Bio (PT) <span style="color:#5F5A50;">— tecle Enter para pular parágrafo</span></label>
           <textarea name="bio_pt" value="{{ af.bio_pt }}" onInput="{{ onAbout }}" rows="7" placeholder="Sua história..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.bio_pt }}</textarea>
         </div>
@@ -188,21 +198,29 @@
 
         <div>
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Localização (PT)</label>
-          <input name="based_pt" value="{{ af.based_pt }}" onInput="{{ onAbout }}" placeholder="> Baseado em São Paulo, Brasil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <input name="based_pt" value="{{ af.based_pt }}" onInput="{{ onAbout }}" placeholder="Rio de Janeiro, Brasil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
         </div>
         <div>
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Localização (EN)</label>
-          <input name="based_en" value="{{ af.based_en }}" onInput="{{ onAbout }}" placeholder="> Based in São Paulo, Brazil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <input name="based_en" value="{{ af.based_en }}" onInput="{{ onAbout }}" placeholder="Rio de Janeiro, Brazil" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
         </div>
         <div>
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (PT)</label>
-          <input name="exp_pt" value="{{ af.exp_pt }}" onInput="{{ onAbout }}" placeholder="> 8 anos editando" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Anos de experiência (PT) <span style="color:#5F5A50;">— linha curta na coluna da esquerda</span></label>
+          <input name="exp_pt" value="{{ af.exp_pt }}" onInput="{{ onAbout }}" placeholder="6 anos editando" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
         </div>
         <div>
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN)</label>
-          <input name="exp_en" value="{{ af.exp_en }}" onInput="{{ onAbout }}" placeholder="> 8 years editing" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Anos de experiência (EN)</label>
+          <input name="exp_en" value="{{ af.exp_en }}" onInput="{{ onAbout }}" placeholder="6 years editing" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
         </div>
 
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Disponível para (PT) <span style="color:#5F5A50;">— aparece na coluna da esquerda</span></label>
+          <textarea name="avail_pt" value="{{ af.avail_pt }}" onInput="{{ onAbout }}" rows="2" placeholder="Aberto a freelances e projetos de documentário..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.avail_pt }}</textarea>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Disponível para (EN)</label>
+          <textarea name="avail_en" value="{{ af.avail_en }}" onInput="{{ onAbout }}" rows="2" placeholder="Open to freelance and documentary work..." style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.55;">{{ af.avail_en }}</textarea>
+        </div>
         <div>
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Especialidades (PT) <span style="color:#5F5A50;">— separe por vírgula</span></label>
           <input name="skills_pt" value="{{ af.skills_pt }}" onInput="{{ onAbout }}" placeholder="Montagem, Motion design, Color grading" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
@@ -230,20 +248,20 @@
         </div>
 
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação acadêmica (PT) <span style="color:#5F5A50;">— uma por linha: ano | curso | instituição</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação (PT) <span style="color:#5F5A50;">— uma por linha: ano | curso | instituição</span></label>
           <textarea name="education_pt" value="{{ af.education_pt }}" onInput="{{ onAbout }}" rows="3" placeholder="2015–18 | Cinema e Audiovisual | Universidade X" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.education_pt }}</textarea>
         </div>
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação acadêmica (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | course | institution</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | course | institution</span></label>
           <textarea name="education_en" value="{{ af.education_en }}" onInput="{{ onAbout }}" rows="3" placeholder="2015–18 | Film & Audiovisual | University X" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.education_en }}</textarea>
         </div>
 
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Licenças e certificados (PT) <span style="color:#5F5A50;">— uma por linha: ano | certificado | emissor</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação complementar (PT) <span style="color:#5F5A50;">— uma por linha: ano | curso | instituição · os 2 primeiros aparecem, o resto fica em “ver mais”</span></label>
           <textarea name="licenses_pt" value="{{ af.licenses_pt }}" onInput="{{ onAbout }}" rows="3" placeholder="2021 | DaVinci Resolve Certified | Blackmagic Design" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.licenses_pt }}</textarea>
         </div>
         <div style="grid-column:1 / -1;">
-          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Licenças e certificados (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | certificate | issuer</span></label>
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação complementar (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | course | institution</span></label>
           <textarea name="licenses_en" value="{{ af.licenses_en }}" onInput="{{ onAbout }}" rows="3" placeholder="2021 | DaVinci Resolve Certified | Blackmagic Design" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.licenses_en }}</textarea>
         </div>
 
@@ -271,7 +289,39 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 const EMPTY = { id:'', cat:'inst', year:'', duration:'', client:'', tools:'', video:'', thumb:'auto', title_pt:'', title_en:'', desc_pt:'', desc_en:'', role_pt:'', role_en:'' };
 const CAT_LABELS = { inst:'Institucional', doc:'Documentário', curta:'Curta', sound:'Sound design' };
-const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'' };
+const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', pos_pt:'', pos_en:'', avail_pt:'', avail_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'' };
+
+// The browser's working copy wins for anything it actually has, but any key it
+// never knew about (fields added to the site later) is filled from videos.json.
+function isBlank(v) {
+  if (v === undefined || v === null || v === '') return true;
+  if (Array.isArray(v)) return v.length === 0;
+  if (typeof v === 'object') return Object.keys(v).every(k => isBlank(v[k]));
+  return false;
+}
+function mergeData(saved, file) {
+  if (!file) return saved;
+  const out = Object.assign({}, file, saved);
+  for (const k of Object.keys(file)) if (isBlank(out[k])) out[k] = file[k];
+  // Projects: the local working copy is the user's own newer work, so it wins.
+  out.projects = (saved.projects && saved.projects.length) ? saved.projects : (file.projects || []);
+  // About: whichever side changed last wins. _aboutBase records the videos.json
+  // "about" that this browser last saw, so a file edited afterwards takes over,
+  // while local edits made on top of an unchanged file are preserved.
+  const fileAbout = file.about || {};
+  const fileStamp = JSON.stringify(fileAbout);
+  const fileChanged = saved._aboutBase === undefined || saved._aboutBase !== fileStamp;
+  if (fileChanged || !saved.about) {
+    out.about = fileAbout;
+    out._aboutStale = true;
+  } else {
+    const about = Object.assign({}, fileAbout, saved.about);
+    for (const k of Object.keys(fileAbout)) if (isBlank(about[k])) about[k] = fileAbout[k];
+    out.about = about;
+  }
+  out._aboutBase = fileStamp;
+  return out;
+}
 
 function flattenAbout(a) {
   a = a || {};
@@ -299,6 +349,8 @@ function flattenAbout(a) {
     name: a.name || '',
     portrait: a.portrait || '',
     role_pt: L(a.role), role_en: LE(a.role),
+    pos_pt: L(a.positioning), pos_en: LE(a.positioning),
+    avail_pt: L(a.availability), avail_en: LE(a.availability),
     bio_pt: bioPt, bio_en: bioEn,
     based_pt: L(a.based), based_en: LE(a.based),
     exp_pt: L(a.exp), exp_en: LE(a.exp),
@@ -331,6 +383,8 @@ function buildAbout(f) {
     name: f.name || '',
     portrait: f.portrait || '',
     role: pair(f.role_pt, f.role_en),
+    positioning: pair(f.pos_pt, f.pos_en),
+    availability: pair(f.avail_pt, f.avail_en),
     bio: pair(f.bio_pt, f.bio_en),
     based: pair(f.based_pt, f.based_en),
     exp: pair(f.exp_pt, f.exp_en),
@@ -350,7 +404,7 @@ function slugify(str) {
 
 class Component extends DCLogic {
   state = {
-    email: '', instagram: '', linkedin: '', bunnyHost: '',
+    email: '', whatsapp: '', linkedin: '', bunnyHost: '', aboutBase: '',
     projects: [],
     form: Object.assign({}, EMPTY),
     aboutForm: Object.assign({}, ABOUT_EMPTY),
@@ -362,31 +416,38 @@ class Component extends DCLogic {
 
   ingest(d) {
     this.setState({
-      email: d.email || '', instagram: d.instagram || '', linkedin: d.linkedin || '', bunnyHost: d.bunnyHost || '',
+      email: d.email || '', whatsapp: d.whatsapp || '', linkedin: d.linkedin || '', bunnyHost: d.bunnyHost || '',
       projects: d.projects || [],
       aboutForm: flattenAbout(d.about),
+      aboutBase: d._aboutBase !== undefined ? d._aboutBase : JSON.stringify(d.about || {}),
+      saved: d._aboutStale ? 'Sobre atualizado a partir do videos.json' : '',
       loaded: true,
     });
+    if (d._aboutStale) setTimeout(() => this.setState({ saved: '' }), 4000);
   }
 
   componentDidMount() {
-    // restore working copy from this browser if present
+    // Restore this browser's working copy, but fill any gap from videos.json:
+    // the saved copy may predate fields added to the site later.
     let restored = null;
     try { const raw = localStorage.getItem('portfolioAdminData'); if (raw) restored = JSON.parse(raw); } catch (e) {}
-    if (restored && restored.projects) { this.ingest(restored); return; }
     fetch('./videos.json')
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d && d.projects) this.ingest(d); else this.setState({ loaded: true }); })
-      .catch(() => this.setState({ loaded: true }));
+      .then(file => {
+        if (restored && restored.projects) { this.ingest(mergeData(restored, file)); return; }
+        if (file && file.projects) this.ingest(file); else this.setState({ loaded: true });
+      })
+      .catch(() => { if (restored && restored.projects) this.ingest(restored); else this.setState({ loaded: true }); });
   }
 
   persist(next) {
     const data = {
       email: next.email !== undefined ? next.email : this.state.email,
-      instagram: next.instagram !== undefined ? next.instagram : this.state.instagram,
+      whatsapp: next.whatsapp !== undefined ? next.whatsapp : this.state.whatsapp,
       linkedin: next.linkedin !== undefined ? next.linkedin : this.state.linkedin,
       bunnyHost: next.bunnyHost !== undefined ? next.bunnyHost : this.state.bunnyHost,
       about: buildAbout(next.aboutForm !== undefined ? next.aboutForm : this.state.aboutForm),
+      _aboutBase: this.state.aboutBase || '',
       projects: next.projects !== undefined ? next.projects : this.state.projects,
     };
     try { localStorage.setItem('portfolioAdminData', JSON.stringify(data)); } catch (e) {}
@@ -439,7 +500,7 @@ class Component extends DCLogic {
     const isEditing = st.editIndex >= 0;
 
     return {
-      c: { email: st.email, instagram: st.instagram, linkedin: st.linkedin },
+      c: { email: st.email, whatsapp: st.whatsapp, linkedin: st.linkedin },
       f: st.form,
       af: st.aboutForm,
       onAbout: (e) => {
@@ -498,7 +559,7 @@ class Component extends DCLogic {
       },
       download: () => {
         const out = {
-          email: st.email, instagram: st.instagram, linkedin: st.linkedin,
+          email: st.email, whatsapp: st.whatsapp, linkedin: st.linkedin,
           bunnyHost: st.bunnyHost || '',
           _ajuda: "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
           about: buildAbout(st.aboutForm),

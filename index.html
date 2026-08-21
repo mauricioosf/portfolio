@@ -149,17 +149,22 @@
   <main style="{{ aboutMainStyle }}">
     <div style="{{ aboutGridStyle }}">
       <!-- LEFT -->
-      <div>
-        <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="circle" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:220px;height:220px;border-radius:50%;border:1px solid rgba(236,231,222,0.15);display:block;margin:0 auto 34px;"></image-slot>
-        <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:34px;">
+      <div style="{{ aboutSidebarStyle }}">
+        <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:260px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
+        <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:22px;">
           <div>{{ aboutBased }}</div>
           <div>{{ aboutExp }}</div>
+          <div>{{ t.assocLabel }} <a href="https://www.instagram.com/edt.br/" target="_blank" rel="noopener" style="color:#D9A441;text-decoration:none;border-bottom:1px solid rgba(217,164,65,0.35);transition:border-color .2s;" style-hover="border-color:#D9A441;">@edt.br</a></div>
         </div>
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:12px;border-bottom:1px solid rgba(236,231,222,0.1);margin-bottom:12px;">{{ t.skillsLabel }}</div>
+        <sc-if value="{{ hasAvailability }}" hint-placeholder-val="{{ true }}">
+          <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.availLabel }}</div>
+          <div style="font-size:14px;line-height:1.7;color:#D8D2C7;margin:0 auto 34px;max-width:260px;text-wrap:pretty;">{{ aboutAvailability }}</div>
+        </sc-if>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.skillsLabel }}</div>
         <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
           <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ s }}</div>
         </sc-for>
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:12px;border-bottom:1px solid rgba(236,231,222,0.1);margin:30px 0 12px;">{{ t.toolsLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin:30px 0 10px;">{{ t.toolsLabel }}</div>
         <sc-for list="{{ tools }}" as="tl" hint-placeholder-count="4">
           <div style="font-size:14px;color:#D8D2C7;padding:4px 0;">{{ tl }}</div>
         </sc-for>
@@ -167,31 +172,36 @@
       <!-- RIGHT -->
       <div>
         <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:24px;">{{ t.aboutKicker }}</div>
-        <p style="font-size:17px;line-height:1.85;color:#B4AEA3;margin:0 0 58px;max-width:620px;white-space:pre-line;">{{ aboutBio }}</p>
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin-bottom:4px;">{{ t.expLabel }}</div>
-        <sc-for list="{{ timeline }}" as="row" hint-placeholder-count="3">
-          <div style="padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+        <sc-if value="{{ hasPositioning }}" hint-placeholder-val="{{ true }}">
+          <p style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(23px,2.5vw,32px);line-height:1.28;letter-spacing:-0.4px;color:#ECE7DE;margin:0 0 30px;max-width:620px;text-wrap:pretty;">{{ aboutPositioning }}</p>
+        </sc-if>
+        <p style="font-size:17px;line-height:1.85;color:#B4AEA3;margin:0 0 58px;max-width:620px;white-space:pre-line;text-wrap:pretty;">{{ aboutBio }}</p>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ t.expLabel }}</div>
+        <sc-for list="{{ timeline }}" as="row" hint-placeholder-count="2">
+          <div style="{{ row.rowStyle }}">
             <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;">
               <div>
-                <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+                <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
                 <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
               </div>
               <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
             </div>
             <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
               <div style="{{ row.detailStyle }}">
-                <p style="font-size:14px;line-height:1.7;color:#A8A297;margin:0;max-width:580px;white-space:pre-line;">{{ row.detail }}</p>
+                <div style="overflow:hidden;min-height:0;">
+                  <p style="font-size:13px;line-height:1.75;color:#A8A297;margin:0;max-width:580px;white-space:pre-line;text-wrap:pretty;">{{ row.detail }}</p>
+                </div>
               </div>
-              <span onClick="{{ row.toggle }}" style="display:inline-block;margin-top:10px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
+              <span onClick="{{ row.toggle }}" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
             </sc-if>
           </div>
         </sc-for>
         <sc-if value="{{ hasEducation }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin:44px 0 4px;">{{ t.eduLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin:48px 0 10px;">{{ t.eduLabel }}</div>
         <sc-for list="{{ education }}" as="row" hint-placeholder-count="2">
-          <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+          <div style="{{ row.rowStyle }}">
             <div>
-              <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+              <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
               <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
@@ -199,16 +209,32 @@
         </sc-for>
         </sc-if>
         <sc-if value="{{ hasLicenses }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;padding-bottom:16px;border-bottom:1px solid rgba(236,231,222,0.12);margin:44px 0 4px;">{{ t.certLabel }}</div>
-        <sc-for list="{{ licenses }}" as="row" hint-placeholder-count="2">
-          <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);">
+        <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin:48px 0 10px;">{{ t.certLabel }}</div>
+        <sc-for list="{{ certPreview }}" as="row" hint-placeholder-count="2">
+          <div style="{{ row.rowStyle }}">
             <div>
-              <div style="font-size:15px;color:#ECE7DE;margin-bottom:3px;">{{ row.role }}</div>
+              <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
               <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
           </div>
         </sc-for>
+        <sc-if value="{{ hasCertRest }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ certRestStyle }}">
+            <div style="overflow:hidden;min-height:0;">
+              <sc-for list="{{ certRest }}" as="row" hint-placeholder-count="3">
+                <div style="{{ row.rowStyle }}">
+                  <div>
+                    <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
+                    <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+                  </div>
+                  <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <span onClick="{{ certToggle }}" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ certToggleLabel }}</span>
+        </sc-if>
         </sc-if>
       </div>
     </div>
@@ -219,7 +245,26 @@
         <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:16px;">{{ t.contactKicker }}</div>
         <h2 style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(28px,3.4vw,46px);line-height:1.08;letter-spacing:-1px;margin:0;">{{ aboutContactTitle }}</h2>
       </div>
-      <a href="{{ mailto }}" style="font-family:'Newsreader',serif;font-size:clamp(22px,2.6vw,32px);color:#ECE7DE;text-decoration:none;border-bottom:1px solid rgba(236,231,222,0.25);padding-bottom:8px;transition:color .25s,border-color .25s;white-space:nowrap;" style-hover="color:#D9A441;border-color:#D9A441;">{{ email }} ↗</a>
+      <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start;">
+      <a href="{{ mailto }}" style="{{ contactLinkStyle }}" style-hover="color:#D9A441;">
+        <span style="{{ contactChipStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
+        </span>
+        <span>
+          <span style="{{ contactSmallLabel }}">{{ t.emailLabel }}</span>
+          <span style="{{ contactValueStyle }}">{{ email }}</span>
+        </span>
+      </a>
+      <a href="{{ whatsappUrl }}" target="_blank" rel="noopener" style="{{ contactLinkStyle }}" style-hover="color:#D9A441;">
+        <span style="{{ contactChipStyle }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.02h-.01a8.2 8.2 0 01-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 01-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.26.86 5.82 2.41a8.18 8.18 0 012.41 5.83c0 4.54-3.7 8.2-8.24 8.2zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.4-.13-.56.12-.17.25-.66.8-.81.97-.15.16-.3.19-.55.06-.25-.12-1.06-.39-2.02-1.25-.75-.66-1.25-1.48-1.4-1.73-.14-.25-.01-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.42.06-.64.31-.22.25-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.17 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.58.19 1.1.16 1.52.1.46-.07 1.47-.6 1.68-1.19.21-.58.21-1.08.14-1.19-.06-.11-.22-.17-.47-.29z"></path></svg>
+        </span>
+        <span>
+          <span style="{{ contactSmallLabel }}">{{ t.whatsLabel }}</span>
+          <span style="{{ contactValueStyle }}">{{ whatsappLabel }}</span>
+        </span>
+      </a>
+      </div>
     </div>
   </main>
   </sc-if>
@@ -231,8 +276,8 @@
   <!-- FOOTER -->
   <footer style="position:relative;z-index:1;padding:44px 44px;border-top:1px solid rgba(236,231,222,0.08);display:flex;flex-direction:column;align-items:center;gap:18px;">
     <div style="display:flex;gap:16px;align-items:center;">
-      <a href="{{ instagramUrl }}" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+      <a href="{{ mailto }}" aria-label="E-mail" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
       </a>
       <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.73 24 10.06 24 14.9V24h-5v-8.07c0-1.92-.03-4.39-2.68-4.39-2.68 0-3.09 2.09-3.09 4.25V24H8V8h-.5z"></path></svg>
@@ -372,14 +417,17 @@ const STRINGS = {
     bio1: '[ Escreva aqui a sua história. ] Sou editor de vídeo e motion designer com foco em narrativas de marca e documentário. Trabalho o material bruto até encontrar o ritmo, a emoção e a clareza que cada projeto pede.',
     bio2: '[ Continue aqui. ] Da decupagem à finalização de cor, cuido de todas as etapas da pós-produção — sempre buscando a decisão de montagem que faz a diferença entre um vídeo e um filme.',
     skillsLabel: 'Especialidades', toolsLabel: 'Ferramentas',
+    availLabel: 'Disponível para',
+    assocLabel: 'Associado',
+    emailLabel: 'E-mail', whatsLabel: 'WhatsApp',
     expLabel: 'Experiência',
-    eduLabel: 'Formação acadêmica',
-    certLabel: 'Licenças e certificados',
+    eduLabel: 'Formação',
+    certLabel: 'Formação complementar',
     based: '> Baseado em [ Cidade, País ]',
     exp: '> [ X ] anos editando',
     contactKicker: 'Contato',
     contactTitle: 'Vamos montar algo juntos?',
-    availLabel: 'Disponibilidade', availValue: 'Aberto a novos projetos',
+    availValue: 'Aberto a novos projetos',
     locLabel: 'Localização', locValue: '[ Cidade, País ]',
     footerNote: 'Editado no escuro',
   },
@@ -398,14 +446,17 @@ const STRINGS = {
     bio1: '[ Write your story here. ] I’m a video editor and motion designer focused on brand and documentary storytelling. I work the raw material until it finds the rhythm, emotion and clarity each project asks for.',
     bio2: '[ Continue here. ] From assembly to color finishing, I handle every stage of post-production — always chasing the edit decision that turns a video into a film.',
     skillsLabel: 'Specialties', toolsLabel: 'Tools',
+    availLabel: 'Available for',
+    assocLabel: 'Member of',
+    emailLabel: 'Email', whatsLabel: 'WhatsApp',
     expLabel: 'Experience',
     eduLabel: 'Education',
-    certLabel: 'Licenses & certificates',
+    certLabel: 'Further training',
     based: '> Based in [ City, Country ]',
     exp: '> [ X ] years editing',
     contactKicker: 'Contact',
     contactTitle: 'Shall we cut something together?',
-    availLabel: 'Availability', availValue: 'Open to new projects',
+    availValue: 'Open to new projects',
     locLabel: 'Location', locValue: '[ City, Country ]',
     footerNote: 'Edited in the dark',
   },
@@ -446,7 +497,7 @@ const ABOUT_DEFAULT = {
 };
 
 // Fallback data used only if videos.json fails to load
-const DEFAULT_DATA = { email: 'ola@seudominio.com', instagram: 'https://instagram.com/seu_usuario', linkedin: 'https://linkedin.com/in/seu-usuario', about: ABOUT_DEFAULT, projects: VIDEOS };
+const DEFAULT_DATA = { email: 'ola@seudominio.com', linkedin: 'https://linkedin.com/in/seu-usuario', about: ABOUT_DEFAULT, projects: VIDEOS };
 
 function parseVideo(url) {
   if (!url) return { embed: '', ytid: '', autoplayParam: 'autoplay=1' };
@@ -644,6 +695,7 @@ class Component extends DCLogic {
     const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
     const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
     const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
+    const aboutSidebarStyle = mob ? 'text-align:center;' : 'text-align:center;';
     const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
     const detailInnerStyle = 'max-width:1120px;margin:0 auto;padding:' + (mob ? '80px 18px 72px' : '104px 48px 110px') + ';animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;';
     const detailGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '1.6fr 1fr') + ';gap:' + (mob ? '40px' : '72px') + ';align-items:start;';
@@ -780,25 +832,34 @@ class Component extends DCLogic {
     const ab = Object.assign({}, ABOUT_DEFAULT, DATA.about || {});
     const pick = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[L] || v.pt || '') : (v || '');
     const listL = (v) => { if (Array.isArray(v)) return v; if (v && typeof v === 'object') return (v[L] && v[L].length) ? v[L] : (v.pt || []); return []; };
-    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: pick(r.detail) }));
+    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: pick(r.detail), summary: pick(r.summary) }));
     const aboutName = ab.name || 'Mauricio Ferreira';
     const aboutRole = pick(ab.role);
     const aboutSkills = (listL(ab.skills).length ? listL(ab.skills) : SKILLS[L]);
     const aboutTools = (listL(ab.tools).length ? listL(ab.tools) : TOOLS);
     const expanded = this.state.expanded || {};
-    const aboutTimeline = rowsL(ab.timeline).map((r, i) => {
+    const dividerRow = 'padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);';
+    const lastRow = 'padding:18px 0;';
+    const aboutTimeline = rowsL(ab.timeline).map((r, i, arr) => {
       const open = !!expanded['exp' + i];
       return {
-        year: r.year, role: r.role, place: r.place, detail: r.detail,
+        year: r.year, role: r.role, place: r.place, detail: r.detail, summary: r.summary,
+        metaLine: [r.place, r.year].filter(Boolean).join('  \u00b7  '),
+        rowStyle: (i === arr.length - 1 ? lastRow : dividerRow),
         hasDetail: !!(r.detail && r.detail.trim()),
+        hasSummary: !!(r.summary && r.summary.trim()),
         isOpen: open,
-        toggleLabel: open ? (L === 'pt' ? '– menos' : '– less') : (L === 'pt' ? '+ mais' : '+ more'),
-        detailStyle: 'overflow:hidden;transition:max-height .4s ease,opacity .35s ease,margin-top .35s ease;max-height:' + (open ? '460px' : '0') + ';opacity:' + (open ? '1' : '0') + ';margin-top:' + (open ? '12px' : '0') + ';',
+        toggleLabel: open ? (L === 'pt' ? '\u2212 fechar' : '\u2212 close') : (L === 'pt' ? '+ ver mais detalhes' : '+ see more details'),
+        detailStyle: 'display:grid;grid-template-rows:' + (open ? '1fr' : '0fr') + ';transition:grid-template-rows .42s cubic-bezier(.3,.8,.3,1),opacity .35s ease,margin-top .35s ease;opacity:' + (open ? '1' : '0') + ';margin-top:' + (open ? '14px' : '0') + ';',
         toggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e['exp' + i] = !e['exp' + i]; return { expanded: e }; }),
       };
     });
-    const aboutEducation = rowsL(ab.education);
+    const aboutEducation = rowsL(ab.education).map((r, i, arr) => Object.assign({}, r, { rowStyle: 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (i === arr.length - 1 ? lastRow : dividerRow) }));
     const aboutLicenses = rowsL(ab.licenses);
+    const certOpen = !!expanded.certs;
+    const licRowStyle = (isLast) => 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (isLast ? lastRow : dividerRow);
+    const certPreview = aboutLicenses.slice(0, 2).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
+    const certRest = aboutLicenses.slice(2).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(i === arr.length - 1) }));
 
     return {
       t, chips, videos, sel, sortOpts, prevProject, nextProject,
@@ -813,6 +874,23 @@ class Component extends DCLogic {
       aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
       aboutBio: pick(ab.bio),
       aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
+      aboutPositioning: pick(ab.positioning),
+      aboutAvailability: pick(ab.availability),
+      hasPositioning: !!pick(ab.positioning),
+      hasAvailability: !!pick(ab.availability),
+      certPreview, certRest,
+      hasCertRest: certRest.length > 0,
+      certRestStyle: 'display:grid;grid-template-rows:' + (certOpen ? '1fr' : '0fr') + ';transition:grid-template-rows .45s cubic-bezier(.3,.8,.3,1),opacity .35s ease;opacity:' + (certOpen ? '1' : '0') + ';',
+      certToggleLabel: certOpen ? (L === 'pt' ? '\u2212 ver menos' : '\u2212 see less') : (L === 'pt' ? '+ ver mais ' + certRest.length : '+ see ' + certRest.length + ' more'),
+      certToggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e.certs = !e.certs; return { expanded: e }; }),
+      whatsappUrl: 'https://wa.me/' + String(DATA.whatsapp || '5521996697004').replace(/\D/g, ''),
+      whatsappLabel: (function (n) { const d = String(n || '5521996697004').replace(/\D/g, ''); return d.length >= 12 ? '+' + d.slice(0, 2) + ' ' + d.slice(2, 4) + ' ' + d.slice(4, 9) + '-' + d.slice(9) : '+' + d; })(DATA.whatsapp),
+      hasWhatsapp: !!String(DATA.whatsapp || '5521996697004').replace(/\D/g, ''),
+      aboutSidebarStyle,
+      contactLinkStyle: "display:flex;align-items:center;gap:16px;text-decoration:none;color:#ECE7DE;transition:color .25s;",
+      contactChipStyle: 'flex-shrink:0;width:44px;height:44px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);display:flex;align-items:center;justify-content:center;opacity:0.7;transition:border-color .25s,opacity .25s;',
+      contactSmallLabel: "display:block;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:#8A8478;margin-bottom:4px;",
+      contactValueStyle: "display:block;font-family:'Newsreader',serif;font-size:clamp(18px,1.9vw,22px);line-height:1.2;",
       aboutContactTitle: pick(ab.contactTitle),
       education: aboutEducation, licenses: aboutLicenses,
       hasEducation: aboutEducation.length > 0, hasLicenses: aboutLicenses.length > 0,
@@ -839,7 +917,6 @@ class Component extends DCLogic {
       langLabel: L === 'pt' ? 'EN' : 'PT',
       skills: aboutSkills, tools: aboutTools, timeline: aboutTimeline,
       email, mailto: 'mailto:' + email,
-      instagramUrl: DATA.instagram || 'https://instagram.com/seu_usuario',
       linkedinUrl: DATA.linkedin || 'https://linkedin.com/in/seu-usuario',
       yearNow: 2026,
       goHome: () => this.goto('home'),
