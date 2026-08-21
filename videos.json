@@ -1,7 +1,6 @@
 {
   "email": "mauriciosf@id.uff.br",
   "whatsapp": "5521996697004",
-  "instagram": "https://www.instagram.com/mauricioo_s/",
   "linkedin": "https://www.linkedin.com/in/mauricioosf/",
   "bunnyHost": "vz-1104b846-a66.b-cdn.net",
   "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
@@ -12,9 +11,17 @@
       "pt": "Editor de Vídeo",
       "en": "Video Editor"
     },
+    "positioning": {
+      "pt": "Contar histórias também é uma forma de cuidar delas.",
+      "en": "Telling stories is also a way of taking care of them."
+    },
+    "availability": {
+      "pt": "Montagem, assistência de montagem e finalização em documentários, publicidades, curtas-metragens e projetos institucionais",
+      "en": "Editing, assistant editing, and finishing for documentaries, commercials, short films, and institutional projects"
+    },
     "bio": {
-      "pt": "Sou editor de vídeo há cerca de seis anos. Nesse tempo trabalhei com pessoas, formatos, plataformas e softwares muito diferentes, sempre procurando outras formas de contar uma história.\n\nMe formei em Cinema e Audiovisual em 2026, mas a forma como penso narrativa vem de antes: estudei Sociologia, e foi ali que aprendi a olhar para as camadas de uma sociedade e para os detalhes que revelam o que há de mais humano nas relações. É esse olhar que levo para a mesa de montagem. Para mim, editar não é uma etapa técnica — é onde a imagem ganha ritmo, emoção e sentido.\n\nDesde 2022 trabalho com Comunicação Interna e Endomarketing, filmando de escritórios a fazendas. Ajudei a criar dois canais internos do zero — uma TV corporativa e o aplicativo Conexão — e sigo responsável por eles. É um trabalho de escutar quem quase nunca aparece no vídeo institucional, e colocar essa pessoa na tela.",
-      "en": "I've been a video editor for about six years. In that time I've worked with very different people, formats, platforms and software, always looking for another way to tell a story.\n\nI graduated in Film and Audiovisual Studies in 2026, but the way I think about narrative comes from before that: I studied Sociology, and that's where I learned to look at the layers of a society and at the details that reveal what is most human in our relationships. That's the eye I bring to the edit. To me, editing isn't a technical step — it's where an image finds its rhythm, emotion and meaning.\n\nSince 2022 I've worked in internal communications and employer branding, shooting everywhere from offices to farms. I helped build two internal channels from scratch — a corporate TV network and the Conexão app — and I still run them. The job is to listen to the people who rarely make it into the corporate video, and put them on screen."
+      "pt": "Sou editor de vídeos há cerca de seis anos e, ao longo desse tempo, tive a oportunidade de trabalhar com diferentes pessoas, formatos, plataformas e linguagens, sempre buscando novas formas de contar histórias. Mais do que uma etapa técnica, a montagem se tornou uma maneira de olhar para as imagens, perceber suas possibilidades e descobrir como diferentes fragmentos podem ganhar novos sentidos.\n\nSou formado em Cinema e Audiovisual, mas minha forma de pensar narrativas também foi profundamente influenciada pelo período em que estudei Sociologia. Foi ali que desenvolvi um olhar mais atento para as diferentes camadas da sociedade, para as relações humanas e para as perspectivas que atravessam cada história. Levo esse olhar para a montagem, entendendo a edição como uma ferramenta para construir ritmo, emoção e significado.\n\nDesde 2022, venho aprofundando minha atuação na Comunicação Interna, criando conteúdos e projetos que buscam aproximar pessoas, culturas e territórios. Nesse trabalho, também me aproximei do cuidado com arquivos e da preservação de histórias, entendendo o valor de organizar, recuperar e dar nova vida a materiais que poderiam permanecer esquecidos.\n\nHoje, gosto de trabalhar nesse encontro entre pessoas, imagens e histórias. Seja criando algo novo, remontando o que já existe ou recuperando aquilo que ficou pelo caminho, procuro encontrar formas de fazer com que uma história continue viva e possa alcançar alguém.",
+      "en": "I have been working as a video editor for about six years, during which I have had the opportunity to work with different people, formats, platforms, and languages, always looking for new ways to tell stories. More than a technical stage of filmmaking, editing has become a way of looking at images, recognizing their possibilities, and discovering how different fragments can take on new meanings.\n\nI hold a degree in Film and Audiovisual Studies, but my approach to storytelling was also deeply shaped by my previous studies in Sociology. That experience taught me to pay closer attention to the different layers of society, human relationships, and the perspectives that shape every story. I bring this perspective into my editing, understanding it as a tool for creating rhythm, emotion, and meaning.\n\nSince 2022, I have been developing my work in Internal Communications, creating content and projects that seek to connect people, cultures, and different territories. Through this work, I also became interested in caring for archives and preserving stories, understanding the value of organizing, recovering, and giving new life to materials that might otherwise remain forgotten.\n\nToday, I enjoy working at the intersection of people, images, and stories. Whether creating something new, re-editing what already exists, or recovering what has been left behind, I look for ways to keep a story alive and allow it to reach someone."
     },
     "based": {
       "pt": "Rio de Janeiro, Brasil",
@@ -70,8 +77,23 @@
           "en": "zhouse"
         },
         "detail": {
-          "pt": "Meu trabalho no time de Comunicação Interna da zhouse é aproximar pessoas e dar vida às histórias que conectam todos os territórios onde a empresa atua — do escritório ao campo, da mesa de reunião à horta.\n\nParticipei da criação e estruturação dos nossos principais canais, como a TV interna e o aplicativo Conexão, e hoje continuo responsável pela evolução e manutenção desses projetos. Comecei como estagiário em setembro de 2023 e fui efetivado como assistente em junho de 2025, seguindo com a mesma frente de trabalho.",
-          "en": "My work on zhouse's internal communications team is to bring people closer together and give life to the stories that connect every territory the company operates in — from the office to the field, from the meeting room to the vegetable garden.\n\nI helped create and structure our main channels, including the internal TV network and the Conexão app, and I remain responsible for their development and upkeep. I joined as an intern in September 2023 and was hired as an assistant in June 2025, continuing on the same work."
+          "pt": "Minha atuação no time de Comunicação Interna da zhouse envolve a gestão e evolução dos principais canais de comunicação, como a TV Corporativa e o aplicativo Conexão, além da produção de conteúdos que aproximam diferentes áreas, territórios e públicos da empresa. Tenho a edição e produção audiovisual como uma das principais frentes do meu trabalho, criando vídeos a partir de histórias, projetos e vivências do dia a dia, além de atuar na criação de peças visuais, ações de endomarketing, eventos e gestão de brindes.",
+          "en": "My role within zhouse’s Internal Communications team involves managing and evolving our main communication channels, such as the Corporate TV and the Conexão app, as well as producing content that connects different areas, territories, and audiences across the company. Video editing and audiovisual production are among my main responsibilities, creating videos from the stories, projects, and everyday experiences of our teams, while also contributing to visual design, internal campaigns, events, and merchandise management."
+        }
+      },
+      {
+        "year": "Após iniciar minha trajetória na zhouse como estagiário, fui efetivado e passei a assumir novas responsabilidades e projetos. Entre elas, está a gestão do acervo fotográfico e audiovisual institucional, com registros que documentam diferentes momentos da história da empresa e de seus territórios. Nesse trabalho, atuo na pesquisa, organização, catalogação e recuperação de materiais, buscando reconstruir seus contextos e manter essas histórias acessíveis. Também sou responsável por estruturar processos, acompanhar dados e indicadores e desenvolver novos projetos que ampliem o alcance, a organização e a eficiência da Comunicação Interna.",
+        "role": {
+          "pt": "",
+          "en": ""
+        },
+        "place": {
+          "pt": "",
+          "en": ""
+        },
+        "detail": {
+          "pt": "",
+          "en": ""
         }
       },
       {
@@ -85,8 +107,8 @@
           "en": "Grupo Cataratas"
         },
         "detail": {
-          "pt": "Fiz parte do time de Comunicação Interna responsável por conectar os parques do Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu e a Holding.\n\nMinha atuação teve foco na pré-produção, produção e pós-produção de vídeos para os canais da empresa no Instagram e LinkedIn. Também participei da organização de eventos internos e externos, de campanhas de atração de talentos e do acompanhamento de indicadores de comunicação.",
-          "en": "I was part of the internal communications team connecting the parks in Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu and the corporate office.\n\nMy focus was the pre-production, production and post-production of videos for the company's Instagram and LinkedIn channels. I also worked on internal and external events, talent attraction campaigns and communication performance tracking."
+          "pt": "Fiz parte da área de Comunicação Interna do Grupo Cataratas, atuando na conexão entre os parques do Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu e a Holding. Colaborei no desenvolvimento e na implementação do plano estratégico de Comunicação Interna e Employer Branding, com atuação principalmente na pré-produção, produção e pós-produção de conteúdos audiovisuais para os canais do grupo no Instagram e LinkedIn. Trabalhei na criação de vídeos que apresentavam as pessoas, experiências e diferentes realidades que compõem o Grupo Cataratas, buscando aproximar os colaboradores e o público da identidade, da cultura e dos valores da empresa. Também participei da cobertura e produção de conteúdos para eventos, workshops, feiras e convenções, acompanhando os projetos desde o planejamento até a entrega dos materiais.",
+          "en": "I was part of Grupo Cataratas’ Internal Communications team, working across the parks in Rio de Janeiro, Fernando de Noronha, Foz do Iguaçu, and the Holding. I contributed to the development and implementation of the Internal Communications and Employer Branding strategy, with a primary focus on the pre-production, production, and post-production of audiovisual content for the group’s Instagram and LinkedIn channels. I created videos that highlighted the people, experiences, and different realities that make up Grupo Cataratas, helping bring employees and audiences closer to the company’s identity, culture, and values. I also participated in the coverage and production of content for events, workshops, trade shows, and conventions, following projects from planning through final delivery."
         }
       }
     ],
@@ -170,17 +192,31 @@
           "en": "Blackmagic Design / ProClass"
         }
       }
-    ],
-    "positioning": {
-      "pt": "Uso a montagem para contar histórias de pessoas dentro de organizações — do escritório ao campo.",
-      "en": "I use editing to tell the stories of people inside organizations — from the office to the field."
-    },
-    "availability": {
-      "pt": "Aberto a freelances e projetos de documentário, institucional e comunicação interna.",
-      "en": "Open to freelance work and documentary, branded and internal-communication projects."
-    }
+    ]
   },
   "projects": [
+    {
+      "id": "dia-mundial-da-tartaruga",
+      "cat": "inst",
+      "year": 2025,
+      "duration": "01:44",
+      "client": "Centros de Fauna Trijunção",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/2ab2869c-979f-4fee-b869-bc757a00a4b9",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/2ab2869c-979f-4fee-b869-bc757a00a4b9/thumbnail_4de92681.jpg",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Dia Mundial da Tartaruga",
+        "en": "World Turtle Day"
+      },
+      "desc": {
+        "pt": "Dia Mundial da Tartaruga é um vídeo institucional que celebra a data de 23 de maio explicando quem são os quelônios e suas diferentes classificações, entre tartarugas marinhas, cágados e jabutis. O vídeo apresenta as duas espécies de jabuti encontradas no Brasil, o Jabuti-piranga e o Jabuti-tinga, detalhando seus hábitos, longevidade e o papel que exercem na dispersão de sementes e no equilíbrio ambiental. O conteúdo reforça a importância dessas espécies, muitas vezes negligenciadas, e a necessidade de conservação, especialmente do Jabuti-tinga, que está ameaçado de extinção.",
+        "en": "World Turtle Day is an institutional video that celebrates the May 23rd date by explaining who chelonians are and their different classifications, including sea turtles, freshwater and terrestrial turtles, and tortoises. The video presents the two tortoise species found in Brazil, the red-footed tortoise and the yellow-footed tortoise, detailing their habits, longevity, and the role they play in seed dispersal and environmental balance. The content highlights the importance of these often overlooked species and the need for conservation, especially for the yellow-footed tortoise, which is threatened with extinction."
+      }
+    },
     {
       "id": "colheita-de-milho-na-fazenda-candeia",
       "cat": "inst",
