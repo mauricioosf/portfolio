@@ -196,6 +196,28 @@
   },
   "projects": [
     {
+      "id": "ong-anjos-da-tia-stellinha-upcycling",
+      "cat": "inst",
+      "year": 2024,
+      "duration": "02:07",
+      "client": "zhouse",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/c8503ff1-465c-4a9c-b1db-ca8747ed6373",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/c8503ff1-465c-4a9c-b1db-ca8747ed6373/thumbnail_53b99bc9.jpg",
+      "role": {
+        "pt": "Captação, Montagem, Color Grading,",
+        "en": "Filming, Editing, Color Grading"
+      },
+      "title": {
+        "pt": "ONG Anjos da Tia Stellinha - Upcycling",
+        "en": "ONG Anjos da Tia Stellinha - Upcycling"
+      },
+      "desc": {
+        "pt": "O vídeo apresenta o projeto de upcycling desenvolvido pela ONG Anjos da Tia Stellinha para os brindes de fim de ano da zhouse. Uniformes que um dia vestiram o cotidiano dos colaboradores ganham nova vida nas mãos de mulheres mães em situação de vulnerabilidade nas favelas do Rio de Janeiro. Capacitadas em costura pela própria ONG, essas mulheres transformam o material em bolsinhas e em fonte de renda, e o que antes era uniforme retorna como presente, num gesto que une memória, sustentabilidade e dignidade em um único ponto.",
+        "en": "The video presents the upcycling project developed by ONG Anjos da Tia Stellinha for zhouse's year end gifts. Uniforms that once clothed employees' everyday work gain new life in the hands of mothers facing social vulnerability in Rio de Janeiro's favelas. Trained in sewing by the NGO itself, these women turn the material into small bags and into a source of income, and what was once a uniform returns as a gift, in a gesture that unites memory, sustainability, and dignity in a single stitch."
+      }
+    },
+    {
       "id": "dia-mundial-da-tartaruga",
       "cat": "inst",
       "year": 2025,
@@ -323,8 +345,8 @@
         "en": "Windows"
       },
       "desc": {
-        "pt": "Um curta sobre as janelas que atravessamos sem perceber. Um jovem observando o cotidiano e percebendo que tudo o que vê é sempre um enquadramento. Entre rotina e afeto, ele descobre pequenas versões diferentes do mesmo mundo, escondidas em cada superfície transparente que olha.\n\n**Equipe:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
-        "en": "A short film about the windows we pass through without noticing. A young man observing everyday life, realizing that everything he sees is always a framing. Between routine and affection, he discovers small, different versions of the same world, hidden in every transparent surface he looks through.\n\n**Crew:**\n\nDirector and Writer - Diana Seelaender and Thiago Barboza\nActor and Narrator - Thiago Barboza\nProducer - Lara Lang\nDirector of Photography and Camera - Mauricio Silva\nArt Direction - Lara Lang\nEditor - Maurício Silva"
+        "pt": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
+        "en": "Vestibulum at ullamcorper nisi, at placerat lorem. Sed lobortis ante in elementum facilisis. Praesent gravida felis ut ex mattis, ac luctus felis sagittis. Vestibulum efficitur ligula vestibulum, viverra magna et, venenatis lacus. Maecenas ac orci elit. Vivamus luctus egestas leo eu fringilla. Praesent vulputate enim porttitor pellentesque sodales. Duis porttitor, diam vel varius consectetur, ex mi posuere tellus, eget tristique mi dui sit amet risus. Etiam arcu libero, dignissim non mauris ut, eleifend aliquam tortor. Sed ultricies ipsum vitae tristique rutrum.\n\n**Equipe:**\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva"
       }
     },
     {
