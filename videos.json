@@ -160,6 +160,17 @@
         }
       },
       {
+        "year": "NOV 2021",
+        "role": {
+          "pt": "Motion Design Essencial 2.0",
+          "en": "Motion Design Essencial 2.0"
+        },
+        "place": {
+          "pt": "LayerLemonade",
+          "en": "LayerLemonade"
+        }
+      },
+      {
         "year": "SET 2021",
         "role": {
           "pt": "Editing with DaVinci Resolve 17",
@@ -188,8 +199,8 @@
           "en": "Film and TV Soundtrack"
         },
         "place": {
-          "pt": "Academia Internacional de Cinema",
-          "en": "Academia Internacional de Cinema (AIC)"
+          "pt": "Academia Internacional de Cinema (AIC)",
+          "en": "International Academy of Cinema (AIC)"
         }
       },
       {
