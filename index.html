@@ -185,9 +185,9 @@
             <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;">
               <div>
                 <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
-                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;">{{ row.role }}</span>
+                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;line-height:1.55;">{{ row.role }}</span>
               </div>
-                <div style="font-size:13px;color:#8A8478;white-space:pre-line;">{{ row.place }}</div>
+                <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;">{{ row.place }}</div>
               <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#8A8478;margin-top:5px;white-space:pre-line;">{{ row.note }}</div></sc-if>
               </div>
               <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
@@ -208,9 +208,9 @@
           <div style="{{ row.rowStyle }}">
             <div>
               <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
-                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;">{{ row.role }}</span>
+                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;line-height:1.55;">{{ row.role }}</span>
               </div>
-              <div style="font-size:13px;color:#8A8478;white-space:pre-line;">{{ row.place }}</div>
+              <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;">{{ row.place }}</div>
               <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#8A8478;margin-top:5px;white-space:pre-line;">{{ row.note }}</div></sc-if>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
@@ -223,9 +223,9 @@
           <div style="{{ row.rowStyle }}">
             <div>
               <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
-                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;">{{ row.role }}</span>
+                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;line-height:1.55;">{{ row.role }}</span>
               </div>
-              <div style="font-size:13px;color:#8A8478;white-space:pre-line;">{{ row.place }}</div>
+              <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;">{{ row.place }}</div>
               <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#8A8478;margin-top:5px;white-space:pre-line;">{{ row.note }}</div></sc-if>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
@@ -238,9 +238,9 @@
                 <div style="{{ row.rowStyle }}">
                   <div>
                     <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
-                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;">{{ row.role }}</span>
+                <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;line-height:1.55;">{{ row.role }}</span>
               </div>
-                    <div style="font-size:13px;color:#8A8478;white-space:pre-line;">{{ row.place }}</div>
+                    <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;">{{ row.place }}</div>
               <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#8A8478;margin-top:5px;white-space:pre-line;">{{ row.note }}</div></sc-if>
                   </div>
                   <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
@@ -545,6 +545,8 @@ function thumbFor(v, ws, bunnyHost) {
 function richHtml(str) {
   const esc = (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return esc
+    // ##texto## → rótulo amarelo em Space Mono, igual aos títulos de seção.
+    .replace(/##([^#\n]+?)##/g, '<span style="font-family:\'Space Mono\',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D9A441;">$1</span>')
     .replace(/\[([^\]]+?)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#D9A441;text-decoration:none;border-bottom:1px solid rgba(217,164,65,0.4);">$1</a>')
     .replace(/\*\*([^*]+?)\*\*/g, '<strong style="color:#ECE7DE;font-weight:600;">$1</strong>');
 }

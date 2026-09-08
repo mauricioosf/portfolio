@@ -155,6 +155,21 @@
       {
         "year": "SET 2026",
         "role": {
+          "pt": "Criação de roteiros para documentários com Eliane Caffé // Trajetória no Cinema e Documentários com Joel Zito Araújo",
+          "en": "Documentary Screenwriting with Eliane Caffé // Career in Cinema and Documentaries with Joel Zito Araújo"
+        },
+        "place": {
+          "pt": "6ª Mostra Audiovisual do Museu da Pessoa (EmVelhoSer) / CULTSP PRO",
+          "en": "6ª Mostra Audiovisual do Museu da Pessoa (EmVelhoSer) / CULTSP PRO"
+        },
+        "tag": {
+          "pt": "Masterclass",
+          "en": "Masterclass"
+        }
+      },
+      {
+        "year": "SET 2026",
+        "role": {
           "pt": "Oficina de Sustentabilidade no Audiovisual",
           "en": "Sustainability in Audiovisual Workshop"
         },
@@ -200,27 +215,12 @@
       {
         "year": "JAN 2025",
         "role": {
-          "pt": "Assistência de Direção para Cinema",
-          "en": "Film Assistant Directing"
+          "pt": "Assistência de Direção para Cinema com Renan Brandão // Internacionalização do Curta-metragem Brasileiro com Denise Jancar",
+          "en": "Film Assistant Directing with Renan Brandão // Internationalization of Brazilian Short Films with Denise Jancar"
         },
         "place": {
-          "pt": "28ª Mostra de Cinema de Tiradentes / Renan Brandão",
-          "en": "28th Mostra de Cinema de Tiradentes / Renan Brandão"
-        },
-        "tag": {
-          "pt": "Curso",
-          "en": "Course"
-        }
-      },
-      {
-        "year": "JAN 2025",
-        "role": {
-          "pt": "Internacionalização do Curta-metragem Brasileiro",
-          "en": "Internationalization of Brazilian Short Films"
-        },
-        "place": {
-          "pt": "28ª Mostra de Cinema de Tiradentes / Denise Jancar",
-          "en": "28th Mostra de Cinema de Tiradentes / Denise Jancar"
+          "pt": "28ª Mostra de Cinema de Tiradentes",
+          "en": "28th Mostra de Cinema de Tiradentes"
         },
         "tag": {
           "pt": "Workshop",
