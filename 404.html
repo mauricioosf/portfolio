@@ -689,13 +689,12 @@ class Component extends DCLogic {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     if (typeof document === 'undefined') return;
     const s = this.state.selected;
-    if (s !== prevState.selected || this.state.lang !== prevState.lang) {
-      const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
-      document.title = s ? (s.title[this.state.lang] + ' · ' + base) : base;
-    }
+    const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
+    const next = s ? (s.title[this.state.lang] + ' · ' + base) : base;
+    if (next !== this._lastTitle) { this._lastTitle = next; document.title = next; }
   }
 
   lockScroll(on) {
@@ -884,6 +883,7 @@ class Component extends DCLogic {
     const pick = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[L] || v.pt || '') : (v || '');
     const listL = (v) => { if (Array.isArray(v)) return v; if (v && typeof v === 'object') return (v[L] && v[L].length) ? v[L] : (v.pt || []); return []; };
     const unslash = (s) => String(s || '').split(/(?:^|\s)\/\/(?:\s|$)/).map(x => x.trim()).filter(Boolean).join('\n\n');
+
     const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: unslash(pick(r.detail)), summary: pick(r.summary) }));
     const aboutName = ab.name || 'Mauricio Ferreira';
     const aboutRole = pick(ab.role);

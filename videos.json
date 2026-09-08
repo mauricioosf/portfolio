@@ -134,6 +134,21 @@
           "pt": "Academia Internacional de Cinema",
           "en": "Academia Internacional de Cinema"
         }
+      },
+      {
+        "year": "2018 – 2022",
+        "role": {
+          "pt": "Bacharelado em Sociologia",
+          "en": "Bachelor's Degree in Sociology"
+        },
+        "place": {
+          "pt": "Universidade Federal Fluminense",
+          "en": "Universidade Federal Fluminense"
+        },
+        "tag": {
+          "pt": "Trancada no 5º período",
+          "en": "Withdrawn in the 5th semester"
+        }
       }
     ],
     "licenses": [
@@ -146,6 +161,10 @@
         "place": {
           "pt": "FGV CPDOC / IMS-RJ",
           "en": "FGV CPDOC / IMS-RJ"
+        },
+        "tag": {
+          "pt": "Workshop",
+          "en": "Workshop"
         }
       },
       {
@@ -157,6 +176,10 @@
         "place": {
           "pt": "28ª Mostra de Cinema de Tiradentes",
           "en": "28th Tiradentes Film Festival"
+        },
+        "tag": {
+          "pt": "Masterclass",
+          "en": "Masterclass"
         }
       },
       {
@@ -168,6 +191,10 @@
         "place": {
           "pt": "Layer Lemonade",
           "en": "Layer Lemonade"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
         }
       },
       {
@@ -179,6 +206,10 @@
         "place": {
           "pt": "Blackmagic Design / Proclass",
           "en": "Blackmagic Design / ProClass"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
         }
       },
       {
@@ -190,6 +221,10 @@
         "place": {
           "pt": "Brainstorm Academy",
           "en": "Brainstorm Academy"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
         }
       },
       {
@@ -201,6 +236,10 @@
         "place": {
           "pt": "Academia Internacional de Cinema (AIC)",
           "en": "International Academy of Cinema (AIC)"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
         }
       },
       {
@@ -212,6 +251,10 @@
         "place": {
           "pt": "Blackmagic Design / Proclass",
           "en": "Blackmagic Design / ProClass"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
         }
       }
     ]

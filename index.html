@@ -184,8 +184,11 @@
           <div style="{{ row.rowStyle }}">
             <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;">
               <div>
-                <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
+                <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
+                <span style="font-size:15px;color:#ECE7DE;">{{ row.role }}</span>
+              </div>
                 <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#8A8478;margin-top:5px;">{{ row.note }}</div></sc-if>
               </div>
               <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
             </div>
@@ -204,8 +207,11 @@
         <sc-for list="{{ education }}" as="row" hint-placeholder-count="2">
           <div style="{{ row.rowStyle }}">
             <div>
-              <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
+                <span style="font-size:15px;color:#ECE7DE;">{{ row.role }}</span>
+              </div>
               <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#8A8478;margin-top:5px;">{{ row.note }}</div></sc-if>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
           </div>
@@ -216,8 +222,11 @@
         <sc-for list="{{ certPreview }}" as="row" hint-placeholder-count="2">
           <div style="{{ row.rowStyle }}">
             <div>
-              <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
+                <span style="font-size:15px;color:#ECE7DE;">{{ row.role }}</span>
+              </div>
               <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#8A8478;margin-top:5px;">{{ row.note }}</div></sc-if>
             </div>
             <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
           </div>
@@ -228,8 +237,11 @@
               <sc-for list="{{ certRest }}" as="row" hint-placeholder-count="3">
                 <div style="{{ row.rowStyle }}">
                   <div>
-                    <div style="font-size:15px;color:#ECE7DE;margin-bottom:7px;">{{ row.role }}</div>
+                    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
+                <span style="font-size:15px;color:#ECE7DE;">{{ row.role }}</span>
+              </div>
                     <div style="font-size:13px;color:#8A8478;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#8A8478;margin-top:5px;">{{ row.note }}</div></sc-if>
                   </div>
                   <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
                 </div>
@@ -689,13 +701,12 @@ class Component extends DCLogic {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     if (typeof document === 'undefined') return;
     const s = this.state.selected;
-    if (s !== prevState.selected || this.state.lang !== prevState.lang) {
-      const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
-      document.title = s ? (s.title[this.state.lang] + ' · ' + base) : base;
-    }
+    const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
+    const next = s ? (s.title[this.state.lang] + ' · ' + base) : base;
+    if (next !== this._lastTitle) { this._lastTitle = next; document.title = next; }
   }
 
   lockScroll(on) {
@@ -884,7 +895,8 @@ class Component extends DCLogic {
     const pick = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[L] || v.pt || '') : (v || '');
     const listL = (v) => { if (Array.isArray(v)) return v; if (v && typeof v === 'object') return (v[L] && v[L].length) ? v[L] : (v.pt || []); return []; };
     const unslash = (s) => String(s || '').split(/(?:^|\s)\/\/(?:\s|$)/).map(x => x.trim()).filter(Boolean).join('\n\n');
-    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), detail: unslash(pick(r.detail)), summary: pick(r.summary) }));
+
+    const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: pick(r.role), place: pick(r.place), tag: pick(r.tag), detail: unslash(pick(r.detail)), summary: pick(r.summary) }));
     const aboutName = ab.name || 'Mauricio Ferreira';
     const aboutRole = pick(ab.role);
     const aboutSkills = (listL(ab.skills).length ? listL(ab.skills) : SKILLS[L]);
@@ -906,12 +918,12 @@ class Component extends DCLogic {
         toggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e['exp' + i] = !e['exp' + i]; return { expanded: e }; }),
       };
     });
-    const aboutEducation = rowsL(ab.education).map((r, i, arr) => Object.assign({}, r, { rowStyle: 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (i === arr.length - 1 ? lastRow : dividerRow) }));
-    const aboutLicenses = rowsL(ab.licenses);
+    const aboutEducation = rowsL(ab.education).map(r => Object.assign({}, r, { note: r.tag, hasNote: !!(r.tag && r.tag.trim()) })).map((r, i, arr) => Object.assign({}, r, { rowStyle: 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (i === arr.length - 1 ? lastRow : dividerRow) }));
+    const aboutLicenses = rowsL(ab.licenses).map(r => Object.assign({}, r, { place: r.tag ? (r.place + '  \u00b7  ' + r.tag) : r.place }));
     const certOpen = !!expanded.certs;
     const licRowStyle = (isLast) => 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (isLast ? lastRow : dividerRow);
-    const certPreview = aboutLicenses.slice(0, 2).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
-    const certRest = aboutLicenses.slice(2).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(i === arr.length - 1) }));
+    const certPreview = aboutLicenses.slice(0, 3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
+    const certRest = aboutLicenses.slice(3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(i === arr.length - 1) }));
 
     return {
       t, chips, videos, sel, sortOpts, prevProject, nextProject,
