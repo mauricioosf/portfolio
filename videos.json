@@ -114,7 +114,7 @@
     ],
     "education": [
       {
-        "year": "2022 – 2026",
+        "year": "2022 – JUL 2026",
         "role": {
           "pt": "Bacharelado em Cinema & Audiovisual",
           "en": "Bachelor's Degree in Film & Audiovisual"
@@ -153,6 +153,36 @@
     ],
     "licenses": [
       {
+        "year": "SET 2026",
+        "role": {
+          "pt": "Oficina de Sustentabilidade no Audiovisual",
+          "en": "Sustainability in Audiovisual Workshop"
+        },
+        "place": {
+          "pt": "Cine Brasília Formativas / Cinema Verde",
+          "en": "Cine Brasília Formativas / Cinema Verde"
+        },
+        "tag": {
+          "pt": "Workshop",
+          "en": "Workshop"
+        }
+      },
+      {
+        "year": "JUL 2026",
+        "role": {
+          "pt": "Oficina de Restauração Digital de Filmes",
+          "en": "Digital Film Restoration Workshop"
+        },
+        "place": {
+          "pt": "XXI Panorama Internacional Coisa de Cinema / Cinelimite",
+          "en": "XXI Panorama Internacional Coisa de Cinema / Cinelimite"
+        },
+        "tag": {
+          "pt": "Workshop",
+          "en": "Workshop"
+        }
+      },
+      {
         "year": "ABR 2025",
         "role": {
           "pt": "XI Oficina de Produção Audiovisual",
@@ -171,22 +201,37 @@
         "year": "JAN 2025",
         "role": {
           "pt": "Assistência de Direção para Cinema",
-          "en": "Assistant Directing for Film"
+          "en": "Film Assistant Directing"
         },
         "place": {
-          "pt": "28ª Mostra de Cinema de Tiradentes",
-          "en": "28th Tiradentes Film Festival"
+          "pt": "28ª Mostra de Cinema de Tiradentes / Renan Brandão",
+          "en": "28th Mostra de Cinema de Tiradentes / Renan Brandão"
         },
         "tag": {
-          "pt": "Masterclass",
-          "en": "Masterclass"
+          "pt": "Curso",
+          "en": "Course"
+        }
+      },
+      {
+        "year": "JAN 2025",
+        "role": {
+          "pt": "Internacionalização do Curta-metragem Brasileiro",
+          "en": "Internationalization of Brazilian Short Films"
+        },
+        "place": {
+          "pt": "28ª Mostra de Cinema de Tiradentes / Denise Jancar",
+          "en": "28th Mostra de Cinema de Tiradentes / Denise Jancar"
+        },
+        "tag": {
+          "pt": "Workshop",
+          "en": "Workshop"
         }
       },
       {
         "year": "NOV 2021",
         "role": {
           "pt": "Motion Design Essencial 2.0",
-          "en": "Motion Design Essencial 2.0"
+          "en": "Essential Motion Design 2.0"
         },
         "place": {
           "pt": "Layer Lemonade",
@@ -205,7 +250,7 @@
         },
         "place": {
           "pt": "Blackmagic Design / Proclass",
-          "en": "Blackmagic Design / ProClass"
+          "en": "Blackmagic Design / Proclass"
         },
         "tag": {
           "pt": "Curso",
@@ -231,11 +276,11 @@
         "year": "AGO 2021",
         "role": {
           "pt": "Trilha Sonora para Cinema e TV",
-          "en": "Film and TV Soundtrack"
+          "en": "Soundtrack for Film and TV"
         },
         "place": {
           "pt": "Academia Internacional de Cinema (AIC)",
-          "en": "International Academy of Cinema (AIC)"
+          "en": "Academia Internacional de Cinema (AIC)"
         },
         "tag": {
           "pt": "Curso",
@@ -250,7 +295,7 @@
         },
         "place": {
           "pt": "Blackmagic Design / Proclass",
-          "en": "Blackmagic Design / ProClass"
+          "en": "Blackmagic Design / Proclass"
         },
         "tag": {
           "pt": "Curso",
