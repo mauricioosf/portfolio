@@ -306,6 +306,28 @@
   },
   "projects": [
     {
+      "id": "mobiliario-infantil-feito-com-potes-de-j",
+      "cat": "inst",
+      "year": 2025,
+      "duration": "02:20",
+      "client": "Juçaí",
+      "tools": "Premiere Pro",
+      "video": "https://player.mediadelivery.net/play/698884/ac4178a3-e8a3-49e5-8967-c1ed9c7c3b71",
+      "thumb": "https://vz-892d060b-7a1.b-cdn.net/ac4178a3-e8a3-49e5-8967-c1ed9c7c3b71/thumbnail_1b76fcd2.jpg",
+      "role": {
+        "pt": "Captação, Montagem, Color Grading,",
+        "en": "Filming, Editing, Color Grading"
+      },
+      "title": {
+        "pt": "Mobiliário Infantil feito com Potes de Juçaí",
+        "en": "Children's Furniture Made with Juçaí Containers"
+      },
+      "desc": {
+        "pt": "Uma parceria entre Juçaí, UmMundo e Fazenda Bananal que transforma embalagens de plástico pós-consumo em mobiliário infantil. O projeto reaproveitou potes de Juçaí, transformando-os em chapas recicladas que ganham nova vida como mesas e cadeiras usadas em oficinas educativas, unindo sustentabilidade, design e aprendizado para as novas gerações.",
+        "en": "A partnership between Juçaí, UmMundo, and Fazenda Bananal that turns post-consumer plastic packaging into children's furniture. The project reused Juçaí containers, transforming them into recycled sheets that are given new life as tables and chairs used in educational workshops, bringing together sustainability, design, and learning for new generations."
+      }
+    },
+    {
       "id": "ong-anjos-da-tia-stellinha-upcycling",
       "cat": "inst",
       "year": 2024,
