@@ -825,7 +825,9 @@ class Component extends DCLogic {
     if (typeof document === 'undefined') return;
     const s = this.state.selected;
     const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
-    const next = s ? (s.title[this.state.lang] + ' · ' + base) : base;
+    const next = this.state.page === 'cv'
+      ? (this.state.lang === 'en' ? 'Résumé — Mauricio Ferreira' : 'Currículo — Mauricio Ferreira')
+      : (s ? (s.title[this.state.lang] + ' · ' + base) : base);
     if (next !== this._lastTitle) { this._lastTitle = next; document.title = next; }
     if (this.state.page === 'cv' && this.state.autoPrint) {
       this.setState({ autoPrint: false });
