@@ -51,14 +51,25 @@
   @keyframes pageIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
   image-slot { display: block; }
+  @media print {
+    @page { size: A4; margin: 13mm 14mm; }
+    html, body { background: #0A0A0B !important; }
+    [data-print-bg] { display: block !important; position: fixed !important; inset: -2mm !important; background: #0A0A0B !important; z-index: 0 !important; }
+    [data-app-root] { background: #0A0A0B !important; color: #ECE7DE !important; min-height: 0 !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    [data-noprint] { display: none !important; }
+    [data-cv-main] { padding: 0 !important; display: block !important; background: #0A0A0B !important; position: relative !important; z-index: 1 !important; }
+    [data-cv-sheet] { background: #0A0A0B !important; width: auto !important; max-width: none !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; margin: 0 !important; animation: none !important; }
+  }
 </style>
 </helmet>
-<div style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;position:relative;overflow-x:hidden;">
+<div data-app-root="" style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;position:relative;overflow-x:hidden;">
+  <div data-print-bg="" style="display:none;"></div>
 
-  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 80% at 50% -10%, rgba(217,164,65,0.06), transparent 60%), radial-gradient(100% 60% at 50% 120%, rgba(255,255,255,0.03), transparent 70%);"></div>
+  <div data-noprint="" style="position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 80% at 50% -10%, rgba(217,164,65,0.06), transparent 60%), radial-gradient(100% 60% at 50% 120%, rgba(255,255,255,0.03), transparent 70%);"></div>
 
   <!-- NAV -->
-  <nav style="{{ navStyle }}">
+  <nav data-noprint="" style="{{ navStyle }}">
     <div onClick="{{ goHome }}" style="cursor:pointer;min-width:0;">
       <sc-for list="{{ nameLines }}" as="ln" hint-placeholder-count="1">
         <div style="{{ logoNameStyle }}">{{ ln }}</div>
@@ -171,6 +182,12 @@
           <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:4px;text-indent:4px;text-transform:uppercase;color:#D9A441;margin:30px 0 10px;">{{ t.availLabel }}</div>
           <div style="font-size:14px;line-height:1.7;color:#D8D2C7;margin:0 auto;max-width:260px;text-wrap:pretty;">{{ aboutAvailability }}</div>
         </sc-if>
+        <div style="display:flex;justify-content:center;margin-top:32px;">
+          <a href="./curriculo-mauricio-ferreira.pdf" download="Curriculo-Mauricio-Ferreira.pdf" style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#ECE7DE;padding:11px 18px;border:1px solid rgba(236,231,222,0.22);border-radius:2px;transition:border-color .2s,color .2s;" style-hover="border-color:#D9A441;color:#D9A441;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10.5l5 5 5-5"></path><path d="M4 20.5h16"></path></svg>
+            <span>{{ t.cvDownload }}</span>
+          </a>
+        </div>
       </div>
       <!-- RIGHT -->
       <div>
@@ -284,12 +301,104 @@
   </main>
   </sc-if>
 
-  <!-- CONTACT PAGE (merged into About) -->
+  <!-- CURRÍCULO (print / PDF) -->
+  <sc-if value="{{ isCv }}" hint-placeholder-val="{{ false }}">
+  <main data-cv-main="" style="position:relative;z-index:1;padding:132px 16px 90px;display:flex;flex-direction:column;align-items:center;">
+    <div data-noprint="" style="width:210mm;max-width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;">
+      <span onClick="{{ goAbout }}" style="cursor:pointer;white-space:nowrap;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8A8478;padding:10px 16px;border:1px solid rgba(236,231,222,0.18);border-radius:2px;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">{{ t.cvBack }}</span>
+      <span onClick="{{ doPrint }}" style="display:inline-flex;align-items:center;gap:9px;cursor:pointer;white-space:nowrap;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#0A0A0B;background:#D9A441;padding:11px 18px;border:1px solid #D9A441;border-radius:2px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10.5l5 5 5-5"></path><path d="M4 20.5h16"></path></svg>
+        <span>{{ t.cvPrint }}</span>
+      </span>
+    </div>
+    <div data-cv-sheet="" style="width:210mm;max-width:100%;background:#0A0A0B;color:#ECE7DE;padding:15mm 14mm;border:1px solid rgba(236,231,222,0.08);box-shadow:0 26px 70px rgba(0,0,0,0.6);font-family:'Archivo',sans-serif;">
 
-  <!-- CONTACT PAGE (merged into About) -->
+      <div style="display:grid;grid-template-columns:34mm 1fr;gap:10mm;align-items:center;padding-bottom:8mm;border-bottom:1px solid rgba(236,231,222,0.18);">
+        <sc-if value="{{ hasPortrait }}" hint-placeholder-val="{{ false }}">
+          <img src="{{ aboutPortrait }}" alt="" style="display:block;width:34mm;height:42mm;object-fit:cover;border-radius:2px;filter:grayscale(0.15);">
+        </sc-if>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3.4px;text-transform:uppercase;color:#D9A441;margin-bottom:10px;">{{ aboutRole }}</div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:32px;letter-spacing:3.5px;text-transform:uppercase;line-height:1.02;">{{ aboutName }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.2px;line-height:1.9;color:#B4AEA3;margin-top:12px;">
+            <div>{{ aboutBased }}</div>
+            <div>{{ aboutAge }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:50mm 1fr;gap:12mm;align-items:start;padding-top:8mm;break-inside:avoid;page-break-inside:avoid;">
+        <div style="break-inside:avoid;">
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:9px;">{{ t.contactKicker }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:9.5px;line-height:1.75;color:#D8D2C7;word-break:break-word;">
+            <div style="margin-bottom:5px;">{{ email }}</div>
+            <div style="margin-bottom:5px;">{{ whatsappLabel }}</div>
+            <div>{{ siteUrl }}</div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:22px 0 9px;">{{ t.skillsLabel }}</div>
+          <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
+            <div style="font-size:11px;line-height:1.5;color:#D8D2C7;padding:2.5px 0;">{{ s }}</div>
+          </sc-for>
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:22px 0 9px;">{{ t.toolsLabel }}</div>
+          <sc-for list="{{ tools }}" as="tl" hint-placeholder-count="4">
+            <div style="font-size:11px;line-height:1.5;color:#D8D2C7;padding:2.5px 0;">{{ tl }}</div>
+          </sc-for>
+        </div>
+
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:10px;">{{ t.cvProfile }}</div>
+          <p style="font-size:11px;line-height:1.7;color:#B4AEA3;margin:0;white-space:pre-line;text-align:justify;hyphens:auto;">{{ cvBio }}</p>
+        </div>
+      </div>
+
+      <div style="padding-top:10mm;">
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:5px;">{{ t.expLabel }}</div>
+        <sc-for list="{{ cvTimeline }}" as="row" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:10px 0 13px;orphans:3;widows:3;">
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
+            <div>
+              <div style="font-family:'Newsreader',serif;font-weight:400;font-size:14.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+              <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:4px;white-space:pre-line;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:10px;line-height:1.6;color:#A8A297;margin:7px 0 0;white-space:pre-line;text-align:justify;hyphens:auto;orphans:3;widows:3;">{{ row.detail }}</p>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ hasEducation }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:5mm 0 4px;">{{ t.eduLabel }}</div>
+        <sc-for list="{{ cvEducation }}" as="row" hint-placeholder-count="2">
+          <div style="break-inside:avoid;display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:7px 0;">
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
+            <div>
+              <div style="font-family:'Newsreader',serif;font-weight:400;font-size:14.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+              <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:4px;white-space:pre-line;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#8A8478;line-height:1.45;white-space:pre-line;">{{ row.note }}</div></sc-if>
+            </div>
+          </div>
+        </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ hasLicenses }}" hint-placeholder-val="{{ false }}">
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:5mm 0 4px;">{{ t.certLabel }}</div>
+        <sc-for list="{{ licenses }}" as="row" hint-placeholder-count="4">
+          <div style="break-inside:avoid;display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:7px 0;">
+            <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
+            <div>
+              <div style="font-size:12px;color:#ECE7DE;line-height:1.4;white-space:pre-line;">{{ row.role }}</div>
+              <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:3px;white-space:pre-line;">{{ row.place }}</div>
+            </div>
+          </div>
+        </sc-for>
+        </sc-if>
+      </div>
+    </div>
+  </main>
+  </sc-if>
 
   <!-- FOOTER -->
-  <footer style="position:relative;z-index:1;padding:44px 44px;border-top:1px solid rgba(236,231,222,0.08);display:flex;flex-direction:column;align-items:center;gap:18px;">
+  <footer data-noprint="" style="position:relative;z-index:1;padding:44px 44px;border-top:1px solid rgba(236,231,222,0.08);display:flex;flex-direction:column;align-items:center;gap:18px;">
     <div style="display:flex;gap:16px;align-items:center;">
       <a href="{{ mailto }}" aria-label="E-mail" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
@@ -362,10 +471,9 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 const CATS = [
   { id: 'all',    label: { pt: 'Todos',         en: 'All' },          accent: '#D9A441' },
-  { id: 'inst',   label: { pt: 'Institucional', en: 'Corporate' },    accent: '#7FA9C4' },
-  { id: 'doc',    label: { pt: 'Documentário',  en: 'Documentary' },  accent: '#C88A5B' },
-  { id: 'curta',  label: { pt: 'Curta',         en: 'Short film' },   accent: '#B58AD1' },
-  { id: 'sound',  label: { pt: 'Sound design',  en: 'Sound design' }, accent: '#C96C7E' },
+  { id: 'inst',   label: { pt: 'Institucionais', en: 'Corporate' },    labelOne: { pt: 'Institucional', en: 'Corporate' },   accent: '#7FA9C4' },
+  { id: 'doc',    label: { pt: 'Documentários',  en: 'Documentaries' }, labelOne: { pt: 'Documentário', en: 'Documentary' },  accent: '#C88A5B' },
+  { id: 'curta',  label: { pt: 'Curtas',         en: 'Short films' },  labelOne: { pt: 'Curta', en: 'Short film' },           accent: '#B58AD1' },
 ];
 
 const VIDEOS = [
@@ -444,6 +552,7 @@ const STRINGS = {
     contactTitle: 'Vamos montar algo juntos?',
     availValue: 'Aberto a novos projetos',
     locLabel: 'Localização', locValue: '[ Cidade, País ]',
+    cvDownload: 'Baixar currículo', cvPrint: 'Salvar em PDF', cvBack: '← Voltar', cvProfile: 'Sobre mim',
     footerNote: 'Editado no escuro',
   },
   en: {
@@ -473,6 +582,7 @@ const STRINGS = {
     contactTitle: 'Shall we cut something together?',
     availValue: 'Open to new projects',
     locLabel: 'Location', locValue: '[ City, Country ]',
+    cvDownload: 'Download résumé', cvPrint: 'Save as PDF', cvBack: '← Back', cvProfile: 'About me',
     footerNote: 'Edited in the dark',
   },
 };
@@ -634,25 +744,33 @@ class Component extends DCLogic {
   applyHash() {
     if (typeof window === 'undefined') return;
     const base = siteBase();
-    let wantId = null, wantAbout = false, legacy = false;
+    let wantId = null, wantAbout = false, wantCv = false, legacy = false;
     if (base) {
       let p = decodeURIComponent(window.location.pathname);
       if (p.indexOf(base) === 0) {
         let seg = p.slice(base.length).replace(/^\/+|\/+$/g, '');
         if (seg.indexOf('/') !== -1) seg = seg.split('/').pop();
         if (seg && seg !== 'index.html' && seg !== '404.html') {
-          if (/^(sobre|about)$/.test(seg)) wantAbout = true; else wantId = seg;
+          if (/^(sobre|about)$/.test(seg)) wantAbout = true;
+          else if (/^(curriculo|cv|resume)$/.test(seg)) wantCv = true;
+          else wantId = seg;
         }
       }
     }
     const h = window.location.hash || '';
-    if (!wantId && !wantAbout && h) {
+    if (!wantId && !wantAbout && !wantCv && h) {
       const m = h.match(/projeto\/([\w-]+)/);
       if (m) { wantId = m[1]; legacy = true; }
       else if (/^#(sobre|about)$/.test(h)) { wantAbout = true; legacy = true; }
+      else if (/^#(curriculo|cv|resume)$/.test(h)) { wantCv = true; legacy = true; }
     }
     // Upgrade old hash links to the pretty path once.
-    if (legacy && base) { this.setHash(wantAbout ? 'about' : wantId, true); }
+    if (legacy && base) { this.setHash(wantCv ? 'cv' : (wantAbout ? 'about' : wantId), true); }
+    if (wantCv) {
+      if (this.state.selected) this.closeProject(true);
+      if (this.state.page !== 'cv') this.goto('cv', true);
+      return;
+    }
     const list = (this.state.data && this.state.data.projects) || [];
     if (wantId) {
       if (this.state.selected && this.state.selected.id === wantId) return;
@@ -665,7 +783,7 @@ class Component extends DCLogic {
       if (this.state.page !== 'about') this.goto('about', true);
       return;
     }
-    if (this.state.page === 'about') this.goto('home', true);
+    if (this.state.page === 'about' || this.state.page === 'cv') this.goto('home', true);
     if (this.state.selected) this.closeProject(true);
   }
 
@@ -673,13 +791,13 @@ class Component extends DCLogic {
     if (typeof window === 'undefined') return;
     const base = siteBase();
     if (base) {
-      const url = base + (id ? (id === 'about' ? 'sobre' : id) : '') + window.location.search;
+      const url = base + (id ? (id === 'about' ? 'sobre' : (id === 'cv' ? 'curriculo' : id)) : '') + window.location.search;
       if (window.location.pathname + window.location.search + window.location.hash !== url) {
         try { history[replace ? 'replaceState' : 'pushState'](null, '', url); } catch (e) {}
       }
       return;
     }
-    const target = id ? (id === 'about' ? '#sobre' : '#projeto/' + id) : '';
+    const target = id ? (id === 'about' ? '#sobre' : (id === 'cv' ? '#curriculo' : '#projeto/' + id)) : '';
     if (id) {
       if (window.location.hash !== target) window.location.hash = target;
     } else if (window.location.hash) {
@@ -709,6 +827,17 @@ class Component extends DCLogic {
     const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
     const next = s ? (s.title[this.state.lang] + ' · ' + base) : base;
     if (next !== this._lastTitle) { this._lastTitle = next; document.title = next; }
+    if (this.state.page === 'cv' && this.state.autoPrint) {
+      this.setState({ autoPrint: false });
+      if (this._printT) clearTimeout(this._printT);
+      this._printT = setTimeout(() => {
+        // Return to About as soon as the print/save dialog closes, so the
+        // download feels like a single click.
+        const back = () => { window.removeEventListener('afterprint', back); setTimeout(() => { if (this.state.page === 'cv') this.goto('about'); }, 120); };
+        window.addEventListener('afterprint', back);
+        try { window.print(); } catch (e) {}
+      }, 550);
+    }
   }
 
   lockScroll(on) {
@@ -740,7 +869,7 @@ class Component extends DCLogic {
   openProject(v, fromHash) { if (!fromHash) this.setHash(v.id); this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
   closeProject(fromHash) { if (!fromHash) this.setHash(null); this.lockScroll(false); this.setState({ selected: null, playing: false }); }
 
-  goto(page, fromHash) { if (!fromHash) this.setHash(page === 'about' ? 'about' : null); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+  goto(page, fromHash) { if (!fromHash) this.setHash(page === 'about' ? 'about' : (page === 'cv' ? 'cv' : null)); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
 
   renderVals() {
     const L = this.state.lang;
@@ -772,6 +901,8 @@ class Component extends DCLogic {
     const activeChip = "white-space:nowrap;cursor:pointer;font-family:'Space Mono',monospace;font-size:" + chipFont + ";letter-spacing:" + chipLs + ";text-transform:uppercase;padding:" + chipPad + ";border-radius:2px;border:1px solid #D9A441;background:#D9A441;color:#0A0A0B;transition:all .2s;";
 
     const catLabel = (id) => (CATS.find(c => c.id === id) || {}).label[L];
+    // Singular form for single-project contexts (cards, ficha técnica)
+    const catLabelOne = (id) => { const c = CATS.find(x => x.id === id) || {}; return (c.labelOne && c.labelOne[L]) || (c.label && c.label[L]) || ''; };
     const catAccent = (id) => (CATS.find(c => c.id === id) || {}).accent;
     const hovered = this.state.hovered;
     const overlayBase = 'position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(0deg, rgba(8,8,9,0.92), rgba(8,8,9,0.3));transition:opacity .35s;opacity:';
@@ -792,10 +923,10 @@ class Component extends DCLogic {
       .map(v => ({
         id: v.id, year: v.year, duration: v.duration,
         title: v.title[L], desc: v.desc[L],
-        catLabel: catLabel(v.cat), accent: catAccent(v.cat),
+        catLabel: catLabelOne(v.cat), accent: catAccent(v.cat),
         posterId: 'poster-' + v.id,
         poster: thumbFor(v, GWS, BHOST),
-        metaLine: catLabel(v.cat) + '  \u00b7  ' + v.year,
+        metaLine: catLabelOne(v.cat) + '  \u00b7  ' + v.year,
         showCaption: mob,
         imgStyle: 'position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(' + (hovered === v.id ? '1.05' : '1') + ');',
         overlayStyle: overlayBase + (!mob && hovered === v.id ? '1' : '0') + ';',
@@ -854,9 +985,9 @@ class Component extends DCLogic {
       sel = {
         posterId: 'poster-' + s.id, year: s.year, duration: s.duration,
         title: s.title[L], desc: s.desc[L], descEl: descEl(s.desc[L]),
-        catLabel: catLabel(s.cat), accent: catAccent(s.cat),
+        catLabel: catLabelOne(s.cat), accent: catAccent(s.cat),
         client: s.client, role: s.role[L], tools: s.tools,
-        metaLine: catLabel(s.cat) + '  \u00b7  ' + s.year + '  \u00b7  ' + s.duration,
+        metaLine: catLabelOne(s.cat) + '  \u00b7  ' + s.year + '  \u00b7  ' + s.duration,
         poster: thumbFor(s, GWS, BHOST),
         embed: pv.embed ? pv.embed + (pv.embed.indexOf('?') > -1 ? '&' : '?') + pv.autoplayParam : '',
         hasVideo: !!pv.embed,
@@ -926,6 +1057,16 @@ class Component extends DCLogic {
     const certOpen = !!expanded.certs;
     const licRowStyle = (isLast) => 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (isLast ? lastRow : dividerRow);
     const certPreview = aboutLicenses.slice(0, 3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
+    const cvRow = (r) => ({ year: r.year, role: r.role, place: r.place, note: r.tag || '', hasNote: !!(r.tag && String(r.tag).trim()), detail: r.detail, hasDetail: !!(r.detail && r.detail.trim()) });
+    // The résumé uses shorter, CV-specific paragraphs when present.
+    const cvTimeline = (ab.timeline || []).map(r => {
+      const row = cvRow(rowsL([r])[0]);
+      const d = r.cvDetail ? pick(r.cvDetail) : '';
+      if (d && d.trim()) { row.detail = d; row.hasDetail = true; }
+      return row;
+    });
+    const cvEducation = rowsL(ab.education).map(cvRow);
+    const linkedinHandle = String(DATA.linkedin || '').replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/+$/, '');
     const certRest = aboutLicenses.slice(3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(i === arr.length - 1) }));
 
     return {
@@ -939,6 +1080,7 @@ class Component extends DCLogic {
       catMenuToggle: () => this.setState(st => ({ catMenuOpen: !st.catMenuOpen })),
       aboutName, aboutRole,
       aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
+      hasPortrait: true,
       aboutBio: pick(ab.bio),
       aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
       aboutAge: pick(ab.age) || (L === 'pt' ? '28 anos' : '28 years old'),
@@ -978,6 +1120,13 @@ class Component extends DCLogic {
       studioName: 'Estúdio', studioRole: 'REEL',
       isHome: this.state.page === 'home',
       isAbout: this.state.page === 'about',
+      isCv: this.state.page === 'cv',
+      cvTimeline, cvEducation, cvBio: pick(ab.bio),
+      siteUrl: (DATA.siteUrl || 'mauricioosf.github.io/portfolio'),
+      linkedinHandle: linkedinHandle ? 'linkedin.com/in/' + linkedinHandle : '',
+      goCv: () => this.goto('cv'),
+      goCvPrint: () => { this.setHash('cv'); this.lockScroll(false); this.setState({ page: 'cv', selected: null, playing: false, worksPinned: false, worksHover: false, autoPrint: true }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); },
+      doPrint: () => { try { window.print(); } catch (e) {} },
       isOpen: !!this.state.selected,
       heroLine1: L === 'pt' ? 'Histórias' : 'Stories',
       heroLine2: L === 'pt' ? 'contadas no corte.' : 'told in the cut.',
