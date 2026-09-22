@@ -9,10 +9,8 @@
 /* Carregamento antecipado: busca o videos.json e começa a baixar as primeiras
    capas enquanto o React ainda está carregando, em vez de esperar por ele. */
 (function () {
-  window.__gridThumb = function (url) {
-    if (!url || !/^https?:\/\//.test(url) || /wsrv\.nl|picsum\.photos/.test(url)) return url;
-    return 'https://wsrv.nl/?url=' + encodeURIComponent(url.replace(/^https?:\/\//, '')) + '&w=800&output=webp&q=78';
-  };
+  // Capas servidas direto do Bunny (sem redimensionador externo).
+  window.__gridThumb = function (url) { return url; };
   function rawThumb(p, d) {
     if (p.thumb && p.thumb !== 'auto') return p.thumb;
     var v = p.video || '', m;
@@ -25,11 +23,12 @@
     .catch(function () { return null; });
   window.__videosP.then(function (d) {
     if (!d || !d.projects) return;
-    d.projects.slice().sort(function (a, b) { return b.year - a.year; }).slice(0, 6).forEach(function (p) {
+    // Todas as capas começam juntas; as 6 do topo com prioridade alta.
+    d.projects.slice().sort(function (a, b) { return b.year - a.year; }).forEach(function (p, i) {
       var raw = rawThumb(p, d);
       if (!raw) return;
       var img = new Image();
-      if ('fetchPriority' in img) img.fetchPriority = 'high';
+      if ('fetchPriority' in img) img.fetchPriority = i < 6 ? 'high' : 'auto';
       img.src = window.__gridThumb(raw);
     });
   });
@@ -63,7 +62,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
-<link rel="preconnect" href="https://wsrv.nl">
 <link rel="preconnect" href="https://vz-892d060b-7a1.b-cdn.net">
 <link rel="preconnect" href="https://vz-1104b846-a66.b-cdn.net">
 <style>

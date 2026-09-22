@@ -6,7 +6,7 @@
   "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
   "about": {
     "name": "Mauricio Ferreira",
-    "portrait": "images/foto-mauricio.png",
+    "portrait": "images/foto-mauricio.webp",
     "role": {
       "pt": "Editor de Vídeo",
       "en": "Video Editor"
