@@ -3,8 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<base href="/portfolio/">
-<meta name="site-base" content="/portfolio/">
 <script>
 /* Carregamento antecipado: busca o videos.json e começa a baixar as primeiras
    capas enquanto o React ainda está carregando, em vez de esperar por ele. */
@@ -34,6 +32,8 @@
   });
 })();
 </script>
+<base href="/portfolio/">
+<meta name="site-base" content="/portfolio/">
 <script src="support.js"></script>
 </head>
 <body>
@@ -251,6 +251,15 @@
               <div style="{{ row.detailStyle }}">
                 <div style="overflow:hidden;min-height:0;">
                   <p style="font-size:13px;line-height:1.75;color:#A8A297;margin:0;max-width:580px;white-space:pre-line;text-wrap:pretty;">{{ row.detail }}</p>
+                <sc-if value="{{ row.hasMedia }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding-bottom:10px;">
+                    <sc-for list="{{ row.media }}" as="m" hint-placeholder-count="3">
+                      <button onClick="{{ m.open }}" aria-label="{{ m.label }}" style="width:108px;height:70px;padding:0;border:1px solid rgba(236,231,222,0.12);border-radius:4px;overflow:hidden;cursor:zoom-in;background:#141416;transition:border-color .2s ease,opacity .2s ease;" style-hover="border-color:#D9A441;opacity:0.85;">
+                        <img src="{{ m.src }}" alt="{{ m.caption }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></img>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-if>
                 </div>
               </div>
               <span onClick="{{ row.toggle }}" tabindex="0" role="button" data-kb="" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
@@ -450,6 +459,23 @@
     </sc-if>
     <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#5F5A50;">{{ aboutName }} © {{ yearNow }}</span>
   </footer>
+
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-noprint="" onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:80;background:rgba(10,10,11,0.55);backdrop-filter:blur(18px) saturate(1.1);-webkit-backdrop-filter:blur(18px) saturate(1.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:80px 20px 32px;animation:fadeIn .25s ease both;">
+    <button onClick="{{ lbClose }}" aria-label="Fechar" style="position:fixed;top:24px;right:28px;width:40px;height:40px;cursor:pointer;background:rgba(10,10,11,0.55);border:1px solid rgba(236,231,222,0.2);border-radius:50%;color:#ECE7DE;font-size:15px;" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
+    <div style="width:min(1100px,100%,calc((100vh - 280px) * 16 / 9));aspect-ratio:16 / 9;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+      <img onClick="{{ stop }}" src="{{ lbSrc }}" alt="{{ lbCaption }}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:3px;display:block;cursor:default;"></img>
+    </div>
+    <div onClick="{{ stop }}" style="height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;max-width:760px;width:100%;">
+      <div style="font-size:17px;line-height:1.5;color:#ECE7DE;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">{{ lbCaption }}</div>
+    </div>
+    <div onClick="{{ stop }}" style="{{ lbCtlStyle }}">
+      <button onClick="{{ lbPrev }}" aria-label="Anterior" style="width:38px;height:38px;flex-shrink:0;cursor:pointer;background:none;border:1px solid rgba(236,231,222,0.2);border-radius:50%;color:#ECE7DE;font-size:14px;" style-hover="border-color:#D9A441;color:#D9A441;">←</button>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;color:#D9A441;white-space:nowrap;min-width:48px;text-align:center;">{{ lbCounter }}</div>
+      <button onClick="{{ lbNext }}" aria-label="Próxima" style="width:38px;height:38px;flex-shrink:0;cursor:pointer;background:none;border:1px solid rgba(236,231,222,0.2);border-radius:50%;color:#ECE7DE;font-size:14px;" style-hover="border-color:#D9A441;color:#D9A441;">→</button>
+    </div>
+  </div>
+  </sc-if>
 
   <!-- PROJECT DETAIL -->
   <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
@@ -734,12 +760,22 @@ function siteBase() {
 class Component extends DCLogic {
   state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {}, isMobile: false, catMenuOpen: false, gridVisible: true, copied: false };
 
+  lbOpen(items, i) { this.setState({ lb: { items, i } }); if (!this.state.selected) this.lockScroll(true); }
+  lbClose() { this.setState({ lb: null }); if (!this.state.selected) this.lockScroll(false); }
+  lbStep(d) { this.setState(s => s.lb ? { lb: { items: s.lb.items, i: (s.lb.i + d + s.lb.items.length) % s.lb.items.length } } : null); }
+
   componentDidMount() {
     (window.__videosP || fetch('./videos.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null))
       .then(d => { if (d && d.projects) { this.setState({ data: d, loadError: false }, () => this.applyHash()); } else { this.setState({ loadError: true }); } })
       .catch(() => this.setState({ loadError: true }));
     this._onHash = () => this.applyHash();
     this._onKey = (e) => {
+      const lb = this.state.lb;
+      if (lb) {
+        if (e.key === 'Escape') { this.lbClose(); return; }
+        if (e.key === 'ArrowRight') { this.lbStep(1); return; }
+        if (e.key === 'ArrowLeft') { this.lbStep(-1); return; }
+      }
       if (e.key === 'Escape' && this.state.selected) { this.closeProject(); return; }
       // Enter/Espaço ativam itens clicáveis que não são botões nativos.
       const el = e.target;
@@ -1103,7 +1139,15 @@ class Component extends DCLogic {
     const lastRow = 'padding:18px 0;';
     const aboutTimeline = rowsL(ab.timeline).map((r, i, arr) => {
       const open = !!expanded['exp' + i];
+      const raw = ((ab.timeline || [])[i] || {}).media;
+      const mediaItems = (Array.isArray(raw) ? raw : []).map(m => typeof m === 'string' ? { src: m, caption: '' } : { src: m && m.src || '', caption: pick(m && m.caption) }).filter(m => m.src);
+      const media = mediaItems.map((m, j) => ({
+        src: m.src, caption: m.caption,
+        label: (L === 'pt' ? 'Ampliar imagem ' : 'Open image ') + (j + 1) + (m.caption ? ' — ' + m.caption : ''),
+        open: () => this.lbOpen(mediaItems, j),
+      }));
       return {
+        media, hasMedia: media.length > 0,
         year: r.year, role: r.role, place: r.place, detail: r.detail, summary: r.summary,
         metaLine: [r.place, r.year].filter(Boolean).join('  \u00b7  '),
         rowStyle: (i === arr.length - 1 ? lastRow : dividerRow),
@@ -1191,6 +1235,16 @@ class Component extends DCLogic {
       goCv: () => this.goto('cv'),
       goCvPrint: () => { this.setHash('cv'); this.lockScroll(false); this.setState({ page: 'cv', selected: null, playing: false, worksPinned: false, worksHover: false, autoPrint: true }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); },
       doPrint: () => { try { window.print(); } catch (e) {} },
+      lbOpen: !!this.state.lb,
+      lbSrc: this.state.lb ? this.state.lb.items[this.state.lb.i].src : '',
+      lbCaption: this.state.lb ? this.state.lb.items[this.state.lb.i].caption : '',
+      lbHasCaption: !!(this.state.lb && this.state.lb.items[this.state.lb.i].caption),
+      lbMulti: !!(this.state.lb && this.state.lb.items.length > 1),
+      lbCtlStyle: 'display:flex;align-items:center;gap:18px;height:38px;flex-shrink:0;visibility:' + ((this.state.lb && this.state.lb.items.length > 1) ? 'visible' : 'hidden') + ';',
+      lbCounter: this.state.lb ? (this.state.lb.i + 1) + ' / ' + this.state.lb.items.length : '',
+      lbClose: () => this.lbClose(),
+      lbPrev: (e) => { if (e) e.stopPropagation(); this.lbStep(-1); },
+      lbNext: (e) => { if (e) e.stopPropagation(); this.lbStep(1); },
       isOpen: !!this.state.selected,
       heroLine1: L === 'pt' ? 'Histórias' : 'Stories',
       heroLine2: L === 'pt' ? 'contadas no corte.' : 'told in the cut.',

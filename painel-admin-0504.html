@@ -246,6 +246,10 @@
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Experiência (EN) <span style="color:#5F5A50;">— mesma ordem de linhas: year | role | place | extra text · <b style="color:#D9A441;">//</b> = novo parágrafo</span></label>
           <textarea name="timeline_en" value="{{ af.timeline_en }}" onInput="{{ onAbout }}" rows="4" placeholder="2022–25 | Senior editor — Studio X | Brands & documentary | Details shown when expanded" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.timeline_en }}</textarea>
         </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Imagens das experiências <span style="color:#5F5A50;">— uma linha por experiência, na mesma ordem · separe imagens com <b style="color:#D9A441;">;</b> · legenda opcional depois de <b style="color:#D9A441;">|</b> · linha vazia = sem imagens</span></label>
+          <textarea name="media_rows" value="{{ af.media_rows }}" onInput="{{ onAbout }}" rows="3" placeholder="https://seu-zone.b-cdn.net/zhouse/tv.jpg | TV Corporativa ; https://seu-zone.b-cdn.net/zhouse/evento.jpg" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;resize:vertical;line-height:1.6;font-family:'Space Mono',monospace;">{{ af.media_rows }}</textarea>
+        </div>
 
         <div style="grid-column:1 / -1;">
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Formação (PT) <span style="color:#5F5A50;">— uma por linha: ano | curso | instituição | tag opcional</span></label>
@@ -289,7 +293,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
 const EMPTY = { id:'', cat:'inst', year:'', duration:'', client:'', tools:'', video:'', thumb:'auto', title_pt:'', title_en:'', desc_pt:'', desc_en:'', role_pt:'', role_en:'' };
 const CAT_LABELS = { inst:'Institucional', doc:'Documentário', curta:'Curta', sound:'Sound design' };
-const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', pos_pt:'', pos_en:'', avail_pt:'', avail_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'' };
+const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', pos_pt:'', pos_en:'', avail_pt:'', avail_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'', media_rows:'' };
 
 // The browser's working copy wins for anything it actually has, but any key it
 // never knew about (fields added to the site later) is filled from videos.json.
@@ -369,6 +373,11 @@ function flattenAbout(a) {
     skills_pt: listStr(a.skills, 'pt'), skills_en: listStr(a.skills, 'en'),
     tools_pt: listStr(a.tools, 'pt'), tools_en: listStr(a.tools, 'en'),
     timeline_pt: rowsStr(a.timeline, 'pt', true), timeline_en: rowsStr(a.timeline, 'en', true),
+    media_rows: (a.timeline || []).map(t => (Array.isArray(t.media) ? t.media : []).map(m => {
+      if (typeof m === 'string') return m;
+      const c = pl(m.caption, 'pt');
+      return (m.src || '') + (c ? ' | ' + c : '');
+    }).join(' ; ')).join('\n'),
     education_pt: rowsStr(a.education, 'pt', false), education_en: rowsStr(a.education, 'en', false),
     licenses_pt: rowsStr(a.licenses, 'pt', false), licenses_en: rowsStr(a.licenses, 'en', false),
   };
@@ -393,6 +402,15 @@ function buildAbout(f) {
     }
     return out;
   };
+  const timeline = rowsBi(f.timeline_pt, f.timeline_en, true);
+  const mediaLines = String(f.media_rows || '').split('\n');
+  timeline.forEach((row, i) => {
+    const media = (mediaLines[i] || '').split(';').map(x => x.trim()).filter(Boolean).map(x => {
+      const [src, cap] = x.split('|').map(s => s.trim());
+      return cap ? { src, caption: pair(cap, cap) } : { src };
+    }).filter(m => m.src);
+    if (media.length) row.media = media;
+  });
   return {
     name: f.name || '',
     portrait: f.portrait || '',
@@ -405,7 +423,7 @@ function buildAbout(f) {
     contactTitle: pair(f.contact_pt, f.contact_en),
     skills: { pt: list(f.skills_pt), en: list(f.skills_en) },
     tools: { pt: list(f.tools_pt), en: list(f.tools_en) },
-    timeline: rowsBi(f.timeline_pt, f.timeline_en, true),
+    timeline,
     education: rowsBi(f.education_pt, f.education_en, false),
     licenses: rowsBi(f.licenses_pt, f.licenses_en, false),
   };
