@@ -1,0 +1,175 @@
+# Publica o portfólio no GitHub Pages a cada envio de arquivos.
+# Também gera uma página de prévia (título, texto e capa) para cada projeto,
+# usada pelo LinkedIn, WhatsApp e outros quando alguém compartilha o link.
+name: Publicar portfólio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Pillow
+        run: pip install pillow
+
+      - name: Gerar site com prévias
+        run: |
+          python3 - <<'PY'
+          # Gera o site publicado (_site) com prévias de compartilhamento por projeto.
+          import json, os, re, shutil, html, urllib.request, io
+          from PIL import Image
+
+          SRC = '.'
+          OUT = '_site'
+          repo = os.environ.get('GITHUB_REPOSITORY', 'mauricioosf/portfolio')
+          owner, name = repo.split('/')
+          if name.lower() == owner.lower() + '.github.io':
+              SITE = 'https://%s.github.io/' % owner.lower()
+          else:
+              SITE = 'https://%s.github.io/%s/' % (owner.lower(), name)
+
+          # 1) copia o repositório inteiro, menos pastas internas
+          shutil.rmtree(OUT, ignore_errors=True)
+          shutil.copytree(SRC, OUT, ignore=shutil.ignore_patterns('.git', '.github', '_site', '.DS_Store', '__MACOSX'))
+
+          index = open(os.path.join(SRC, 'index.html'), encoding='utf-8').read()
+          data = json.load(open(os.path.join(SRC, 'videos.json'), encoding='utf-8'))
+          about = data.get('about', {})
+          person = about.get('name') or 'Mauricio Ferreira'
+          role_pt = (about.get('role') or {}).get('pt') or 'Editor de vídeo'
+
+          def esc(s):
+              return html.escape(s or '', quote=True)
+
+          def resumo(texto, limite=200):
+              t = re.split(r'##[^#\n]+##', texto or '')[0]          # tira a ficha de equipe
+              t = re.sub(r'\s+', ' ', t).strip()
+              if len(t) <= limite:
+                  return t
+              corte = t[:limite].rsplit(' ', 1)[0].rstrip(',;:.')
+              return corte + '...'
+
+          def imagem_og(proj):
+              """Gera og/<id>.jpg (1200x630) a partir da capa. Devolve a URL ou None."""
+              thumb = proj.get('thumb') or ''
+              img = None
+              try:
+                  if thumb and thumb != 'auto' and not thumb.startswith('http'):
+                      img = Image.open(os.path.join(SRC, thumb))
+                  else:
+                      url = thumb if thumb.startswith('http') else ''
+                      m = re.search(r'(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([\w-]{11})', proj.get('video') or '')
+                      if not url and m:
+                          url = 'https://img.youtube.com/vi/%s/maxresdefault.jpg' % m.group(1)
+                      if url:
+                          req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0', 'Referer': 'https://iframe.mediadelivery.net/'})
+                          img = Image.open(io.BytesIO(urllib.request.urlopen(req, timeout=20).read()))
+              except Exception as e:
+                  print('  aviso: não consegui usar a capa de', proj.get('id'), '->', e)
+                  return None
+              if img is None:
+                  return None
+              if img.mode in ('RGBA', 'LA', 'P'):
+                  img = img.convert('RGBA'); bg = Image.new('RGB', img.size, (0, 0, 0)); bg.paste(img, mask=img.getchannel('A')); img = bg
+              else:
+                  img = img.convert('RGB')
+              w, h = img.size
+              alvo = 1200 / 630
+              if w / h > alvo:
+                  nw = round(h * alvo); img = img.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
+              else:
+                  nh = round(w / alvo); img = img.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
+              img = img.resize((1200, 630), Image.LANCZOS)
+              os.makedirs(os.path.join(OUT, 'og'), exist_ok=True)
+              img.save(os.path.join(OUT, 'og', proj['id'] + '.jpg'), 'JPEG', quality=85, optimize=True, progressive=True)
+              return SITE + 'og/' + proj['id'] + '.jpg'
+
+          def pagina(titulo, descricao, url, imagem, tipo='website'):
+              tags = [
+                  '<title>%s</title>' % esc(titulo),
+                  '<meta name="description" content="%s">' % esc(descricao),
+                  '<link rel="canonical" href="%s">' % esc(url),
+                  '<meta property="og:type" content="%s">' % tipo,
+                  '<meta property="og:site_name" content="%s">' % esc(person + ' · Portfólio'),
+                  '<meta property="og:locale" content="pt_BR">',
+                  '<meta property="og:title" content="%s">' % esc(titulo),
+                  '<meta property="og:description" content="%s">' % esc(descricao),
+                  '<meta property="og:url" content="%s">' % esc(url),
+                  '<meta property="og:image" content="%s">' % esc(imagem),
+                  '<meta property="og:image:type" content="image/jpeg">',
+                  '<meta property="og:image:width" content="1200">',
+                  '<meta property="og:image:height" content="630">',
+                  '<meta name="twitter:card" content="summary_large_image">',
+                  '<meta name="twitter:title" content="%s">' % esc(titulo),
+                  '<meta name="twitter:description" content="%s">' % esc(descricao),
+                  '<meta name="twitter:image" content="%s">' % esc(imagem),
+              ]
+              bloco = '\n'.join(tags) + '\n'
+              # coloca as tags no <head> de verdade (lido pelos robôs de prévia)
+              return re.sub(r'(<meta name="site-base"[^>]*>\n)', lambda m: m.group(1) + bloco, index, count=1)
+
+          og_padrao = SITE + 'images/og-image.jpg'
+          desc_site = 'Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.'
+
+          # 2) página inicial e Sobre
+          open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(
+              pagina(person + ' · ' + role_pt, desc_site, SITE, og_padrao))
+          for slug in ('sobre',):
+              os.makedirs(os.path.join(OUT, slug), exist_ok=True)
+              open(os.path.join(OUT, slug, 'index.html'), 'w', encoding='utf-8').write(
+                  pagina('Sobre · ' + person, resumo((about.get('bio') or {}).get('pt')) or desc_site, SITE + slug + '/', og_padrao))
+
+          # 3) uma página por projeto
+          ids = set()
+          for p in data.get('projects', []):
+              pid = p.get('id') or ''
+              if not re.fullmatch(r'[a-z0-9-]+', pid) or pid in ('sobre', 'about', 'curriculo', 'cv', 'images', 'vendor', 'og'):
+                  print('  pulando id inválido:', repr(pid)); continue
+              if pid in ids:
+                  print('  pulando id repetido:', pid); continue
+              ids.add(pid)
+              titulo = (p.get('title') or {}).get('pt') or pid
+              desc = resumo((p.get('desc') or {}).get('pt')) or desc_site
+              img = imagem_og(p) or og_padrao
+              os.makedirs(os.path.join(OUT, pid), exist_ok=True)
+              open(os.path.join(OUT, pid, 'index.html'), 'w', encoding='utf-8').write(
+                  pagina(titulo + ' · ' + person, desc, SITE + pid + '/', img, 'video.other'))
+              print('  ok:', pid)
+
+          print('Pronto: %d projetos, site em %s' % (len(ids), SITE))
+
+          PY
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
