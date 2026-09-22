@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,24 +40,26 @@
 <x-dc>
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A0A0B"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#D9A441"/><path d="M45 42 L45 58 L59 50 Z" fill="#0A0A0B"/></svg></template>
 <helmet>
-<title>Mauricio Ferreira — Portfólio</title>
+<title>Mauricio Ferreira · Portfólio</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <link rel="icon" type="image/png" href="./images/favicon.png">
-<meta name="description" content="Mauricio Ferreira — Editor de vídeo e motion designer. Montagem, color grading e sound design para marcas e documentário.">
+<meta name="description" content="Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mauricio Ferreira — Editor de vídeo">
-<meta property="og:description" content="Portfólio de vídeos: montagem, color grading, motion e sound design para marcas e documentário.">
-<meta property="og:image" content="https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="720">
+<meta property="og:title" content="Mauricio Ferreira · Editor de vídeo">
+<meta property="og:description" content="Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.">
+<meta property="og:image" content="https://mauricioosf.github.io/portfolio/images/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:url" content="https://mauricioosf.github.io/portfolio/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Mauricio Ferreira — Portfólio">
+<meta property="og:site_name" content="Mauricio Ferreira · Portfólio">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mauricio Ferreira — Editor de vídeo">
-<meta name="twitter:description" content="Portfólio de vídeos: montagem, color grading, motion e sound design para marcas e documentário.">
-<meta name="twitter:image" content="https://vz-892d060b-7a1.b-cdn.net/d764e17d-970f-4615-a28e-709dab1548ce/thumbnail_26ddaa7d.jpg">
+<meta name="twitter:title" content="Mauricio Ferreira · Editor de vídeo">
+<meta name="twitter:description" content="Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.">
+<meta name="twitter:image" content="https://mauricioosf.github.io/portfolio/images/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -99,7 +101,7 @@
 
   <!-- NAV -->
   <nav data-noprint="" style="{{ navStyle }}">
-    <div onClick="{{ goHome }}" style="cursor:pointer;min-width:0;">
+    <div onClick="{{ goHome }}" tabindex="0" role="button" data-kb="" aria-label="Início" style="cursor:pointer;min-width:0;">
       <sc-for list="{{ nameLines }}" as="ln" hint-placeholder-count="1">
         <div style="{{ logoNameStyle }}">{{ ln }}</div>
       </sc-for>
@@ -109,12 +111,12 @@
       <div style="position:relative;display:flex;align-items:center;" onMouseEnter="{{ worksOn }}" onMouseLeave="{{ worksOff }}">
         <div style="{{ catsStyle }}">
           <sc-for list="{{ navCats }}" as="c" hint-placeholder-count="5">
-            <span onClick="{{ c.onClick }}" onMouseEnter="{{ c.onMouseEnter }}" onMouseLeave="{{ c.onMouseLeave }}" style="{{ c.style }}">{{ c.label }}</span>
+            <span onClick="{{ c.onClick }}" tabindex="0" role="button" data-kb="" onFocus="{{ worksOn }}" onMouseEnter="{{ c.onMouseEnter }}" onMouseLeave="{{ c.onMouseLeave }}" style="{{ c.style }}">{{ c.label }}</span>
           </sc-for>
         </div>
-        <span onClick="{{ worksToggle }}" onMouseEnter="{{ navWorkEnter }}" onMouseLeave="{{ navLeave }}" style="{{ worksLabelStyle }}">{{ t.navWork }}</span>
+        <span onClick="{{ worksToggle }}" tabindex="0" role="button" data-kb="" onFocus="{{ worksOn }}" onMouseEnter="{{ navWorkEnter }}" onMouseLeave="{{ navLeave }}" style="{{ worksLabelStyle }}">{{ t.navWork }}</span>
       </div>
-      <span onClick="{{ goAbout }}" onMouseEnter="{{ navAboutEnter }}" onMouseLeave="{{ navLeave }}" style="{{ aboutLinkStyle }}">{{ t.navAbout }}</span>
+      <span onClick="{{ goAbout }}" tabindex="0" role="button" data-kb="" onMouseEnter="{{ navAboutEnter }}" onMouseLeave="{{ navLeave }}" style="{{ aboutLinkStyle }}">{{ t.navAbout }}</span>
       <button onClick="{{ toggleLang }}" onMouseEnter="{{ navLangEnter }}" onMouseLeave="{{ navLeave }}" style="{{ langBtnStyle }}">{{ langLabel }}</button>
     </div>
   </nav>
@@ -133,14 +135,14 @@
         <sc-if value="{{ catMenuOpen }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;top:calc(100% + 6px);left:0;z-index:20;background:#141416;border:1px solid rgba(236,231,222,0.16);border-radius:4px;padding:5px;min-width:180px;box-shadow:0 14px 34px rgba(0,0,0,0.55);animation:fadeUp .2s ease both;">
           <sc-for list="{{ catMenuItems }}" as="c" hint-placeholder-count="5">
-            <div onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</div>
+            <div onClick="{{ c.onClick }}" tabindex="0" role="button" data-kb="" style="{{ c.style }}">{{ c.label }}</div>
           </sc-for>
         </div>
         </sc-if>
       </div>
       <div style="display:flex;gap:5px;">
         <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="2">
-          <span onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</span>
+          <span onClick="{{ o.onClick }}" tabindex="0" role="button" data-kb="" style="{{ o.style }}">{{ o.label }}</span>
         </sc-for>
       </div>
     </div>
@@ -151,18 +153,21 @@
       <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#5F5A50;">{{ t.sortLabel }}</span>
       <div style="display:flex;gap:6px;">
         <sc-for list="{{ sortOpts }}" as="o" hint-placeholder-count="2">
-          <span onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</span>
+          <span onClick="{{ o.onClick }}" tabindex="0" role="button" data-kb="" style="{{ o.style }}">{{ o.label }}</span>
         </sc-for>
       </div>
     </div>
     </sc-if>
+    <sc-if value="{{ loadError }}" hint-placeholder-val="{{ false }}">
+      <p style="max-width:560px;margin:40px auto;text-align:center;font-size:16px;line-height:1.7;color:#B4AEA3;">{{ t.loadError }}</p>
+    </sc-if>
     <!-- GRID -->
     <div style="{{ gridStyle }}">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
-        <div onClick="{{ v.open }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="cursor:pointer;animation:fadeUp .6s ease both;">
+        <div onClick="{{ v.open }}" tabindex="0" role="button" data-kb="" aria-label="{{ v.title }}" onFocus="{{ v.hover }}" onBlur="{{ leave }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="{{ v.cellStyle }}">
           <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;">
             <div style="{{ v.imgStyle }}">
-              <image-slot id="{{ v.posterId }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+              <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
             </div>
             <div style="position:absolute;top:14px;right:14px;z-index:2;pointer-events:none;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.35);">
               <div style="width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #141416;margin-left:2px;"></div>
@@ -189,10 +194,14 @@
   <!-- ABOUT + CONTACT -->
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
   <main style="{{ aboutMainStyle }}">
+    <sc-if value="{{ loadError }}" hint-placeholder-val="{{ false }}">
+      <p style="max-width:560px;margin:40px auto;text-align:center;font-size:16px;line-height:1.7;color:#B4AEA3;">{{ t.loadError }}</p>
+    </sc-if>
+    <sc-if value="{{ dataReady }}" hint-placeholder-val="{{ true }}">
     <div style="{{ aboutGridStyle }}">
       <!-- LEFT -->
       <div style="{{ aboutSidebarStyle }}">
-        <image-slot id="about-portrait" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:260px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
+        <image-slot id="about-portrait" alt="{{ aboutName }}" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:260px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
         <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:22px;">
           <div>{{ aboutBased }}</div>
           <div>{{ aboutAge }}</div>
@@ -244,7 +253,7 @@
                   <p style="font-size:13px;line-height:1.75;color:#A8A297;margin:0;max-width:580px;white-space:pre-line;text-wrap:pretty;">{{ row.detail }}</p>
                 </div>
               </div>
-              <span onClick="{{ row.toggle }}" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
+              <span onClick="{{ row.toggle }}" tabindex="0" role="button" data-kb="" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ row.toggleLabel }}</span>
             </sc-if>
           </div>
         </sc-for>
@@ -294,7 +303,7 @@
               </sc-for>
             </div>
           </div>
-          <span onClick="{{ certToggle }}" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ certToggleLabel }}</span>
+          <span onClick="{{ certToggle }}" tabindex="0" role="button" data-kb="" style="display:inline-block;margin-top:12px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#D9A441;white-space:nowrap;">{{ certToggleLabel }}</span>
         </sc-if>
         </sc-if>
       </div>
@@ -327,6 +336,7 @@
       </a>
       </div>
     </div>
+    </sc-if>
   </main>
   </sc-if>
 
@@ -428,6 +438,7 @@
 
   <!-- FOOTER -->
   <footer data-noprint="" style="position:relative;z-index:1;padding:44px 44px;border-top:1px solid rgba(236,231,222,0.08);display:flex;flex-direction:column;align-items:center;gap:18px;">
+    <sc-if value="{{ dataReady }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;gap:16px;align-items:center;">
       <a href="{{ mailto }}" aria-label="E-mail" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
@@ -436,6 +447,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.73 24 10.06 24 14.9V24h-5v-8.07c0-1.92-.03-4.39-2.68-4.39-2.68 0-3.09 2.09-3.09 4.25V24H8V8h-.5z"></path></svg>
       </a>
     </div>
+    </sc-if>
     <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#5F5A50;">{{ aboutName }} © {{ yearNow }}</span>
   </footer>
 
@@ -458,8 +470,8 @@
           <iframe src="{{ sel.embed }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
         </sc-if>
         <sc-if value="{{ sel.showPoster }}" hint-placeholder-val="{{ true }}">
-          <div onClick="{{ playVideo }}" style="position:absolute;inset:0;cursor:pointer;">
-            <image-slot id="{{ sel.posterId }}" src="{{ sel.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+          <div onClick="{{ playVideo }}" tabindex="0" role="button" data-kb="" aria-label="Play" style="position:absolute;inset:0;cursor:pointer;">
+            <image-slot id="{{ sel.posterId }}" alt="{{ sel.title }}" src="{{ sel.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,10,11,0.1),rgba(10,10,11,0.45));">
               <div style="width:84px;height:84px;border-radius:50%;border:1px solid rgba(236,231,222,0.75);display:flex;align-items:center;justify-content:center;background:rgba(10,10,11,0.4);backdrop-filter:blur(4px);transition:transform .25s;" style-hover="transform:scale(1.08);">
                 <div style="width:0;height:0;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent #ECE7DE;margin-left:4px;"></div>
@@ -583,6 +595,7 @@ const STRINGS = {
     locLabel: 'Localização', locValue: '[ Cidade, País ]',
     cvDownload: 'Baixar currículo', cvPrint: 'Salvar em PDF', cvBack: '← Voltar', cvProfile: 'Sobre mim',
     footerNote: 'Editado no escuro',
+    loadError: 'Não foi possível carregar o conteúdo agora. Tente atualizar a página em alguns instantes.',
   },
   en: {
     navWork: 'Work', navAbout: 'About', navContact: 'Contact',
@@ -613,6 +626,7 @@ const STRINGS = {
     locLabel: 'Location', locValue: '[ City, Country ]',
     cvDownload: 'Download résumé', cvPrint: 'Save as PDF', cvBack: '← Back', cvProfile: 'About me',
     footerNote: 'Edited in the dark',
+    loadError: 'The content could not be loaded right now. Please try refreshing the page in a moment.',
   },
 };
 
@@ -638,20 +652,20 @@ const TIMELINE = {
 const ABOUT_DEFAULT = {
   name: 'Mauricio Ferreira',
   role: { pt: 'Editor de vídeo', en: 'Video editor' },
-  portrait: 'https://picsum.photos/seed/mauricio-portrait/500/500',
-  bio: { pt: STRINGS.pt.bio1 + '\n\n' + STRINGS.pt.bio2, en: STRINGS.en.bio1 + '\n\n' + STRINGS.en.bio2 },
-  based: { pt: STRINGS.pt.based, en: STRINGS.en.based },
-  exp: { pt: STRINGS.pt.exp, en: STRINGS.en.exp },
+  portrait: '',
+  bio: { pt: '', en: '' },
+  based: { pt: '', en: '' },
+  exp: { pt: '', en: '' },
   contactTitle: { pt: STRINGS.pt.contactTitle, en: STRINGS.en.contactTitle },
-  skills: SKILLS.pt,
-  tools: TOOLS,
-  timeline: TIMELINE.pt,
+  skills: [],
+  tools: [],
+  timeline: [],
   education: [],
   licenses: [],
 };
 
 // Fallback data used only if videos.json fails to load
-const DEFAULT_DATA = { email: 'ola@seudominio.com', linkedin: 'https://linkedin.com/in/seu-usuario', about: ABOUT_DEFAULT, projects: VIDEOS };
+const DEFAULT_DATA = { email: '', linkedin: '', about: ABOUT_DEFAULT, projects: [] };
 
 function parseVideo(url) {
   if (!url) return { embed: '', ytid: '', autoplayParam: 'autoplay=1' };
@@ -722,14 +736,20 @@ class Component extends DCLogic {
 
   componentDidMount() {
     (window.__videosP || fetch('./videos.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null))
-      .then(d => { if (d && d.projects) { this.setState({ data: d }, () => this.applyHash()); } })
-      .catch(() => {});
+      .then(d => { if (d && d.projects) { this.setState({ data: d, loadError: false }, () => this.applyHash()); } else { this.setState({ loadError: true }); } })
+      .catch(() => this.setState({ loadError: true }));
     this._onHash = () => this.applyHash();
-    this._onKey = (e) => { if (e.key === 'Escape' && this.state.selected) this.closeProject(); };
+    this._onKey = (e) => {
+      if (e.key === 'Escape' && this.state.selected) { this.closeProject(); return; }
+      // Enter/Espaço ativam itens clicáveis que não são botões nativos.
+      const el = e.target;
+      if ((e.key === 'Enter' || e.key === ' ') && el && el.hasAttribute && el.hasAttribute('data-kb')) { e.preventDefault(); el.click(); }
+    };
     if (typeof window !== 'undefined') { window.addEventListener('hashchange', this._onHash); window.addEventListener('popstate', this._onHash); window.addEventListener('keydown', this._onKey); this.applyHash(); }
     this._onResize = () => {
       const m = (typeof window !== 'undefined') && window.innerWidth < 760;
-      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+      const vw = (typeof window !== 'undefined') ? window.innerWidth : 1440;
+      if (m !== this.state.isMobile || vw !== this.state.vw) this.setState({ isMobile: m, vw: vw });
     };
     if (typeof window !== 'undefined') { this._onResize(); window.addEventListener('resize', this._onResize); }
   }
@@ -792,6 +812,9 @@ class Component extends DCLogic {
       else if (/^#(sobre|about)$/.test(h)) { wantAbout = true; legacy = true; }
       else if (/^#(curriculo|cv|resume)$/.test(h)) { wantCv = true; legacy = true; }
     }
+    // Links antigos de projetos que mudaram de id continuam funcionando.
+    const OLD_IDS = { 'cidade': 'espirito-do-mar', 'frequencia': 'as-fibras-do-mundo', 'mobiliario-infantil-feito-com-potes-de-j': 'mobiliario-infantil-potes-jucai' };
+    if (wantId && OLD_IDS[wantId]) { wantId = OLD_IDS[wantId]; legacy = true; }
     // Upgrade old hash links to the pretty path once.
     if (legacy && base) { this.setHash(wantCv ? 'cv' : (wantAbout ? 'about' : wantId), true); }
     if (wantCv) {
@@ -852,11 +875,13 @@ class Component extends DCLogic {
   componentDidUpdate() {
     if (typeof document === 'undefined') return;
     const s = this.state.selected;
-    const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' — Portfólio';
+    const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' · Portfólio';
     const next = this.state.page === 'cv'
-      ? (this.state.lang === 'en' ? 'Résumé — Mauricio Ferreira' : 'Currículo — Mauricio Ferreira')
+      ? (this.state.lang === 'en' ? 'Résumé · Mauricio Ferreira' : 'Currículo · Mauricio Ferreira')
       : (s ? (s.title[this.state.lang] + ' · ' + base) : base);
     if (next !== this._lastTitle) { this._lastTitle = next; document.title = next; }
+    const lang = this.state.lang === 'en' ? 'en' : 'pt-BR';
+    if (document.documentElement.lang !== lang) document.documentElement.lang = lang;
     if (this.state.page === 'cv' && this.state.autoPrint) {
       this.setState({ autoPrint: false });
       if (this._printT) clearTimeout(this._printT);
@@ -915,7 +940,11 @@ class Component extends DCLogic {
     const logoNameStyle = "white-space:nowrap;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:" + (mob ? '1.1' : '1') + ";";
     const logoRoleStyle = "white-space:nowrap;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;";
     const homeMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 64px' : '150px 44px 100px') + ';max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;';
-    const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(auto-fill,minmax(330px,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
+    // Colunas calculadas a partir da largura (mesma regra do antigo auto-fill 330px),
+    // em grade dupla para poder centralizar 1 ou 2 itens soltos na última linha.
+    const gridW = Math.min(1200, this.state.vw || 1440) - 88;
+    const gridCols = mob ? 1 : Math.max(1, Math.floor((gridW + 22) / (330 + 22)));
+    const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(' + (gridCols * 2) + ',minmax(0,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
     const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
     const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
     const aboutSidebarStyle = mob ? 'text-align:center;' : 'text-align:center;';
@@ -949,8 +978,11 @@ class Component extends DCLogic {
       .filter(v => cat === 'all' || v.cat === cat)
       .sort((a, b) => sort === 'newest' ? b.year - a.year : a.year - b.year);
 
+    const gridLastRow = filtered.length % gridCols;
+    const gridFirstOrphan = gridLastRow ? filtered.length - gridLastRow : -1;
     const videos = filtered
-      .map(v => ({
+      .map((v, i) => ({
+        cellStyle: 'cursor:pointer;animation:fadeUp .6s ease both;' + (mob ? '' : 'grid-column:' + (i === gridFirstOrphan ? (gridCols - gridLastRow + 1) + ' / ' : '') + 'span 2;'),
         id: v.id, year: v.year, duration: v.duration,
         title: v.title[L], desc: v.desc[L],
         catLabel: catLabelOne(v.cat), accent: catAccent(v.cat),
@@ -1052,7 +1084,7 @@ class Component extends DCLogic {
       }
     }
 
-    const email = DATA.email || 'ola@seudominio.com';
+    const email = DATA.email || '';
 
     // About-page content (merge defaults with videos.json overrides)
     const ab = Object.assign({}, ABOUT_DEFAULT, DATA.about || {});
@@ -1064,8 +1096,8 @@ class Component extends DCLogic {
     const rowsL = (arr) => (Array.isArray(arr) ? arr : []).map(r => ({ year: r.year || '', role: lines(pick(r.role)), place: lines(pick(r.place)), tag: pick(r.tag), detail: unslash(pick(r.detail)), summary: pick(r.summary) }));
     const aboutName = ab.name || 'Mauricio Ferreira';
     const aboutRole = pick(ab.role);
-    const aboutSkills = (listL(ab.skills).length ? listL(ab.skills) : SKILLS[L]);
-    const aboutTools = (listL(ab.tools).length ? listL(ab.tools) : TOOLS);
+    const aboutSkills = listL(ab.skills);
+    const aboutTools = listL(ab.tools);
     const expanded = this.state.expanded || {};
     const dividerRow = 'padding:18px 0;border-bottom:1px solid rgba(236,231,222,0.07);';
     const lastRow = 'padding:18px 0;';
@@ -1110,7 +1142,7 @@ class Component extends DCLogic {
       catMenuOpen, catCurrentLabel, catMenuBtnStyle, catCaretStyle, catMenuItems,
       catMenuToggle: () => this.setState(st => ({ catMenuOpen: !st.catMenuOpen })),
       aboutName, aboutRole,
-      aboutPortrait: ab.portrait || 'https://picsum.photos/seed/mauricio-portrait/500/500',
+      aboutPortrait: ab.portrait || '',
       hasPortrait: true,
       aboutBio: pick(ab.bio),
       aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
@@ -1152,6 +1184,7 @@ class Component extends DCLogic {
       isHome: this.state.page === 'home',
       isAbout: this.state.page === 'about',
       isCv: this.state.page === 'cv',
+      dataReady: !!this.state.data, loadError: !!this.state.loadError && !this.state.data,
       cvTimeline, cvEducation, cvBio: pick(ab.bio),
       siteUrl: (DATA.siteUrl || 'mauricioosf.github.io/portfolio'),
       linkedinHandle: linkedinHandle ? 'linkedin.com/in/' + linkedinHandle : '',
@@ -1166,7 +1199,7 @@ class Component extends DCLogic {
       langLabel: L === 'pt' ? 'EN' : 'PT',
       skills: aboutSkills, tools: aboutTools, timeline: aboutTimeline,
       email, mailto: 'mailto:' + email,
-      linkedinUrl: DATA.linkedin || 'https://linkedin.com/in/seu-usuario',
+      linkedinUrl: DATA.linkedin || '',
       yearNow: 2026,
       goHome: () => this.goto('home'),
       goAbout: () => this.goto('about'),

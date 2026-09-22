@@ -240,7 +240,7 @@
 
   class ImageSlot extends HTMLElement {
     static get observedAttributes() {
-      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'fallback-src', 'id', 'credit', 'credit-href'];
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'fallback-src', 'id', 'credit', 'credit-href', 'alt'];
     }
 
     constructor() {
@@ -259,14 +259,14 @@
         '</div>' +
         // Outside .frame, like .spill/.ctl — the frame's overflow:hidden +
         // border-radius/clip-path would cut the credit off on circle/pill/mask.
-        '<a class="credit" part="credit" target="_blank" rel="noopener noreferrer"></a>' +
+        '<a class="credit" part="credit" tabindex="-1" target="_blank" rel="noopener noreferrer"></a>' +
         '<div class="spill">' +
         '  <img class="ghost" alt="" draggable="false">' +
         '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
         '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
         '</div>' +
-        '<div class="ctl"><button data-act="replace" title="Replace image">Replace</button>' +
-        '  <button data-act="clear" title="Remove image">Remove</button></div>' +
+        '<div class="ctl"><button data-act="replace" tabindex="-1" title="Replace image">Replace</button>' +
+        '  <button data-act="clear" tabindex="-1" title="Remove image">Remove</button></div>' +
         '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
       this._frame = root.querySelector('.frame');
       this._ring = root.querySelector('.ring');
@@ -595,6 +595,7 @@
     }
 
     _render() {
+      if (this._img) this._img.alt = this.getAttribute('alt') || '';
       // Shape / mask. Presets use border-radius so the dashed ring can
       // follow the rounded outline; clip-path is only applied for an
       // explicit `mask` (the ring is hidden there since a rectangle

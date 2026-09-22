@@ -24,10 +24,12 @@ O QUE TEM NESTA PASTA
      painel-admin-0504.html e as pastas images/ e vendor/.
      (Arraste o CONTEÚDO, não a pasta em si.)
   4. Clique em "Commit changes".
-  5. Vá em "Settings" > "Pages".
-     - Em "Source": "Deploy from a branch".
-     - Branch: "main"  |  Pasta: "/ (root)".  Salve.
-  6. Em ~1 minuto o site fica no ar num endereço tipo:
+  5. Crie a automação de publicação: no repositório, "Add file" >
+     "Create new file". No nome, digite  .github/workflows/deploy.yml
+     e cole o conteúdo do arquivo deploy.yml. Clique em "Commit changes".
+  6. Vá em "Settings" > "Pages". Em "Source", escolha "GitHub Actions".
+  7. Na aba "Actions", abra "Publicar portfólio" e clique em
+     "Run workflow". Em uns 2 minutos o site fica no ar num endereço tipo:
      https://seuusuario.github.io/portfolio/
 
   IMPORTANTE: no GitHub Pages o endereço tem o nome do repositório
@@ -36,7 +38,10 @@ O QUE TEM NESTA PASTA
 
   Para atualizar depois: no repositório, "Add file" > "Upload files"
   e envie o arquivo novo (ex: videos.json) por cima do antigo.
-  Clique em "Commit changes" e o site atualiza sozinho.
+  Clique em "Commit changes" e o site atualiza sozinho em uns 2 minutos.
+  Se o videos.json tiver algum erro, a publicação para e o site continua
+  na última versão que funcionava. O GitHub avisa por e-mail e a aba
+  "Actions" mostra um X vermelho.
 
   ------------------------------------------------------------------
   Alternativa (Netlify): se preferir, acesse
@@ -100,6 +105,8 @@ O QUE TEM NESTA PASTA
 
 ====================================================================
  DICA: sempre guarde uma cópia desta pasta antes de editar.
-       Se o videos.json ficar com erro (faltou uma vírgula, etc),
-       o site avisa e volta pros exemplos — nada quebra de vez.
+       Se o videos.json ficar com erro (faltou uma vírgula, etc), o site
+       mostra um aviso de que não conseguiu carregar o conteúdo, até
+       você corrigir o arquivo. Antes de subir, dá pra conferir se o
+       arquivo está válido colando o conteúdo em jsonlint.com.
 ====================================================================

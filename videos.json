@@ -306,16 +306,16 @@
   },
   "projects": [
     {
-      "id": "mobiliario-infantil-feito-com-potes-de-j",
+      "id": "mobiliario-infantil-potes-jucai",
       "cat": "inst",
       "year": 2025,
       "duration": "02:20",
       "client": "Juçaí",
       "tools": "Premiere Pro",
       "video": "https://player.mediadelivery.net/play/698884/ac4178a3-e8a3-49e5-8967-c1ed9c7c3b71",
-      "thumb": "images/mobiliario-infantil-feito-com-potes-de-j.webp",
+      "thumb": "images/mobiliario-infantil-potes-jucai.webp",
       "role": {
-        "pt": "Captação, Montagem, Color Grading,",
+        "pt": "Captação, Montagem, Color Grading",
         "en": "Filming, Editing, Color Grading"
       },
       "title": {
@@ -337,7 +337,7 @@
       "video": "https://player.mediadelivery.net/play/698884/c8503ff1-465c-4a9c-b1db-ca8747ed6373",
       "thumb": "images/ong-anjos-da-tia-stellinha-upcycling.webp",
       "role": {
-        "pt": "Captação, Montagem, Color Grading,",
+        "pt": "Captação, Montagem, Color Grading",
         "en": "Filming, Editing, Color Grading"
       },
       "title": {
@@ -433,7 +433,7 @@
         "en": "Tupã's Arrival"
       },
       "desc": {
-        "pt": "Chegada do Tupã é um vídeo institucional produzido para o Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã ao Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
+        "pt": "Chegada do Tupã é um vídeo institucional produzido para os Centros de Fauna da Trijunção que documenta a chegada do lobo-guará Tupã aos Centros de Fauna após seu resgate. Com imagens captadas pelos próprios colaboradores da equipe, o filme apresenta sua trajetória, evidencia o trabalho conjunto entre instituições dedicadas à conservação da fauna brasileira e destaca a importância do cuidado, da reabilitação e da conservação para a sobrevivência da espécie.",
         "en": "Tupã's Arrival is an institutional film produced for the Centros de Fauna da Trijunção that documents the arrival of the maned wolf Tupã at the conservation center following his rescue. Featuring footage captured by the team itself, the film tells his story, highlights the collaborative work of institutions dedicated to the conservation of Brazilian wildlife, and emphasizes the importance of care, rehabilitation, and conservation in ensuring the survival of the species."
       }
     },
@@ -455,7 +455,7 @@
         "en": "Trijunção's Seedeaters"
       },
       "desc": {
-        "pt": "Bicudos da Trijunção é um vídeo institucional produzido para o Centro de Fauna da Trijunção que documenta o projeto de reintrodução do bicudo, uma das aves mais ameaçadas do Brasil. Com imagens captadas pelos próprios colaboradores da equipe, o filme registra os primeiros marcos da iniciativa e revela o trabalho de conservação desenvolvido em parceria com instituições de pesquisa para devolver a espécie ao seu habitat natural.",
+        "pt": "Bicudos da Trijunção é um vídeo institucional produzido para os Centros de Fauna da Trijunção que documenta o projeto de reintrodução do bicudo, uma das aves mais ameaçadas do Brasil. Com imagens captadas pelos próprios colaboradores da equipe, o filme registra os primeiros marcos da iniciativa e revela o trabalho de conservação desenvolvido em parceria com instituições de pesquisa para devolver a espécie ao seu habitat natural.",
         "en": "Trijunção's Seedeaters is an institutional film produced for the Centros de Fauna Trijunção, documenting the reintroduction project of the Bicudos, one of Brazil's most endangered bird species. Featuring footage captured by the wildlife team itself, the film chronicles the project's first milestones and showcases the conservation efforts carried out in partnership with research institutions to help restore the species to its natural habitat."
       }
     },
@@ -477,19 +477,19 @@
         "en": "Windows"
       },
       "desc": {
-        "pt": "Um curta sobre as janelas que atravessamos sem perceber. Um jovem observando o cotidiano e percebendo que tudo o que vê é sempre um enquadramento. Entre rotina e afeto, ele descobre pequenas versões diferentes do mesmo mundo, escondidas em cada superfície transparente que olha.\n\n##Equipe##\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Silva\nDireção de Arte - Lara Lang\nMontagem - Maurício Silva",
-        "en": "A short film about the windows we pass through without noticing. A young man observing everyday life, realizing that everything he sees is always a framing. Between routine and affection, he discovers small, different versions of the same world, hidden in every transparent surface he looks through.\n\n##Crew##\n\nDirector and Writer - Diana Seelaender and Thiago Barboza\nActor and Narrator - Thiago Barboza\nProducer - Lara Lang\nDirector of Photography and Camera - Mauricio Silva\nArt Direction - Lara Lang\nEditor - Maurício Silva"
+        "pt": "Um curta sobre as janelas que atravessamos sem perceber. Um jovem observando o cotidiano e percebendo que tudo o que vê é sempre um enquadramento. Entre rotina e afeto, ele descobre pequenas versões diferentes do mesmo mundo, escondidas em cada superfície transparente que olha.\n\n##Equipe##\n\nDireção e Roteiro - Diana Seelaender e Thiago Barboza\nAtor e Narração - Thiago Barboza\nProdução - Lara Lang\nDireção de Fotografia e Câmera - Mauricio Ferreira\nDireção de Arte - Lara Lang\nMontagem - Mauricio Ferreira",
+        "en": "A short film about the windows we pass through without noticing. A young man observing everyday life, realizing that everything he sees is always a framing. Between routine and affection, he discovers small, different versions of the same world, hidden in every transparent surface he looks through.\n\n##Crew##\n\nDirector and Writer - Diana Seelaender and Thiago Barboza\nActor and Narrator - Thiago Barboza\nProducer - Lara Lang\nDirector of Photography and Camera - Mauricio Ferreira\nArt Direction - Lara Lang\nEditor - Mauricio Ferreira"
       }
     },
     {
-      "id": "cidade",
+      "id": "espirito-do-mar",
       "cat": "doc",
       "year": 2021,
       "duration": "15:16",
       "client": "AIC",
-      "tools": "Premire Pro, DaVinci Resolve",
+      "tools": "Premiere Pro, DaVinci Resolve",
       "video": "https://player.mediadelivery.net/play/698884/9060a29f-e306-49f7-9e21-2882607406d4",
-      "thumb": "images/cidade.webp",
+      "thumb": "images/espirito-do-mar.webp",
       "role": {
         "pt": "Montagem, Color Grading, Finalização",
         "en": "Editing, Color Grading, Post-Production Finishing"
@@ -504,14 +504,14 @@
       }
     },
     {
-      "id": "frequencia",
+      "id": "as-fibras-do-mundo",
       "cat": "doc",
       "year": 2022,
       "duration": "15:38",
       "client": "Miragem Produtora",
-      "tools": "Adobe Premiere Pro",
+      "tools": "Premiere Pro",
       "video": "https://player.mediadelivery.net/play/698884/ccdb0ae5-ac6b-491a-a76f-b3d5ba91da05",
-      "thumb": "images/frequencia.webp",
+      "thumb": "images/as-fibras-do-mundo.webp",
       "role": {
         "pt": "Som Direto, Montagem, Color Grading",
         "en": "Production Sound, Editing, Color Grading"
