@@ -8,6 +8,7 @@ O QUE TEM NESTA PASTA
   painel-admin-0504.html → PAINEL para adicionar/editar vídeos e a página Sobre
   support.js      → arquivo interno do site (não apague)
   image-slot.js   → arquivo interno do site (não apague)
+  vendor/         → bibliotecas do site hospedadas aqui mesmo (não apague)
   videos.json     → seus vídeos (o painel gera este arquivo pra você)
   images/         → coloque aqui suas imagens de capa e sua foto
 
@@ -19,8 +20,8 @@ O QUE TEM NESTA PASTA
   2. Na página do repositório novo, clique em
      "uploading an existing file".
   3. Arraste TUDO QUE ESTÁ DENTRO desta pasta ("publicar"):
-     index.html, support.js, image-slot.js, videos.json,
-     painel-admin-0504.html e a pasta images/.
+     index.html, 404.html, support.js, image-slot.js, videos.json,
+     painel-admin-0504.html e as pastas images/ e vendor/.
      (Arraste o CONTEÚDO, não a pasta em si.)
   4. Clique em "Commit changes".
   5. Vá em "Settings" > "Pages".

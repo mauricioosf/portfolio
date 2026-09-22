@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <base href="/portfolio/">
 <meta name="site-base" content="/portfolio/">
+<script>
+/* Carregamento antecipado: busca o videos.json e começa a baixar as primeiras
+   capas enquanto o React ainda está carregando, em vez de esperar por ele. */
+(function () {
+  window.__gridThumb = function (url) {
+    if (!url || !/^https?:\/\//.test(url) || /wsrv\.nl|picsum\.photos/.test(url)) return url;
+    return 'https://wsrv.nl/?url=' + encodeURIComponent(url.replace(/^https?:\/\//, '')) + '&w=800&output=webp&q=78';
+  };
+  function rawThumb(p, d) {
+    if (p.thumb && p.thumb !== 'auto') return p.thumb;
+    var v = p.video || '', m;
+    if ((m = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/))) return 'https://img.youtube.com/vi/' + m[1] + '/maxresdefault.jpg';
+    if ((m = v.match(/mediadelivery\.net\/(?:play|embed)\/(\d+)\/([a-f0-9-]{36})/i)) && d.bunnyHost) return 'https://' + d.bunnyHost + '/' + m[2] + '/thumbnail.jpg';
+    return '';
+  }
+  window.__videosP = fetch('./videos.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .catch(function () { return null; });
+  window.__videosP.then(function (d) {
+    if (!d || !d.projects) return;
+    d.projects.slice().sort(function (a, b) { return b.year - a.year; }).slice(0, 6).forEach(function (p) {
+      var raw = rawThumb(p, d);
+      if (!raw) return;
+      var img = new Image();
+      if ('fetchPriority' in img) img.fetchPriority = 'high';
+      img.src = window.__gridThumb(raw);
+    });
+  });
+})();
+</script>
 <script src="support.js"></script>
 </head>
 <body>
@@ -33,8 +63,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
-<link rel="preconnect" href="https://vz-1104b846-a66.b-cdn.net" crossorigin="">
-<link rel="preconnect" href="https://vz-892d060b-7a1.b-cdn.net" crossorigin="">
+<link rel="preconnect" href="https://wsrv.nl">
+<link rel="preconnect" href="https://vz-892d060b-7a1.b-cdn.net">
+<link rel="preconnect" href="https://vz-1104b846-a66.b-cdn.net">
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #0A0A0B; }
@@ -133,7 +164,7 @@
         <div onClick="{{ v.open }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="cursor:pointer;animation:fadeUp .6s ease both;">
           <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;">
             <div style="{{ v.imgStyle }}">
-              <image-slot id="{{ v.posterId }}" src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+              <image-slot id="{{ v.posterId }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
             </div>
             <div style="position:absolute;top:14px;right:14px;z-index:2;pointer-events:none;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.35);">
               <div style="width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #141416;margin-left:2px;"></div>
@@ -692,9 +723,8 @@ class Component extends DCLogic {
   state = { page: 'home', category: 'all', selected: null, lang: 'pt', hovered: null, worksHover: false, worksPinned: false, sort: 'newest', navHover: null, data: null, playing: false, expanded: {}, isMobile: false, catMenuOpen: false, gridVisible: true, copied: false };
 
   componentDidMount() {
-    fetch('./videos.json?v=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d && d.projects) { this.preloadPosters(d); this.setState({ data: d }, () => this.applyHash()); } })
+    (window.__videosP || fetch('./videos.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null))
+      .then(d => { if (d && d.projects) { this.setState({ data: d }, () => this.applyHash()); } })
       .catch(() => {});
     this._onHash = () => this.applyHash();
     this._onKey = (e) => { if (e.key === 'Escape' && this.state.selected) this.closeProject(); };
@@ -928,6 +958,7 @@ class Component extends DCLogic {
         catLabel: catLabelOne(v.cat), accent: catAccent(v.cat),
         posterId: 'poster-' + v.id,
         poster: thumbFor(v, GWS, BHOST),
+        posterSmall: (window.__gridThumb ? window.__gridThumb(thumbFor(v, GWS, BHOST)) : thumbFor(v, GWS, BHOST)),
         metaLine: catLabelOne(v.cat) + '  \u00b7  ' + v.year,
         showCaption: mob,
         imgStyle: 'position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(' + (hovered === v.id ? '1.05' : '1') + ');',

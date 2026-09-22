@@ -240,7 +240,7 @@
 
   class ImageSlot extends HTMLElement {
     static get observedAttributes() {
-      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id', 'credit', 'credit-href'];
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'fallback-src', 'id', 'credit', 'credit-href'];
     }
 
     constructor() {
@@ -626,7 +626,8 @@
       if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
       const srcAttr = this.getAttribute('src') || '';
       this._userUrl = (stored && stored.u) || null;
-      const url = this._userUrl || srcAttr;
+      let url = this._userUrl || srcAttr;
+      if (url && url === this._failedSrc && this.getAttribute('fallback-src')) url = this.getAttribute('fallback-src');
       // Don't clobber an in-flight reframe with a store-triggered re-render.
       if (!this.hasAttribute('data-reframe')) {
         this._view = {
@@ -643,11 +644,23 @@
           this._img.style.opacity = '0';
           const fadeIn = () => { this._img.style.opacity = '1'; };
           this._img.onload = fadeIn;
+          // Fallback: se a capa otimizada falhar, carrega a original.
+          this._img.onerror = () => {
+            const fb = this.getAttribute('fallback-src') || '';
+            if (fb && this._img.getAttribute('src') !== fb) {
+              this._failedSrc = url;
+              this._img.src = fb;
+              this._ghost.src = fb;
+            }
+          };
           this._img.src = url;
           this._ghost.src = url;
           if (this._img.complete && this._img.naturalWidth) fadeIn();
         } else {
           this._img.style.opacity = '1';
+          // Capa otimizada já falhou antes do fallback existir: troca agora.
+          const fb2 = this.getAttribute('fallback-src') || '';
+          if (fb2 && url !== fb2 && this._img.complete && !this._img.naturalWidth) this._img.onerror && this._img.onerror();
         }
         this._img.style.display = 'block';
         this._empty.style.display = 'none';
