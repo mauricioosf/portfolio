@@ -99,7 +99,12 @@ jobs:
                   nh = round(w / alvo); img = img.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
               img = img.resize((1200, 630), Image.LANCZOS)
               os.makedirs(os.path.join(OUT, 'og'), exist_ok=True)
-              img.save(os.path.join(OUT, 'og', proj['id'] + '.jpg'), 'JPEG', quality=85, optimize=True, progressive=True)
+              # WhatsApp pode ignorar imagens de prévia acima de ~300 KB: reduz a qualidade até caber.
+              destino = os.path.join(OUT, 'og', proj['id'] + '.jpg')
+              for q in (85, 80, 75, 70, 65, 60):
+                  img.save(destino, 'JPEG', quality=q, optimize=True, progressive=True)
+                  if os.path.getsize(destino) <= 240 * 1024:
+                      break
               return SITE + 'og/' + proj['id'] + '.jpg'
 
           def pagina(titulo, descricao, url, imagem, tipo='website'):
