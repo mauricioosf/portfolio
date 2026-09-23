@@ -306,6 +306,28 @@
   },
   "projects": [
     {
+      "id": "dia-mundial-da-anta",
+      "cat": "inst",
+      "year": 2024,
+      "duration": "02:20",
+      "client": "Centros de Fauna Trijunção",
+      "tools": "Premiere Pro, After Effects",
+      "video": "https://player.mediadelivery.net/play/698884/d58e2145-237b-4d94-a6ce-03a426663854",
+      "thumb": "images/dia-mundial-da-anta.webp",
+      "role": {
+        "pt": "Montagem, Color Grading, Motion Design",
+        "en": "Editing, Color Grading, Motion Design"
+      },
+      "title": {
+        "pt": "Dia Mundial da Anta",
+        "en": "World Tapir Day"
+      },
+      "desc": {
+        "pt": "Dia Mundial da Anta é um vídeo institucional que celebra a data de 27 de abril e apresenta a anta brasileira, o maior mamífero terrestre da América do Sul. O vídeo explora curiosidades sobre a espécie, como seus hábitos noturnos e sua ligação com a água, e destaca seu papel essencial como dispersora de sementes, o que lhe rendeu o apelido de jardineira da floresta. O conteúdo também aborda as ameaças que a espécie enfrenta na natureza, como a caça e o desmatamento, e mostra o trabalho de reprodução conduzido nos Centros de Fauna Trijunção, responsável por diversos nascimentos e por manter viva a esperança de repovoamento da espécie.",
+        "en": "World Tapir Day is an institutional video that celebrates the date of April 27th and introduces the Brazilian tapir, the largest land mammal in South America. The video explores facts about the species, such as its nocturnal habits and close bond with water, and highlights its essential role as a seed disperser, which has earned it the nickname \"gardener of the forest.\" The content also addresses the threats the species faces in the wild, such as hunting and deforestation, and shows the breeding work carried out at Centros de Fauna Trijunção, responsible for several births and for keeping alive the hope of repopulating the species."
+      }
+    },
+    {
       "id": "mobiliario-infantil-potes-jucai",
       "cat": "inst",
       "year": 2025,
