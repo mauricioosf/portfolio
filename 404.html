@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/portfolio/">
+<meta name="site-base" content="/portfolio/">
 <script>
 /* Carregamento antecipado: busca o videos.json e começa a baixar as primeiras
    capas enquanto o React ainda está carregando, em vez de esperar por ele. */
@@ -32,8 +34,6 @@
   });
 })();
 </script>
-<base href="/portfolio/">
-<meta name="site-base" content="/portfolio/">
 <script src="support.js"></script>
 </head>
 <body>
@@ -64,7 +64,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
-<link rel="preconnect" href="https://vz-892d060b-7a1.b-cdn.net">
 <link rel="preconnect" href="https://vz-1104b846-a66.b-cdn.net">
 <style>
   * { box-sizing: border-box; }
@@ -541,7 +540,18 @@ const CATS = [
   { id: 'inst',   label: { pt: 'Institucionais', en: 'Corporate' },    labelOne: { pt: 'Institucional', en: 'Corporate' },   accent: '#7FA9C4' },
   { id: 'doc',    label: { pt: 'Documentários',  en: 'Documentaries' }, labelOne: { pt: 'Documentário', en: 'Documentary' },  accent: '#C88A5B' },
   { id: 'curta',  label: { pt: 'Curtas',         en: 'Short films' },  labelOne: { pt: 'Curta', en: 'Short film' },           accent: '#B58AD1' },
+  { id: 'sound',  label: { pt: 'Sound design',   en: 'Sound design' }, accent: '#8FB58A' },
 ];
+
+// Data de nascimento (AAAA-MM-DD): a idade da página Sobre e do currículo é calculada a partir dela.
+const BIRTH_DATE = '1998-04-05';
+function ageFrom(iso) {
+  const b = new Date(iso + 'T00:00:00'), now = new Date();
+  if (isNaN(b)) return 0;
+  let a = now.getFullYear() - b.getFullYear();
+  if (now.getMonth() < b.getMonth() || (now.getMonth() === b.getMonth() && now.getDate() < b.getDate())) a--;
+  return a;
+}
 
 const VIDEOS = [
   { id: 'horizonte', cat: 'doc',    year: 2025, duration: '04:12', client: 'Instituto Maré', tools: 'DaVinci Resolve, Premiere Pro',
@@ -1033,7 +1043,9 @@ class Component extends DCLogic {
         open: () => this.openProject(v),
       }));
 
-    const chips = CATS.map(c => ({
+    // Só mostra categorias que têm pelo menos um projeto (além de "Todos").
+    const usedCats = CATS.filter(c => c.id === 'all' || PROJECTS.some(p => p.cat === c.id));
+    const chips = usedCats.map(c => ({
       id: c.id, label: c.label[L],
       style: cat === c.id ? activeChip : idleChip,
       onClick: () => this.selectCategory(c.id),
@@ -1050,7 +1062,7 @@ class Component extends DCLogic {
     const catCurrentLabel = catLabel(cat);
     const catMenuBtnStyle = "display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 13px;border-radius:2px;border:1px solid " + (catMenuOpen ? '#D9A441' : 'rgba(236,231,222,0.2)') + ";background:transparent;color:" + (catMenuOpen ? '#D9A441' : '#ECE7DE') + ";transition:all .2s;";
     const catCaretStyle = 'display:inline-block;font-size:9px;transition:transform .2s;transform:rotate(' + (catMenuOpen ? '180deg' : '0deg') + ');';
-    const catMenuItems = CATS.map(c => ({
+    const catMenuItems = usedCats.map(c => ({
       id: c.id, label: c.label[L],
       style: "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;border-radius:2px;white-space:nowrap;transition:background .15s,color .15s;color:" + (cat === c.id ? '#0A0A0B' : '#D8D2C7') + ';background:' + (cat === c.id ? '#D9A441' : 'transparent') + ';',
       onClick: () => this.selectCategory(c.id, { catMenuOpen: false }),
@@ -1060,7 +1072,7 @@ class Component extends DCLogic {
     const amber = '#D9A441';
     const nh = this.state.navHover;
     const navCatStyle = (active, hov) => "cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s;padding-bottom:2px;border-bottom:1px solid " + (active ? '#D9A441' : 'transparent') + ";color:" + (hov ? amber : (active ? '#ECE7DE' : '#8A8478')) + ";";
-    const navCats = CATS.map(c => ({
+    const navCats = usedCats.map(c => ({
       id: c.id, label: c.label[L],
       style: navCatStyle(cat === c.id, nh === 'cat-' + c.id),
       onMouseEnter: () => this.setState({ navHover: 'cat-' + c.id }),
@@ -1190,7 +1202,7 @@ class Component extends DCLogic {
       hasPortrait: true,
       aboutBio: pick(ab.bio),
       aboutBased: pick(ab.based), aboutExp: pick(ab.exp),
-      aboutAge: pick(ab.age) || (L === 'pt' ? '28 anos' : '28 years old'),
+      aboutAge: pick(ab.age) || (ageFrom(BIRTH_DATE) ? ageFrom(BIRTH_DATE) + (L === 'pt' ? ' anos' : ' years old') : ''),
       aboutPositioning: pick(ab.positioning),
       aboutAvailability: pick(ab.availability),
       hasPositioning: !!pick(ab.positioning),
@@ -1254,7 +1266,7 @@ class Component extends DCLogic {
       skills: aboutSkills, tools: aboutTools, timeline: aboutTimeline,
       email, mailto: 'mailto:' + email,
       linkedinUrl: DATA.linkedin || '',
-      yearNow: 2026,
+      yearNow: new Date().getFullYear(),
       goHome: () => this.goto('home'),
       goAbout: () => this.goto('about'),
       toggleLang: () => this.setState(st => ({ lang: st.lang === 'pt' ? 'en' : 'pt' })),
