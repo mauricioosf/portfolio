@@ -65,7 +65,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
-<link rel="preconnect" href="https://vz-1104b846-a66.b-cdn.net">
+<link rel="preconnect" href="https://vz-892d060b-7a1.b-cdn.net">
 <style>
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #0A0A0B; }
@@ -82,6 +82,9 @@
   @keyframes pageIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes modalIn { from { opacity: 0; transform: translateY(24px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
   image-slot { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
   @media print {
     @page { size: A4; margin: 13mm 14mm; }
     html, body { background: #0A0A0B !important; }
@@ -94,7 +97,7 @@
   }
 </style>
 </helmet>
-<div data-app-root="" style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;position:relative;overflow-x:hidden;">
+<div data-app-root="" style="min-height:100vh;background:#0A0A0B;color:#ECE7DE;font-family:'Archivo',sans-serif;position:relative;overflow-x:clip;">
   <div data-print-bg="" style="display:none;"></div>
 
   <div data-noprint="" style="position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 80% at 50% -10%, rgba(217,164,65,0.06), transparent 60%), radial-gradient(100% 60% at 50% 120%, rgba(255,255,255,0.03), transparent 70%);"></div>
@@ -168,9 +171,12 @@
           <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;">
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
+              <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ v.preview }}" alt="" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></img>
+              </sc-if>
             </div>
-            <div style="position:absolute;top:14px;right:14px;z-index:2;pointer-events:none;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.35);">
-              <div style="width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #141416;margin-left:2px;"></div>
+            <div style="{{ v.playStyle }}">
+              <div style="{{ v.playTriStyle }}"></div>
             </div>
             <div style="{{ v.overlayStyle }}">
               <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
@@ -200,8 +206,8 @@
     <sc-if value="{{ dataReady }}" hint-placeholder-val="{{ true }}">
     <div style="{{ aboutGridStyle }}">
       <!-- LEFT -->
-      <div style="{{ aboutSidebarStyle }}">
-        <image-slot id="about-portrait" alt="{{ aboutName }}" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:260px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
+      <div data-about-side="" style="{{ aboutSidebarStyle }}">
+        <image-slot id="about-portrait" alt="{{ aboutName }}" src="{{ aboutPortrait }}" shape="rect" fit="cover" placeholder="{{ t.dropPortrait }}" style="width:100%;max-width:200px;height:auto;aspect-ratio:4/5;border-radius:2px;display:block;margin:0 auto 30px;"></image-slot>
         <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:#8A8478;line-height:2;margin-bottom:22px;">
           <div>{{ aboutBased }}</div>
           <div>{{ aboutAge }}</div>
@@ -521,6 +527,18 @@
           </sc-for>
         </div>
       </div>
+      <sc-if value="{{ hasPrevNext }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ pnRowStyle }}">
+        <button onClick="{{ prevProject.onClick }}" style="{{ pnBtnStyle }}text-align:left;" style-hover="color:#D9A441;">
+          <span style="{{ pnLabelStyle }}">← {{ t.prevProject }}</span>
+          <span style="{{ pnTitleStyle }}">{{ prevProject.title }}</span>
+        </button>
+        <button onClick="{{ nextProject.onClick }}" style="{{ pnBtnStyle }}text-align:right;" style-hover="color:#D9A441;">
+          <span style="{{ pnLabelStyle }}">{{ t.nextProject }} →</span>
+          <span style="{{ pnTitleStyle }}">{{ nextProject.title }}</span>
+        </button>
+      </div>
+      </sc-if>
       <sc-if value="{{ showFooterShare }}" hint-placeholder-val="{{ false }}">
       <div style="margin-top:44px;display:flex;justify-content:center;">
         <button onClick="{{ doShare }}" style="{{ shareBtnStyle }}">
@@ -919,8 +937,18 @@ class Component extends DCLogic {
     });
   }
 
+  // A coluna lateral do Sobre é mais alta que a tela: ela rola até mostrar o fim
+  // (com o botão do currículo) e só então fica parada.
+  syncSideTop() {
+    const side = document.querySelector('[data-about-side]');
+    if (!side || this.state.isMobile) return;
+    const top = Math.round(Math.min(120, window.innerHeight - side.offsetHeight - 32));
+    if (top !== this.state.sideTop) this.setState({ sideTop: top });
+  }
+
   componentDidUpdate() {
     if (typeof document === 'undefined') return;
+    this.syncSideTop();
     const s = this.state.selected;
     const base = ((this.state.data && this.state.data.about && this.state.data.about.name) || 'Mauricio Ferreira') + ' · Portfólio';
     const next = this.state.page === 'cv'
@@ -994,7 +1022,8 @@ class Component extends DCLogic {
     const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(' + (gridCols * 2) + ',minmax(0,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
     const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
     const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
-    const aboutSidebarStyle = mob ? 'text-align:center;' : 'text-align:center;';
+    // No computador a coluna da foto acompanha a rolagem; sideTop é medido em syncSideTop().
+    const aboutSidebarStyle = mob ? 'text-align:center;' : 'text-align:center;position:sticky;top:' + (this.state.sideTop != null ? this.state.sideTop : 120) + 'px;';
     const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
     const detailInnerStyle = 'max-width:1120px;margin:0 auto;padding:' + (mob ? '80px 18px 72px' : '104px 48px 110px') + ';animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;';
     const detailGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '1.6fr 1fr') + ';gap:' + (mob ? '40px' : '72px') + ';align-items:start;';
@@ -1027,8 +1056,19 @@ class Component extends DCLogic {
 
     const gridLastRow = filtered.length % gridCols;
     const gridFirstOrphan = gridLastRow ? filtered.length - gridLastRow : -1;
+    // Botão de play discreto; fica claro só no card sob o mouse.
+    const playStyle = (on) => 'position:absolute;top:12px;right:12px;z-index:2;pointer-events:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid ' + (on ? 'rgba(236,231,222,0.9)' : 'rgba(236,231,222,0.35)') + ';background:' + (on ? 'rgba(236,231,222,0.92)' : 'rgba(10,10,11,0.35)') + ';';
+    const playTriStyle = (on) => 'width:0;height:0;border-style:solid;border-width:5px 0 5px 9px;margin-left:2px;transition:border-color .25s;border-color:transparent transparent transparent ' + (on ? '#141416' : 'rgba(236,231,222,0.9)') + ';';
+    // Prévia animada do Bunny Stream ao passar o mouse (só no computador, e nunca com "reduzir movimento").
+    const reduceMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const previewFailed = this.state.previewFailed || {};
+    const previewFor = (v) => { const p = parseVideo(v.video); return (p.bid && BHOST) ? 'https://' + BHOST + '/' + p.bid + '/preview.webp' : ''; };
     const videos = filtered
       .map((v, i) => ({
+        playStyle: playStyle(hovered === v.id), playTriStyle: playTriStyle(hovered === v.id),
+        preview: previewFor(v),
+        showPreview: !mob && !reduceMotion && hovered === v.id && !!previewFor(v) && !previewFailed[v.id],
+        previewFail: () => this.setState(s => ({ previewFailed: Object.assign({}, s.previewFailed, { [v.id]: true }) })),
         cellStyle: 'cursor:pointer;animation:fadeUp .6s ease both;' + (mob ? '' : 'grid-column:' + (i === gridFirstOrphan ? (gridCols - gridLastRow + 1) + ' / ' : '') + 'span 2;'),
         id: v.id, year: v.year, duration: v.duration,
         title: v.title[L], desc: v.desc[L],
@@ -1191,6 +1231,11 @@ class Component extends DCLogic {
 
     return {
       t, chips, videos, sel, sortOpts, prevProject, nextProject,
+      hasPrevNext: !!(prevProject.title && nextProject.title),
+      pnRowStyle: 'display:grid;grid-template-columns:1fr 1fr;gap:' + (mob ? '14px' : '32px') + ';margin-top:' + (mob ? '40px' : '56px') + ';padding-top:18px;border-top:1px solid rgba(236,231,222,0.1);',
+      pnBtnStyle: 'display:flex;flex-direction:column;gap:4px;min-width:0;cursor:pointer;background:none;border:0;padding:0;color:#B4AEA3;font-family:inherit;transition:color .2s;',
+      pnLabelStyle: 'font-size:11px;color:#8A8478;',
+      pnTitleStyle: 'font-size:' + (mob ? '13px' : '14px') + ';line-height:1.35;color:inherit;',
       navStyle, navClusterStyle, logoNameStyle, logoRoleStyle, homeMainStyle, gridStyle,
       aboutMainStyle, aboutGridStyle, contactRowStyle, detailInnerStyle, detailGridStyle, closeBtnStyle,
       showMobileCats: mob && this.state.page === 'home',
