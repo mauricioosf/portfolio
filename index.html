@@ -369,7 +369,7 @@
     </div>
     <div data-cv-sheet="" style="width:210mm;max-width:100%;background:#0A0A0B;color:#ECE7DE;padding:15mm 14mm;border:1px solid rgba(236,231,222,0.08);box-shadow:0 26px 70px rgba(0,0,0,0.6);font-family:'Archivo',sans-serif;">
 
-      <div style="display:grid;grid-template-columns:34mm 1fr;gap:10mm;align-items:center;padding-bottom:8mm;border-bottom:1px solid rgba(236,231,222,0.18);">
+      <div style="display:grid;grid-template-columns:34mm 1fr;gap:10mm;align-items:center;">
         <sc-if value="{{ hasPortrait }}" hint-placeholder-val="{{ false }}">
           <img src="{{ aboutPortrait }}" alt="" style="display:block;width:34mm;height:42mm;object-fit:cover;border-radius:2px;filter:grayscale(0.15);">
         </sc-if>
@@ -383,70 +383,70 @@
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:50mm 1fr;gap:12mm;align-items:start;padding-top:8mm;break-inside:avoid;page-break-inside:avoid;">
+      <div style="display:grid;grid-template-columns:38mm 1fr;gap:8mm;align-items:start;padding-top:6mm;break-inside:avoid;page-break-inside:avoid;">
         <div style="break-inside:avoid;">
           <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:9px;">{{ t.contactKicker }}</div>
-          <div style="font-family:'Space Mono',monospace;font-size:9.5px;line-height:1.75;color:#D8D2C7;word-break:break-word;">
+          <div style="font-family:'Space Mono',monospace;font-size:9.5px;line-height:1.75;color:#D8D2C7;">
             <div style="margin-bottom:5px;">{{ email }}</div>
             <div style="margin-bottom:5px;">{{ whatsappLabel }}</div>
-            <div>{{ siteUrl }}</div>
+            <div><span>{{ siteUrlHost }}</span><wbr><span>{{ siteUrlPath }}</span></div>
           </div>
-          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:22px 0 9px;">{{ t.skillsLabel }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:14px 0 6px;">{{ t.skillsLabel }}</div>
           <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
-            <div style="font-size:11px;line-height:1.5;color:#D8D2C7;padding:2.5px 0;">{{ s }}</div>
+            <div style="font-size:10px;line-height:1.4;color:#D8D2C7;padding:2.5px 0;">{{ s }}</div>
           </sc-for>
-          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:22px 0 9px;">{{ t.toolsLabel }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:14px 0 6px;">{{ t.toolsLabel }}</div>
           <sc-for list="{{ tools }}" as="tl" hint-placeholder-count="4">
-            <div style="font-size:11px;line-height:1.5;color:#D8D2C7;padding:2.5px 0;">{{ tl }}</div>
+            <div style="font-size:10px;line-height:1.4;color:#D8D2C7;padding:2.5px 0;">{{ tl }}</div>
           </sc-for>
         </div>
 
         <div>
           <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:10px;">{{ t.cvProfile }}</div>
-          <p style="font-size:11px;line-height:1.7;color:#B4AEA3;margin:0;white-space:pre-line;text-align:justify;hyphens:auto;">{{ cvBio }}</p>
+          <p style="font-size:10px;line-height:1.5;color:#B4AEA3;margin:0;white-space:pre-line;text-align:justify;hyphens:auto;">{{ cvBio }}</p>
         </div>
       </div>
 
-      <div style="padding-top:10mm;">
+      <div style="padding-top:6mm;">
         <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin-bottom:5px;">{{ t.expLabel }}</div>
         <sc-for list="{{ cvTimeline }}" as="row" hint-placeholder-count="3">
-          <div style="display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:10px 0 13px;orphans:3;widows:3;">
+          <div style="display:grid;grid-template-columns:38mm 1fr;gap:8mm;padding:6px 0 8px;orphans:3;widows:3;">
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
             <div>
               <!-- Cargo e empresa nunca ficam sozinhos no fim da página, separados do texto. -->
               <div style="break-inside:avoid;break-after:avoid;page-break-after:avoid;">
-                <div style="font-family:'Newsreader',serif;font-weight:400;font-size:14.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
-                <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:4px;white-space:pre-line;">{{ row.place }}</div>
+                <div style="font-family:'Newsreader',serif;font-weight:400;font-size:13.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+                <div style="font-size:9.5px;color:#8A8478;line-height:1.45;margin-top:2px;white-space:pre-line;">{{ row.place }}</div>
               </div>
               <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
-                <p style="font-size:10px;line-height:1.6;color:#A8A297;margin:7px 0 0;white-space:pre-line;text-align:justify;hyphens:auto;orphans:3;widows:3;">{{ row.detail }}</p>
+                <p style="font-size:9.5px;line-height:1.45;color:#A8A297;margin:4px 0 0;white-space:pre-line;text-align:justify;hyphens:auto;orphans:3;widows:3;">{{ row.detail }}</p>
               </sc-if>
             </div>
           </div>
         </sc-for>
 
         <sc-if value="{{ hasEducation }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:5mm 0 4px;">{{ t.eduLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;">{{ t.eduLabel }}</div>
         <sc-for list="{{ cvEducation }}" as="row" hint-placeholder-count="2">
-          <div style="break-inside:avoid;display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:7px 0;">
+          <div style="break-inside:avoid;display:grid;grid-template-columns:38mm 1fr;gap:8mm;padding:4px 0;">
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
             <div>
-              <div style="font-family:'Newsreader',serif;font-weight:400;font-size:14.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
-              <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:4px;white-space:pre-line;">{{ row.place }}</div>
-              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#8A8478;line-height:1.45;white-space:pre-line;">{{ row.note }}</div></sc-if>
+              <div style="font-family:'Newsreader',serif;font-weight:400;font-size:13.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+              <div style="font-size:9.5px;color:#8A8478;line-height:1.45;margin-top:2px;white-space:pre-line;">{{ row.place }}</div>
+              <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:9.5px;color:#8A8478;line-height:1.45;white-space:pre-line;">{{ row.note }}</div></sc-if>
             </div>
           </div>
         </sc-for>
         </sc-if>
 
         <sc-if value="{{ hasLicenses }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:5mm 0 4px;">{{ t.certLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;">{{ t.certLabel }}</div>
         <sc-for list="{{ licenses }}" as="row" hint-placeholder-count="4">
-          <div style="break-inside:avoid;display:grid;grid-template-columns:50mm 1fr;gap:12mm;padding:7px 0;">
+          <div style="break-inside:avoid;display:grid;grid-template-columns:38mm 1fr;gap:8mm;padding:4px 0;">
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
             <div>
-              <div style="font-size:12px;color:#ECE7DE;line-height:1.4;white-space:pre-line;">{{ row.role }}</div>
-              <div style="font-size:10.5px;color:#8A8478;line-height:1.45;margin-top:3px;white-space:pre-line;">{{ row.place }}</div>
+              <div style="font-size:11px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+              <div style="font-size:9.5px;color:#8A8478;line-height:1.45;margin-top:2px;white-space:pre-line;">{{ row.place }}</div>
             </div>
           </div>
         </sc-for>
@@ -802,6 +802,9 @@ class Component extends DCLogic {
     (window.__videosP || fetch('./videos.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null))
       .then(d => { if (d && d.projects) { this.setState({ data: d, loadError: false }, () => this.applyHash()); } else { this.setState({ loadError: true }); } })
       .catch(() => this.setState({ loadError: true }));
+    // Textos próprios do currículo (curriculo.json); sem o arquivo, o currículo usa os do site.
+    fetch('./curriculo.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null)
+      .then(cv => { if (cv) this.setState({ cvTexts: cv }); }).catch(() => {});
     this._onHash = () => this.applyHash();
     this._onKey = (e) => {
       const lb = this.state.lb;
@@ -1224,14 +1227,21 @@ class Component extends DCLogic {
     const licRowStyle = (isLast) => 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (isLast ? lastRow : dividerRow);
     const certPreview = aboutLicenses.slice(0, 3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
     const cvRow = (r) => ({ year: r.year, role: r.role, place: r.place, note: r.tag || '', hasNote: !!(r.tag && String(r.tag).trim()), detail: r.detail, hasDetail: !!(r.detail && r.detail.trim()) });
-    // The résumé uses shorter, CV-specific paragraphs when present.
+    // The résumé uses shorter, CV-specific paragraphs when present: curriculo.json
+    // (indexed by the Portuguese role), then a cvDetail in videos.json.
+    const cvTexts = this.state.cvTexts || {};
+    const cvExp = cvTexts.experiencias || {};
     const cvTimeline = (ab.timeline || []).map(r => {
       const row = cvRow(rowsL([r])[0]);
-      const d = r.cvDetail ? pick(r.cvDetail) : '';
+      const own = cvExp[String((r.role && r.role.pt) || r.role || '').trim()];
+      const d = own ? pick(own) : (r.cvDetail ? pick(r.cvDetail) : '');
       if (d && d.trim()) { row.detail = d; row.hasDetail = true; }
       return row;
     });
     const cvEducation = rowsL(ab.education).map(cvRow);
+    // No currículo o endereço do site só quebra de linha logo depois da barra.
+    const siteUrl = String(DATA.siteUrl || 'mauricioosf.github.io/portfolio');
+    const siteCut = siteUrl.indexOf('/') + 1 || siteUrl.length;
     const linkedinHandle = String(DATA.linkedin || '').replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '').replace(/\/+$/, '');
     const certRest = aboutLicenses.slice(3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(i === arr.length - 1) }));
 
@@ -1293,8 +1303,8 @@ class Component extends DCLogic {
       isAbout: this.state.page === 'about',
       isCv: this.state.page === 'cv',
       dataReady: !!this.state.data, loadError: !!this.state.loadError && !this.state.data,
-      cvTimeline, cvEducation, cvBio: pick(ab.bio),
-      siteUrl: (DATA.siteUrl || 'mauricioosf.github.io/portfolio'),
+      cvTimeline, cvEducation, cvBio: pick((this.state.cvTexts || {}).bio) || pick(ab.bio),
+      siteUrl, siteUrlHost: siteUrl.slice(0, siteCut), siteUrlPath: siteUrl.slice(siteCut),
       linkedinHandle: linkedinHandle ? 'linkedin.com/in/' + linkedinHandle : '',
       goCv: () => this.goto('cv'),
       goCvPrint: () => { this.setHash('cv'); this.lockScroll(false); this.setState({ page: 'cv', selected: null, playing: false, worksPinned: false, worksHover: false, autoPrint: true }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); },
