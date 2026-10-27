@@ -163,6 +163,22 @@ jobs:
 
           PY
 
+      # Gera o PDF do botão "Baixar currículo" a partir da página /curriculo, com os dados
+      # atuais do videos.json. Se algo der errado, o site sai com o PDF que já está no
+      # repositório e a aba Actions mostra um aviso.
+      - name: Gerar currículo em PDF
+        continue-on-error: true
+        run: |
+          pip install pypdf
+          mkdir -p /tmp/srv && ln -sfn "$PWD/_site" /tmp/srv/portfolio
+          (cd /tmp/srv && python3 -m http.server 8123 >/dev/null 2>&1 &)
+          sleep 2
+          google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --no-pdf-header-footer --virtual-time-budget=20000 \
+            --print-to-pdf=/tmp/curriculo.pdf "http://localhost:8123/portfolio/#curriculo"
+          python3 .github/scripts/checar_curriculo.py videos.json /tmp/curriculo.pdf _site/curriculo-mauricio-ferreira.pdf \
+            || { echo "::warning::O currículo em PDF não foi atualizado; o site foi publicado com o PDF anterior."; exit 1; }
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v5
