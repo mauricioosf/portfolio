@@ -174,7 +174,7 @@
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
               <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
-                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onLoadStart="{{ previewMute }}" onLoadedMetadata="{{ previewMute }}" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
               </sc-if>
             </div>
             <div style="{{ v.playStyle }}">
@@ -1403,6 +1403,8 @@ class Component extends DCLogic {
       worksOff: () => this.setState({ worksHover: false }),
       worksToggle: () => { this.setHash(null); this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })); },
       stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+      // React não repassa muted nem loop ao <video>: sem isso o clipe teria som (e o navegador bloquearia o autoplay) e pararia no fim.
+      previewMute: (e) => { const el = e && e.target; if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; const p = el.play && el.play(); if (p && p.catch) p.catch(() => {}); },
     };
   }
 }
