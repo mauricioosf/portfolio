@@ -1,0 +1,9 @@
+Coloque aqui os clipes de prévia que tocam ao passar o mouse nas capas.
+
+Como fazer cada clipe:
+- 3 a 6 segundos, sem áudio
+- MP4 (H.264), cerca de 640 px de largura
+- De preferência abaixo de 1 MB
+
+Depois, no painel, preencha o campo "Prévia ao passar o mouse" do projeto
+com o caminho do arquivo, por exemplo: previews/janelas.mp4

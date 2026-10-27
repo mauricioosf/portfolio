@@ -132,6 +132,11 @@
           <input name="thumb" value="{{ f.thumb }}" onInput="{{ onField }}" placeholder="auto  (ou images/arquivo.jpg)" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
           <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Use <b style="color:#8A8478;">auto</b> para gerar a capa do Bunny automaticamente, ou cole a URL da thumbnail (ou uma imagem sua na pasta images).</div>
         </div>
+        <div style="grid-column:1 / -1;">
+          <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Prévia ao passar o mouse (opcional)</label>
+          <input name="preview" value="{{ f.preview }}" onInput="{{ onField }}" placeholder="previews/nome-do-projeto.mp4" style="width:100%;background:#141416;border:1px solid rgba(236,231,222,0.14);color:#ECE7DE;font-size:14px;padding:11px 13px;border-radius:3px;">
+          <div style="font-size:11px;color:#5F5A50;margin-top:6px;line-height:1.5;">Clipe curto sem áudio (3 a 6 s, MP4, ~640 px de largura, de preferência abaixo de 1 MB) salvo na pasta <b style="color:#8A8478;">previews</b>. Deixe vazio para mostrar só a capa.</div>
+        </div>
 
         <div style="grid-column:1 / -1;">
           <label style="display:block;font-size:12px;color:#8A8478;margin-bottom:6px;">Descrição (PT) <span style="color:#5F5A50;">— Enter pula linha · **negrito** · [nome](https://link) · ##Título## vira rótulo amarelo</span></label>
@@ -291,7 +296,7 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
-const EMPTY = { id:'', cat:'inst', year:'', duration:'', client:'', tools:'', video:'', thumb:'auto', title_pt:'', title_en:'', desc_pt:'', desc_en:'', role_pt:'', role_en:'' };
+const EMPTY = { id:'', cat:'inst', year:'', duration:'', client:'', tools:'', video:'', thumb:'auto', preview:'', title_pt:'', title_en:'', desc_pt:'', desc_en:'', role_pt:'', role_en:'' };
 const CAT_LABELS = { inst:'Institucional', doc:'Documentário', curta:'Curta', sound:'Sound design' };
 const ABOUT_EMPTY = { name:'', portrait:'', role_pt:'', role_en:'', pos_pt:'', pos_en:'', avail_pt:'', avail_en:'', bio_pt:'', bio_en:'', based_pt:'', based_en:'', exp_pt:'', exp_en:'', contact_pt:'', contact_en:'', skills_pt:'', skills_en:'', tools_pt:'', tools_en:'', timeline_pt:'', timeline_en:'', education_pt:'', education_en:'', licenses_pt:'', licenses_en:'', media_rows:'' };
 
@@ -489,7 +494,7 @@ class Component extends DCLogic {
     return {
       id: p.id || '', cat: p.cat || 'inst', year: '' + (p.year || ''),
       duration: p.duration || '', client: p.client || '', tools: p.tools || '',
-      video: p.video || '', thumb: p.thumb || 'auto',
+      video: p.video || '', thumb: p.thumb || 'auto', preview: p.preview || '',
       title_pt: (p.title && p.title.pt) || '', title_en: (p.title && p.title.en) || '',
       desc_pt: (p.desc && p.desc.pt) || '', desc_en: (p.desc && p.desc.en) || '',
       role_pt: (p.role && p.role.pt) || '', role_en: (p.role && p.role.en) || '',
@@ -497,7 +502,8 @@ class Component extends DCLogic {
   }
 
   build(f, existingId) {
-    return {
+    const preview = (f.preview || '').trim();
+    return Object.assign({
       id: (f.id && f.id.trim()) || existingId || slugify(f.title_pt),
       cat: f.cat || 'inst',
       year: parseInt(f.year, 10) || new Date().getFullYear(),
@@ -509,7 +515,7 @@ class Component extends DCLogic {
       role: { pt: f.role_pt || '', en: f.role_en || f.role_pt || '' },
       title: { pt: f.title_pt || '', en: f.title_en || f.title_pt || '' },
       desc: { pt: f.desc_pt || '', en: f.desc_en || f.desc_pt || '' },
-    };
+    }, preview ? { preview } : {});
   }
 
   renderVals() {

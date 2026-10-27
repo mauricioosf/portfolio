@@ -146,7 +146,7 @@ jobs:
           ids = set()
           for p in data.get('projects', []):
               pid = p.get('id') or ''
-              if not re.fullmatch(r'[a-z0-9-]+', pid) or pid in ('sobre', 'about', 'curriculo', 'cv', 'images', 'vendor', 'og'):
+              if not re.fullmatch(r'[a-z0-9-]+', pid) or pid in ('sobre', 'about', 'curriculo', 'cv', 'images', 'vendor', 'og', 'previews'):
                   print('  pulando id inválido:', repr(pid)); continue
               if pid in ids:
                   print('  pulando id repetido:', pid); continue

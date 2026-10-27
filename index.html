@@ -172,7 +172,7 @@
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
               <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
-                <img src="{{ v.preview }}" alt="" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></img>
+                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
               </sc-if>
             </div>
             <div style="{{ v.playStyle }}">
@@ -1059,10 +1059,11 @@ class Component extends DCLogic {
     // Botão de play discreto; fica claro só no card sob o mouse.
     const playStyle = (on) => 'position:absolute;top:12px;right:12px;z-index:2;pointer-events:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid ' + (on ? 'rgba(236,231,222,0.9)' : 'rgba(236,231,222,0.35)') + ';background:' + (on ? 'rgba(236,231,222,0.92)' : 'rgba(10,10,11,0.35)') + ';';
     const playTriStyle = (on) => 'width:0;height:0;border-style:solid;border-width:5px 0 5px 9px;margin-left:2px;transition:border-color .25s;border-color:transparent transparent transparent ' + (on ? '#141416' : 'rgba(236,231,222,0.9)') + ';';
-    // Prévia animada do Bunny Stream ao passar o mouse (só no computador, e nunca com "reduzir movimento").
+    // Clipe de prévia do próprio projeto ("preview" no videos.json), tocado ao passar o mouse
+    // (só no computador, e nunca com "reduzir movimento"). Sem clipe, fica só a capa.
     const reduceMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const previewFailed = this.state.previewFailed || {};
-    const previewFor = (v) => { const p = parseVideo(v.video); return (p.bid && BHOST) ? 'https://' + BHOST + '/' + p.bid + '/preview.webp' : ''; };
+    const previewFor = (v) => (v.preview && String(v.preview).trim()) || '';
     const videos = filtered
       .map((v, i) => ({
         playStyle: playStyle(hovered === v.id), playTriStyle: playTriStyle(hovered === v.id),

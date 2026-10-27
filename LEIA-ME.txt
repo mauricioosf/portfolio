@@ -91,6 +91,15 @@ O QUE TEM NESTA PASTA
   c) Enquanto não tiver link nem imagem, o site mostra uma capa
      temporária automática. É só isso.
 
+  PRÉVIA AO PASSAR O MOUSE (opcional, só no computador)
+  -----------------------------------------------------
+  Exporte do Premiere/Resolve um clipe de 3 a 6 s, sem áudio, MP4
+  (H.264), ~640 px de largura, de preferência abaixo de 1 MB. Salve na
+  pasta "previews" e, no painel, preencha "Prévia ao passar o mouse"
+  com o caminho (ex: previews/janelas.mp4). Ou, no videos.json:
+       "preview": "previews/janelas.mp4"
+  Projeto sem prévia mostra só a capa.
+
 ====================================================================
  4) SEUS DADOS DE CONTATO
 ====================================================================
