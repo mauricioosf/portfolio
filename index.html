@@ -250,11 +250,27 @@
                 <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-bottom:7px;">
                 <span style="font-size:15px;color:#ECE7DE;white-space:pre-line;line-height:1.55;">{{ row.role }}</span>
               </div>
+                <sc-if value="{{ row.single }}" hint-placeholder-val="{{ true }}">
                 <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;">{{ row.place }}</div>
+                </sc-if>
               <sc-if value="{{ row.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#8A8478;margin-top:5px;white-space:pre-line;">{{ row.note }}</div></sc-if>
               </div>
               <div style="font-family:'Space Mono',monospace;font-size:12px;color:#D9A441;white-space:nowrap;text-align:right;">{{ row.year }}</div>
             </div>
+            <!-- Cargos anteriores na mesma empresa: pequenos, numa linha que esmaece, com uma bolinha em cada um. -->
+            <sc-if value="{{ row.hasPrev }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative;margin-top:2px;">
+                <div style="position:absolute;left:3px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,rgba(236,231,222,0.3),rgba(236,231,222,0));"></div>
+                <sc-for list="{{ row.prev }}" as="st" hint-placeholder-count="2">
+                  <div style="{{ st.style }}">
+                    <span style="position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:#5F5A50;"></span>
+                    <span style="font-size:12.5px;color:#8A8478;line-height:1.5;">{{ st.role }}</span>
+                    <span style="font-family:'Space Mono',monospace;font-size:10.5px;color:#6E695F;white-space:nowrap;text-align:right;">{{ st.period }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:13px;color:#8A8478;white-space:pre-line;line-height:1.5;margin-top:8px;">{{ row.place }}</div>
+            </sc-if>
             <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
               <div style="{{ row.detailStyle }}">
                 <div style="overflow:hidden;min-height:0;">
@@ -416,7 +432,23 @@
               <!-- Cargo e empresa nunca ficam sozinhos no fim da página, separados do texto. -->
               <div style="break-inside:avoid;break-after:avoid;page-break-after:avoid;">
                 <div style="font-family:'Newsreader',serif;font-weight:400;font-size:13.5px;color:#ECE7DE;line-height:1.3;white-space:pre-line;">{{ row.role }}</div>
+                <sc-if value="{{ row.single }}" hint-placeholder-val="{{ true }}">
                 <div style="font-size:9.5px;color:#8A8478;line-height:1.45;margin-top:2px;white-space:pre-line;">{{ row.place }}</div>
+                </sc-if>
+                <!-- Cargos anteriores na mesma empresa: pequenos, numa linha que esmaece, com uma bolinha em cada um. -->
+                <sc-if value="{{ row.hasPrev }}" hint-placeholder-val="{{ false }}">
+                <div style="position:relative;margin-top:3px;">
+                  <div style="position:absolute;left:2px;top:5px;bottom:5px;width:1px;background:linear-gradient(180deg,rgba(236,231,222,0.3),rgba(236,231,222,0));"></div>
+                  <sc-for list="{{ row.prev }}" as="st" hint-placeholder-count="2">
+                    <div style="{{ st.cvStyle }}">
+                      <span style="position:absolute;left:0;top:5.5px;width:5px;height:5px;border-radius:50%;background:#5F5A50;"></span>
+                      <span style="font-size:9.5px;color:#8A8478;line-height:1.45;">{{ st.role }}</span>
+                      <span style="font-family:'Space Mono',monospace;font-size:8px;color:#6E695F;white-space:nowrap;">{{ st.period }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-size:9.5px;color:#8A8478;line-height:1.45;margin-top:3px;white-space:pre-line;">{{ row.place }}</div>
+                </sc-if>
               </div>
               <sc-if value="{{ row.hasDetail }}" hint-placeholder-val="{{ false }}">
                 <p style="font-size:9.5px;line-height:1.45;color:#A8A297;margin:4px 0 0;white-space:pre-line;text-align:justify;hyphens:auto;orphans:3;widows:3;">{{ row.detail }}</p>
@@ -426,7 +458,7 @@
         </sc-for>
 
         <sc-if value="{{ hasEducation }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;">{{ t.eduLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;break-after:avoid;page-break-after:avoid;">{{ t.eduLabel }}</div>
         <sc-for list="{{ cvEducation }}" as="row" hint-placeholder-count="2">
           <div style="break-inside:avoid;display:grid;grid-template-columns:38mm 1fr;gap:8mm;padding:4px 0;">
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.6;color:#D9A441;">{{ row.year }}</div>
@@ -440,7 +472,7 @@
         </sc-if>
 
         <sc-if value="{{ hasLicenses }}" hint-placeholder-val="{{ false }}">
-        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;">{{ t.certLabel }}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:#D9A441;padding-bottom:5px;border-bottom:1px solid rgba(236,231,222,0.14);margin:4mm 0 4px;break-after:avoid;page-break-after:avoid;">{{ t.certLabel }}</div>
         <sc-for list="{{ licenses }}" as="row" hint-placeholder-count="4">
           <div style="break-inside:avoid;display:grid;grid-template-columns:38mm 1fr;gap:8mm;padding:6px 0 7px;">
             <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.5px;line-height:1.65;color:#D9A441;">{{ row.year }}</div>
@@ -753,6 +785,36 @@ function thumbFor(v, ws, bunnyHost) {
   if (p.gid && ws) return 'https://video.gumlet.io/' + ws + '/' + p.gid + '/thumbnail-1-0.png';
   if (p.bid && bunnyHost) return 'https://' + bunnyHost + '/' + p.bid + '/thumbnail.jpg';
   return 'https://picsum.photos/seed/' + v.id + '/1200/675';
+}
+// Several roles at the same company: the role field holds one "Role (period)" per
+// line (" // " in the panel). Returns [{ role, period }] or [] for a single role.
+function roleSteps(role) {
+  const lines = String(role || '').split('\n').map(s => s.trim()).filter(Boolean);
+  if (lines.length < 2) return [];
+  const steps = lines.map(l => { const m = l.match(/^(.*?)\s*\(([^()]+)\)$/); return m ? { role: m[1], period: m[2] } : null; });
+  return steps.every(Boolean) ? steps : [];
+}
+// The current (first) role becomes the row's title and date; earlier roles go to
+// row.prev, each a little fainter than the one above it.
+function withPrevRoles(row) {
+  const steps = roleSteps(row.role);
+  const companyKey = String(row.place || '').trim();
+  row.hasPrev = steps.length > 1;
+  row.single = !row.hasPrev;
+  row.prev = [];
+  if (!row.hasPrev) return row;
+  row.companyKey = companyKey;
+  row.role = steps[0].role;
+  row.year = steps[0].period;
+  row.prev = steps.slice(1).map((s, i) => {
+    const fade = 'opacity:' + Math.max(0.4, 1 - i * 0.3) + ';';
+    return {
+      role: s.role, period: s.period,
+      style: 'position:relative;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:5px 0 5px 18px;' + fade,
+      cvStyle: 'position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:6mm;padding:1.5px 0 1.5px 11px;' + fade,
+    };
+  });
+  return row;
 }
 // Convert plain text to safe HTML: escape, then [text](url) → link and **bold** → <strong>. Line breaks kept via white-space:pre-line.
 function richHtml(str) {
@@ -1208,7 +1270,7 @@ class Component extends DCLogic {
         label: (L === 'pt' ? 'Ampliar imagem ' : 'Open image ') + (j + 1) + (m.caption ? ' — ' + m.caption : ''),
         open: () => this.lbOpen(mediaItems, j),
       }));
-      return {
+      return withPrevRoles({
         media, hasMedia: media.length > 0,
         year: r.year, role: r.role, place: r.place, detail: r.detail, summary: r.summary,
         metaLine: [r.place, r.year].filter(Boolean).join('  \u00b7  '),
@@ -1219,7 +1281,7 @@ class Component extends DCLogic {
         toggleLabel: open ? (L === 'pt' ? '\u2212 fechar' : '\u2212 close') : (L === 'pt' ? '+ ver mais detalhes' : '+ see more details'),
         detailStyle: 'display:grid;grid-template-rows:' + (open ? '1fr' : '0fr') + ';transition:grid-template-rows .42s cubic-bezier(.3,.8,.3,1),opacity .35s ease,margin-top .35s ease;opacity:' + (open ? '1' : '0') + ';margin-top:' + (open ? '14px' : '0') + ';',
         toggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e['exp' + i] = !e['exp' + i]; return { expanded: e }; }),
-      };
+      });
     });
     const aboutEducation = rowsL(ab.education).map(r => Object.assign({}, r, { note: r.tag, hasNote: !!(r.tag && r.tag.trim()) })).map((r, i, arr) => Object.assign({}, r, { rowStyle: 'display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;' + (i === arr.length - 1 ? lastRow : dividerRow) }));
     const aboutLicenses = rowsL(ab.licenses).map(r => Object.assign({}, r, { place: r.tag ? (r.place + '  \u00b7  ' + r.tag) : r.place }));
@@ -1228,12 +1290,15 @@ class Component extends DCLogic {
     const certPreview = aboutLicenses.slice(0, 3).map((r, i, arr) => Object.assign({}, r, { rowStyle: licRowStyle(!certOpen && i === arr.length - 1) }));
     const cvRow = (r) => ({ year: r.year, role: r.role, place: r.place, note: r.tag || '', hasNote: !!(r.tag && String(r.tag).trim()), detail: r.detail, hasDetail: !!(r.detail && r.detail.trim()) });
     // The résumé uses shorter, CV-specific paragraphs when present: curriculo.json
-    // (indexed by the Portuguese role), then a cvDetail in videos.json.
+    // (indexed by the Portuguese role, or by the company when it lists several roles),
+    // then a cvDetail in videos.json.
     const cvTexts = this.state.cvTexts || {};
     const cvExp = cvTexts.experiencias || {};
     const cvTimeline = (ab.timeline || []).map(r => {
       const row = cvRow(rowsL([r])[0]);
-      const own = cvExp[String((r.role && r.role.pt) || r.role || '').trim()];
+      withPrevRoles(row);
+      const company = String((r.place && r.place.pt) || r.place || '').split('//')[0].trim();
+      const own = cvExp[String((r.role && r.role.pt) || r.role || '').trim()] || (row.hasPrev && cvExp[company]);
       const d = own ? pick(own) : (r.cvDetail ? pick(r.cvDetail) : '');
       if (d && d.trim()) { row.detail = d; row.hasDetail = true; }
       return row;

@@ -18,8 +18,10 @@ def norm(s):
 esperado = [about.get('name') or 'Mauricio Ferreira']
 for secao in ('timeline', 'education', 'licenses'):
     for item in about.get(secao, []):
-        # " // " no cargo vira quebra de linha no site; cada parte é conferida separada.
-        esperado += [p.strip() for p in re.split(r'(?:^|\s)//(?:\s|$)', pt(item.get('role'))) if p.strip()]
+        # " // " no cargo vira quebra de linha no site; cada parte é conferida separada,
+        # sem o "(período)" de quando há vários cargos na mesma empresa.
+        partes = [p.strip() for p in re.split(r'(?:^|\s)//(?:\s|$)', pt(item.get('role'))) if p.strip()]
+        esperado += [re.sub(r'\s*\([^()]+\)$', '', p) for p in partes]
 
 # Textos próprios do currículo: confere o começo de cada um, para garantir que o
 # curriculo.json carregou antes da impressão.
@@ -27,6 +29,7 @@ arq_cv = os.path.join(os.path.dirname(os.path.abspath(dados)), 'curriculo.json')
 if os.path.exists(arq_cv):
     cv = json.load(open(arq_cv, encoding='utf-8'))
     cargos = {pt(item.get('role')).strip() for item in about.get('timeline', [])}
+    cargos |= {pt(item.get('place')).split('//')[0].strip() for item in about.get('timeline', [])}
     textos = [pt(cv.get('bio')).split('\n\n')[-1]]
     textos += [pt(t) for cargo, t in (cv.get('experiencias') or {}).items() if cargo in cargos]
     esperado += [t[:40] for t in textos if t.strip()]
