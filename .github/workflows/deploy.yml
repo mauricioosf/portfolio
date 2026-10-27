@@ -131,7 +131,7 @@ jobs:
               # coloca as tags no <head> de verdade (lido pelos robôs de prévia)
               return re.sub(r'(<meta name="site-base"[^>]*>\n)', lambda m: m.group(1) + bloco, index, count=1)
 
-          og_padrao = SITE + 'images/og-image.jpg'
+          og_padrao = SITE + 'images/og-foto.jpg'
           desc_site = 'Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.'
 
           # 2) página inicial e Sobre
