@@ -174,7 +174,7 @@
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
               <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
-                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onLoadStart="{{ previewMute }}" onLoadedMetadata="{{ previewMute }}" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></video>
+                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onLoadStart="{{ previewMute }}" onLoadedMetadata="{{ previewMute }}" onPlaying="{{ previewShow }}" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease;"></video>
               </sc-if>
             </div>
             <div style="{{ v.playStyle }}">
@@ -1148,7 +1148,7 @@ class Component extends DCLogic {
         posterSmall: (window.__gridThumb ? window.__gridThumb(thumbFor(v, GWS, BHOST)) : thumbFor(v, GWS, BHOST)),
         metaLine: catLabelOne(v.cat) + '  \u00b7  ' + v.year,
         showCaption: mob,
-        imgStyle: 'position:absolute;inset:0;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(' + (hovered === v.id ? '1.05' : '1') + ');',
+        imgStyle: 'position:absolute;inset:0;will-change:transform;backface-visibility:hidden;transition:transform .6s cubic-bezier(.2,.7,.2,1);transform:scale(' + (hovered === v.id ? '1.05' : '1') + ');',
         overlayStyle: overlayBase + (!mob && hovered === v.id ? '1' : '0') + ';',
         hover: () => this.setState({ hovered: v.id }),
         open: () => this.openProject(v),
@@ -1404,6 +1404,8 @@ class Component extends DCLogic {
       worksToggle: () => { this.setHash(null); this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })); },
       stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
       // React não repassa muted nem loop ao <video>: sem isso o clipe teria som (e o navegador bloquearia o autoplay) e pararia no fim.
+      // A prévia só aparece quando o primeiro quadro já está tocando, com fade: sem o "pulo" sobre a capa.
+      previewShow: (e) => { if (e && e.target) e.target.style.opacity = '1'; },
       previewMute: (e) => { const el = e && e.target; if (!el) return; el.muted = true; el.defaultMuted = true; el.loop = true; const p = el.play && el.play(); if (p && p.catch) p.catch(() => {}); },
     };
   }
