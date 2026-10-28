@@ -107,7 +107,9 @@ jobs:
                       break
               return SITE + 'og/' + proj['id'] + '.jpg'
 
-          def pagina(titulo, descricao, url, imagem, tipo='website'):
+          def pagina(titulo, descricao, url, imagem, tipo='website', tam=(1200, 630)):
+              # Imagens quadradas pequenas (a foto do rosto) aparecem como miniatura ao lado do texto.
+              cartao = 'summary_large_image' if tam[0] > tam[1] else 'summary'
               tags = [
                   '<title>%s</title>' % esc(titulo),
                   '<meta name="description" content="%s">' % esc(descricao),
@@ -120,9 +122,9 @@ jobs:
                   '<meta property="og:url" content="%s">' % esc(url),
                   '<meta property="og:image" content="%s">' % esc(imagem),
                   '<meta property="og:image:type" content="image/jpeg">',
-                  '<meta property="og:image:width" content="1200">',
-                  '<meta property="og:image:height" content="630">',
-                  '<meta name="twitter:card" content="summary_large_image">',
+                  '<meta property="og:image:width" content="%d">' % tam[0],
+                  '<meta property="og:image:height" content="%d">' % tam[1],
+                  '<meta name="twitter:card" content="%s">' % cartao,
                   '<meta name="twitter:title" content="%s">' % esc(titulo),
                   '<meta name="twitter:description" content="%s">' % esc(descricao),
                   '<meta name="twitter:image" content="%s">' % esc(imagem),
@@ -131,16 +133,17 @@ jobs:
               # coloca as tags no <head> de verdade (lido pelos robôs de prévia)
               return re.sub(r'(<meta name="site-base"[^>]*>\n)', lambda m: m.group(1) + bloco, index, count=1)
 
-          og_padrao = SITE + 'images/og-foto.jpg'
+          og_padrao = SITE + 'images/og-rosto.jpg'
+          tam_padrao = (400, 400)
           desc_site = 'Mauricio Ferreira, editor de vídeo no Rio de Janeiro. Montagem, color grading e finalização para documentários, curtas e vídeos institucionais.'
 
           # 2) página inicial e Sobre
           open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(
-              pagina(person + ' · ' + role_pt, desc_site, SITE, og_padrao))
+              pagina(person + ' · ' + role_pt, desc_site, SITE, og_padrao, tam=tam_padrao))
           for slug in ('sobre',):
               os.makedirs(os.path.join(OUT, slug), exist_ok=True)
               open(os.path.join(OUT, slug, 'index.html'), 'w', encoding='utf-8').write(
-                  pagina('Sobre · ' + person, resumo((about.get('bio') or {}).get('pt')) or desc_site, SITE + slug + '/', og_padrao))
+                  pagina('Sobre · ' + person, resumo((about.get('bio') or {}).get('pt')) or desc_site, SITE + slug + '/', og_padrao, tam=tam_padrao))
 
           # 3) uma página por projeto
           ids = set()
@@ -153,10 +156,12 @@ jobs:
               ids.add(pid)
               titulo = (p.get('title') or {}).get('pt') or pid
               desc = resumo((p.get('desc') or {}).get('pt')) or desc_site
-              img = imagem_og(p) or og_padrao
+              img = imagem_og(p)
+              tam = (1200, 630) if img else tam_padrao
+              img = img or og_padrao
               os.makedirs(os.path.join(OUT, pid), exist_ok=True)
               open(os.path.join(OUT, pid, 'index.html'), 'w', encoding='utf-8').write(
-                  pagina(titulo + ' · ' + person, desc, SITE + pid + '/', img, 'video.other'))
+                  pagina(titulo + ' · ' + person, desc, SITE + pid + '/', img, 'video.other', tam))
               print('  ok:', pid)
 
           print('Pronto: %d projetos, site em %s' % (len(ids), SITE))
