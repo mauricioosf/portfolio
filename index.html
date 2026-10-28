@@ -170,7 +170,7 @@
     <div style="{{ gridStyle }}">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
         <div onClick="{{ v.open }}" tabindex="0" role="button" data-kb="" aria-label="{{ v.title }}" onFocus="{{ v.hover }}" onBlur="{{ leave }}" onMouseEnter="{{ v.hover }}" onMouseLeave="{{ leave }}" style="{{ v.cellStyle }}">
-          <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;">
+          <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;clip-path:inset(0 round 2px);">
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
             </div>
@@ -1111,7 +1111,7 @@ class Component extends DCLogic {
     const catLabelOne = (id) => { const c = CATS.find(x => x.id === id) || {}; return (c.labelOne && c.labelOne[L]) || (c.label && c.label[L]) || ''; };
     const catAccent = (id) => (CATS.find(c => c.id === id) || {}).accent;
     const hovered = this.state.hovered;
-    const overlayBase = 'position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(0deg, rgba(8,8,9,0.92), rgba(8,8,9,0.3));transition:opacity .35s;opacity:';
+    const overlayBase = 'position:absolute;inset:-1px;z-index:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:linear-gradient(0deg, rgba(8,8,9,0.92), rgba(8,8,9,0.3));transition:opacity .35s;opacity:';
 
     const DATA = this.state.data || DEFAULT_DATA;
     // Only show real projects once videos.json has loaded — avoids a flash of
