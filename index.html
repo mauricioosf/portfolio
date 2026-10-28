@@ -369,60 +369,10 @@
           <span style="{{ contactValueStyle }}">{{ whatsappLabel }}</span>
         </span>
       </a>
-      <button type="button" onClick="{{ contactOpen }}" style="{{ contactBtnStyle }}" style-hover="color:#D9A441;">
-        <span style="{{ contactChipStyle }}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L10 14"></path><path d="M21 3l-7 18-4-7-7-4 18-7z"></path></svg>
-        </span>
-        <span>
-          <span style="{{ contactSmallLabel }}">{{ t.formLabel }}</span>
-          <span style="{{ contactValueStyle }}">{{ t.formOpen }}</span>
-        </span>
-      </button>
       </div>
     </div>
-
     </sc-if>
   </main>
-  <!-- Janela do formulário de contato: as respostas vão para um Google Forms, que avisa por e-mail. -->
-  <sc-if value="{{ contactIsOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ contactBackdrop }}" style="{{ cfOverlayStyle }}">
-      <div role="dialog" aria-modal="true" aria-labelledby="cf-titulo" style="{{ cfPanelStyle }}">
-        <button type="button" onClick="{{ contactClose }}" aria-label="{{ t.formClose }}" style="{{ cfCloseStyle }}" style-hover="border-color:#D9A441;color:#D9A441;">✕</button>
-        <sc-if value="{{ formNotDone }}" hint-placeholder-val="{{ true }}">
-          <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#D9A441;margin-bottom:12px;">{{ t.contactKicker }}</div>
-          <h2 id="cf-titulo" style="font-family:'Newsreader',serif;font-weight:300;font-size:clamp(26px,3vw,34px);line-height:1.1;letter-spacing:-.5px;margin:0 0 28px;padding-right:40px;">{{ t.formTitle }}</h2>
-          <form onSubmit="{{ formSend }}" novalidate="" style="display:flex;flex-direction:column;gap:18px;">
-            <label style="display:block;">
-              <span style="{{ contactSmallLabel }}">{{ t.formName }}</span>
-              <input id="cf-nome" name="nome" type="text" autocomplete="name" required="" maxlength="120" style="{{ cfFieldStyle }}" style-focus="border-color:#D9A441;">
-            </label>
-            <label style="display:block;">
-              <span style="{{ contactSmallLabel }}">{{ t.formEmail }}</span>
-              <input name="email" type="email" autocomplete="email" required="" maxlength="160" style="{{ cfFieldStyle }}" style-focus="border-color:#D9A441;">
-            </label>
-            <label style="display:block;">
-              <span style="{{ contactSmallLabel }}">{{ t.formMessage }}</span>
-              <textarea name="mensagem" required="" rows="5" maxlength="4000" style="{{ cfAreaStyle }}" style-focus="border-color:#D9A441;"></textarea>
-            </label>
-            <!-- Campo invisível contra robôs de spam: pessoas não preenchem. -->
-            <input name="site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
-            <button type="submit" disabled="{{ formSending }}" style="{{ cfSendStyle }}" style-hover="background:#E8B95A;">{{ formBtnLabel }}</button>
-            <span role="status" aria-live="polite" style="{{ formMsgStyle }}">{{ formMsg }}</span>
-          </form>
-        </sc-if>
-        <sc-if value="{{ formDone }}" hint-placeholder-val="{{ false }}">
-          <div style="text-align:center;padding:26px 0 8px;">
-            <div style="width:56px;height:56px;margin:0 auto 22px;border-radius:50%;border:1px solid #D9A441;color:#D9A441;display:flex;align-items:center;justify-content:center;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
-            </div>
-            <h2 id="cf-titulo" style="font-family:'Newsreader',serif;font-weight:300;font-size:30px;line-height:1.1;margin:0 0 10px;">{{ t.formOkTitle }}</h2>
-            <p style="font-family:'Newsreader',serif;font-size:17px;line-height:1.5;color:#B8B2A6;margin:0 0 28px;">{{ t.formOkText }}</p>
-            <button type="button" onClick="{{ contactClose }}" style="{{ cfSendStyle }}" style-hover="background:#E8B95A;">{{ t.formClose }}</button>
-          </div>
-        </sc-if>
-      </div>
-    </div>
-  </sc-if>
   </sc-if>
 
   <!-- CURRÍCULO (print / PDF) -->
@@ -735,10 +685,6 @@ const STRINGS = {
     exp: '> [ X ] anos editando',
     contactKicker: 'Contato',
     contactTitle: 'Vamos montar algo juntos?',
-    formLabel: 'Formulário', formOpen: 'Mandar mensagem', formTitle: 'Me conte sobre o seu projeto', formClose: 'Fechar',
-    formName: 'Nome', formEmail: 'E-mail', formMessage: 'Mensagem', formSend: 'Enviar mensagem', formSending: 'Enviando…',
-    formOkTitle: 'Mensagem enviada!', formOkText: 'Obrigado pelo contato. Respondo em breve no seu e-mail.', formError: 'Não foi possível enviar agora. Tente de novo ou me chame por e-mail.',
-    formMissing: 'Preencha nome, e-mail e mensagem.', formBadEmail: 'Confira o e-mail digitado.',
     availValue: 'Aberto a novos projetos',
     locLabel: 'Localização', locValue: '[ Cidade, País ]',
     cvDownload: 'Baixar currículo', cvPrint: 'Salvar em PDF', cvBack: '← Voltar', cvProfile: 'Sobre mim',
@@ -770,10 +716,6 @@ const STRINGS = {
     exp: '> [ X ] years editing',
     contactKicker: 'Contact',
     contactTitle: 'Shall we cut something together?',
-    formLabel: 'Form', formOpen: 'Send a message', formTitle: 'Tell me about your project', formClose: 'Close',
-    formName: 'Name', formEmail: 'Email', formMessage: 'Message', formSend: 'Send message', formSending: 'Sending…',
-    formOkTitle: 'Message sent!', formOkText: 'Thanks for reaching out. I’ll reply to your email soon.', formError: 'Couldn’t send right now. Try again or email me.',
-    formMissing: 'Please fill in name, email and message.', formBadEmail: 'Please check your email address.',
     availValue: 'Open to new projects',
     locLabel: 'Location', locValue: '[ City, Country ]',
     cvDownload: 'Download résumé', cvPrint: 'Save as PDF', cvBack: '← Back', cvProfile: 'About me',
@@ -818,13 +760,6 @@ const ABOUT_DEFAULT = {
 
 // Fallback data used only if videos.json fails to load
 const DEFAULT_DATA = { email: '', linkedin: '', about: ABOUT_DEFAULT, projects: [] };
-
-// Google Forms do contato (conta mauriciosf@id.uff.br). Um script no próprio formulário
-// manda cada resposta por e-mail. Os números são os campos do formulário.
-const CONTACT_FORM = {
-  url: 'https://docs.google.com/forms/d/e/1FAIpQLSeb8jcZdI82MZSGz3k5yfhKMFrITw0H0NlQUNy9-jPYTVta3g/formResponse',
-  nome: 'entry.147704113', email: 'entry.834756680', mensagem: 'entry.2022354423',
-};
 
 function parseVideo(url) {
   if (!url) return { embed: '', ytid: '', autoplayParam: 'autoplay=1' };
@@ -941,7 +876,6 @@ class Component extends DCLogic {
         if (e.key === 'ArrowRight') { this.lbStep(1); return; }
         if (e.key === 'ArrowLeft') { this.lbStep(-1); return; }
       }
-      if (e.key === 'Escape' && this.state.contato) { this.contactClose(); return; }
       if (e.key === 'Escape' && this.state.selected) { this.closeProject(); return; }
       // Enter/Espaço ativam itens clicáveis que não são botões nativos.
       const el = e.target;
@@ -1134,11 +1068,9 @@ class Component extends DCLogic {
   }
 
   openProject(v, fromHash) { if (!fromHash) this.setHash(v.id); this.lockScroll(true); this.setState({ selected: v, playing: false }); if (typeof requestAnimationFrame !== 'undefined') requestAnimationFrame(() => { const ov = document.querySelector('[data-detail-scroll]'); if (ov) ov.scrollTop = 0; }); }
-  contactOpen() { this.lockScroll(true); this.setState({ contato: true, form: {} }); setTimeout(() => { const el = document.getElementById('cf-nome'); if (el) el.focus(); }, 60); }
-  contactClose() { this.lockScroll(false); this.setState({ contato: false }); }
   closeProject(fromHash) { if (!fromHash) this.setHash(null); this.lockScroll(false); this.setState({ selected: null, playing: false }); }
 
-  goto(page, fromHash) { if (!fromHash) this.setHash(page === 'about' ? 'about' : (page === 'cv' ? 'cv' : null)); this.lockScroll(false); this.setState({ page: page, selected: null, contato: false, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+  goto(page, fromHash) { if (!fromHash) this.setHash(page === 'about' ? 'about' : (page === 'cv' ? 'cv' : null)); this.lockScroll(false); this.setState({ page: page, selected: null, playing: false, worksPinned: false, worksHover: false }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
 
   renderVals() {
     const L = this.state.lang;
@@ -1202,7 +1134,6 @@ class Component extends DCLogic {
     // (só no computador, e nunca com "reduzir movimento"). Sem clipe, fica só a capa.
     const reduceMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const previewFailed = this.state.previewFailed || {};
-    const form = this.state.form || {};
     const previewFor = (v) => (v.preview && String(v.preview).trim()) || '';
     const videos = filtered
       .map((v, i) => ({
@@ -1409,40 +1340,6 @@ class Component extends DCLogic {
       certRestStyle: 'display:grid;grid-template-rows:' + (certOpen ? '1fr' : '0fr') + ';transition:grid-template-rows .45s cubic-bezier(.3,.8,.3,1),opacity .35s ease;opacity:' + (certOpen ? '1' : '0') + ';',
       certToggleLabel: certOpen ? (L === 'pt' ? '\u2212 ver menos' : '\u2212 see less') : (L === 'pt' ? '+ ver mais ' + certRest.length : '+ see ' + certRest.length + ' more'),
       certToggle: () => this.setState(s => { const e = Object.assign({}, s.expanded); e.certs = !e.certs; return { expanded: e }; }),
-      contactBtnStyle: "display:flex;align-items:center;gap:16px;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:#ECE7DE;font:inherit;transition:color .25s;",
-      contactIsOpen: !!this.state.contato,
-      contactOpen: () => this.contactOpen(),
-      contactClose: () => this.contactClose(),
-      contactBackdrop: (e) => { if (e.target === e.currentTarget) this.contactClose(); },
-      formDone: form.status === 'ok',
-      formNotDone: form.status !== 'ok',
-      cfOverlayStyle: 'position:fixed;inset:0;z-index:90;background:rgba(6,6,7,0.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .25s ease both;',
-      cfPanelStyle: 'position:relative;width:100%;max-width:500px;max-height:100%;overflow:auto;box-sizing:border-box;background:#131315;border:1px solid rgba(236,231,222,0.12);border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,0.55);padding:' + (mob ? '30px 22px 24px' : '40px 40px 34px') + ';color:#ECE7DE;animation:modalIn .4s cubic-bezier(.2,.7,.2,1) both;',
-      cfCloseStyle: 'position:absolute;top:' + (mob ? '16px' : '20px') + ';right:' + (mob ? '16px' : '20px') + ';width:36px;height:36px;border-radius:50%;background:transparent;border:1px solid rgba(236,231,222,0.2);color:#ECE7DE;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;',
-      cfFieldStyle: "display:block;width:100%;box-sizing:border-box;margin-top:2px;background:rgba(236,231,222,0.04);border:1px solid rgba(236,231,222,0.14);border-radius:4px;padding:12px 14px;color:#ECE7DE;font-family:'Newsreader',serif;font-size:17px;line-height:1.3;outline:none;transition:border-color .2s;",
-      cfAreaStyle: "display:block;width:100%;box-sizing:border-box;margin-top:2px;background:rgba(236,231,222,0.04);border:1px solid rgba(236,231,222,0.14);border-radius:4px;padding:12px 14px;color:#ECE7DE;font-family:'Newsreader',serif;font-size:17px;line-height:1.45;outline:none;resize:vertical;min-height:120px;transition:border-color .2s;",
-      cfSendStyle: "display:block;width:100%;margin-top:6px;cursor:" + (form.sending ? 'default' : 'pointer') + ";background:#D9A441;color:#0A0A0B;border:0;border-radius:4px;padding:15px 20px;font-family:'Space Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:background .2s;opacity:" + (form.sending ? '0.6' : '1') + ";",
-      formMsgStyle: "display:block;min-height:16px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.5px;line-height:1.5;color:#C98B7A;",
-      formSending: !!form.sending,
-      formBtnLabel: form.sending ? t.formSending : t.formSend,
-      formMsg: form.status ? t['form' + form.status.charAt(0).toUpperCase() + form.status.slice(1)] || '' : '',
-      formSend: (e) => {
-        e.preventDefault();
-        const el = e.target, v = (n) => String((el.elements[n] || {}).value || '').trim();
-        if (form.sending) return;
-        if (v('site')) { el.reset(); this.setState({ form: { status: 'ok' } }); return; }
-        if (!v('nome') || !v('email') || !v('mensagem')) { this.setState({ form: { status: 'missing' } }); return; }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) { this.setState({ form: { status: 'badEmail' } }); return; }
-        const body = new URLSearchParams();
-        body.append(CONTACT_FORM.nome, v('nome'));
-        body.append(CONTACT_FORM.email, v('email'));
-        body.append(CONTACT_FORM.mensagem, v('mensagem'));
-        this.setState({ form: { sending: true } });
-        // O Google não deixa ler a resposta (no-cors); só uma falha de rede é tratada como erro.
-        fetch(CONTACT_FORM.url, { method: 'POST', mode: 'no-cors', body })
-          .then(() => { el.reset(); this.setState({ form: { status: 'ok' } }); })
-          .catch(() => this.setState({ form: { status: 'error' } }));
-      },
       whatsappUrl: 'https://wa.me/' + String(DATA.whatsapp || '5521996697004').replace(/\D/g, ''),
       whatsappLabel: (function (n) { const d = String(n || '5521996697004').replace(/\D/g, ''); return d.length >= 12 ? '+' + d.slice(0, 2) + ' ' + d.slice(2, 4) + ' ' + d.slice(4, 9) + '-' + d.slice(9) : '+' + d; })(DATA.whatsapp),
       hasWhatsapp: !!String(DATA.whatsapp || '5521996697004').replace(/\D/g, ''),
