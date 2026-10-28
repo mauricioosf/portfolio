@@ -369,6 +369,17 @@
           <span style="{{ contactValueStyle }}">{{ whatsappLabel }}</span>
         </span>
       </a>
+      <sc-if value="{{ hasLinkedin }}" hint-placeholder-val="{{ true }}">
+      <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" style="{{ contactLinkStyle }}" style-hover="color:#D9A441;">
+        <span style="{{ contactChipStyle }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.73 24 10.06 24 14.9V24h-5v-8.07c0-1.92-.03-4.39-2.68-4.39-2.68 0-3.09 2.09-3.09 4.25V24h-5V8z"></path></svg>
+        </span>
+        <span>
+          <span style="{{ contactSmallLabel }}">LinkedIn</span>
+          <span style="{{ contactValueStyle }}">{{ linkedinHandle }}</span>
+        </span>
+      </a>
+      </sc-if>
       </div>
     </div>
     </sc-if>
@@ -491,18 +502,8 @@
   </sc-if>
 
   <!-- FOOTER -->
-  <footer data-noprint="" style="position:relative;z-index:1;padding:44px 44px;display:flex;flex-direction:column;align-items:center;gap:18px;">
-    <sc-if value="{{ dataReady }}" hint-placeholder-val="{{ true }}">
-    <div style="display:flex;gap:16px;align-items:center;">
-      <a href="{{ mailto }}" aria-label="E-mail" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 6.5l9 6 9-6"></path></svg>
-      </a>
-      <a href="{{ linkedinUrl }}" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(236,231,222,0.2);color:#8A8478;transition:color .2s,border-color .2s;" style-hover="color:#D9A441;border-color:#D9A441;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.78v2.19h.07c.67-1.2 2.3-2.46 4.73-2.46C21.6 7.73 24 10.06 24 14.9V24h-5v-8.07c0-1.92-.03-4.39-2.68-4.39-2.68 0-3.09 2.09-3.09 4.25V24H8V8h-.5z"></path></svg>
-      </a>
-    </div>
-    </sc-if>
-    <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;color:#5F5A50;">{{ aboutName }} © {{ yearNow }}</span>
+  <footer data-noprint="" style="{{ footerStyle }}">
+    <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#5F5A50;">{{ aboutName }} © {{ yearNow }}</span>
   </footer>
 
   <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
@@ -1085,17 +1086,17 @@ class Component extends DCLogic {
     const navClusterStyle = 'flex-shrink:0;display:flex;align-items:center;gap:' + (mob ? '14px' : '30px') + ';';
     const logoNameStyle = "white-space:nowrap;font-family:'Archivo',sans-serif;font-weight:600;font-size:18px;letter-spacing:2.5px;text-transform:uppercase;color:#ECE7DE;line-height:" + (mob ? '1.1' : '1') + ";";
     const logoRoleStyle = "white-space:nowrap;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A8478;margin-top:7px;";
-    const homeMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 64px' : '150px 44px 100px') + ';max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;';
+    const homeMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 40px' : '150px 44px 64px') + ';max-width:1200px;margin:0 auto;animation:pageIn .5s ease both;';
     // Colunas calculadas a partir da largura (mesma regra do antigo auto-fill 330px),
     // em grade dupla para poder centralizar 1 ou 2 itens soltos na última linha.
     const gridW = Math.min(1200, this.state.vw || 1440) - 88;
     const gridCols = mob ? 1 : Math.max(1, Math.floor((gridW + 22) / (330 + 22)));
     const gridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : 'repeat(' + (gridCols * 2) + ',minmax(0,1fr))') + ';gap:' + (mob ? '16px' : '22px') + ';transition:opacity .28s ease;opacity:' + (this.state.gridVisible ? '1' : '0') + ';';
-    const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 72px' : '150px 44px 110px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
+    const aboutMainStyle = 'position:relative;z-index:1;padding:' + (mob ? '138px 18px 40px' : '150px 44px 64px') + ';max-width:1080px;margin:0 auto;animation:pageIn .5s ease both;';
     const aboutGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '290px 1fr') + ';gap:' + (mob ? '44px' : '72px') + ';align-items:start;';
     // No computador a coluna da foto acompanha a rolagem; sideTop é medido em syncSideTop().
     const aboutSidebarStyle = mob ? 'text-align:center;' : 'text-align:center;position:sticky;top:' + (this.state.sideTop != null ? this.state.sideTop : 120) + 'px;';
-    const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:flex-end;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
+    const contactRowStyle = 'margin-top:' + (mob ? '68px' : '110px') + ';padding-top:' + (mob ? '40px' : '58px') + ';border-top:1px solid rgba(236,231,222,0.12);display:flex;justify-content:space-between;align-items:center;gap:' + (mob ? '20px' : '30px') + ';flex-wrap:wrap;';
     const detailInnerStyle = 'max-width:1120px;margin:0 auto;padding:' + (mob ? '80px 18px 72px' : '104px 48px 110px') + ';animation:modalIn .45s cubic-bezier(.2,.7,.2,1) both;';
     const detailGridStyle = 'display:grid;grid-template-columns:' + (mob ? '1fr' : '1.6fr 1fr') + ';gap:' + (mob ? '40px' : '72px') + ';align-items:start;';
     const closeBtnStyle = 'position:fixed;top:' + (mob ? '14px' : '26px') + ';right:' + (mob ? '14px' : '32px') + ';z-index:70;cursor:pointer;background:rgba(10,10,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(236,231,222,0.25);color:#ECE7DE;width:44px;height:44px;border-radius:50%;font-size:17px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;';
@@ -1403,7 +1404,14 @@ class Component extends DCLogic {
       leave: () => this.setState({ hovered: null }),
       worksOn: () => this.setState({ worksHover: true }),
       worksOff: () => this.setState({ worksHover: false }),
-      worksToggle: () => { this.setHash(null); this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned })); },
+      worksToggle: () => {
+        // Vindo de outra página, começa do topo dos trabalhos (e não na mesma altura da rolagem anterior).
+        const fromOther = this.state.page !== 'home';
+        this.setHash(null); this.setState(st => ({ page: 'home', selected: null, worksPinned: !st.worksPinned }));
+        if (fromOther && typeof window !== 'undefined') window.scrollTo({ top: 0 });
+      },
+      hasLinkedin: !!DATA.linkedin,
+      footerStyle: 'position:relative;z-index:1;padding:' + (mob ? '0 18px 30px' : '0 44px 36px') + ';display:flex;flex-direction:column;align-items:center;',
       stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
       // React não repassa muted nem loop ao <video>: sem isso o clipe teria som (e o navegador bloquearia o autoplay) e pararia no fim.
       // A prévia só aparece quando o primeiro quadro já está tocando, com fade: sem o "pulo" sobre a capa.
