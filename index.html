@@ -173,10 +173,12 @@
           <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#141416;border-radius:2px;">
             <div style="{{ v.imgStyle }}">
               <image-slot id="{{ v.posterId }}" alt="{{ v.title }}" src="{{ v.posterSmall }}" fallback-src="{{ v.poster }}" shape="rect" fit="cover" placeholder="{{ t.dropPoster }}" style="width:100%;height:100%;"></image-slot>
-              <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
-                <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onLoadStart="{{ previewMute }}" onLoadedMetadata="{{ previewMute }}" onPlaying="{{ previewShow }}" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease;"></video>
-              </sc-if>
             </div>
+            <!-- Prévia fora do bloco que faz o zoom: já na escala final e parada, aparece com fade depois
+                 que o zoom termina. Vídeo dentro de um transform animado treme (o Chrome arredonda cada quadro). -->
+            <sc-if value="{{ v.showPreview }}" hint-placeholder-val="{{ false }}">
+              <video src="{{ v.preview }}" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-hidden="true" onLoadStart="{{ previewMute }}" onLoadedMetadata="{{ previewMute }}" onPlaying="{{ previewShow }}" onError="{{ v.previewFail }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);opacity:0;transition:opacity .4s ease .45s;"></video>
+            </sc-if>
             <div style="{{ v.playStyle }}">
               <div style="{{ v.playTriStyle }}"></div>
             </div>
