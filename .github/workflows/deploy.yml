@@ -130,8 +130,10 @@ jobs:
                   '<meta name="twitter:image" content="%s">' % esc(imagem),
               ]
               bloco = '\n'.join(tags) + '\n'
+              # tira as tags fixas do index.html (senão o Discord e outros mostram as duas imagens)
+              base = re.sub(r'^<(?:title>[^<]*</title>|meta (?:name="description"|property="og:[^"]*"|name="twitter:[^"]*")[^>]*>|link rel="canonical"[^>]*>)\n', '', index, flags=re.M)
               # coloca as tags no <head> de verdade (lido pelos robôs de prévia)
-              return re.sub(r'(<meta name="site-base"[^>]*>\n)', lambda m: m.group(1) + bloco, index, count=1)
+              return re.sub(r'(<meta name="site-base"[^>]*>\n)', lambda m: m.group(1) + bloco, base, count=1)
 
           og_padrao = SITE + 'images/og-rosto.jpg'
           tam_padrao = (400, 400)
