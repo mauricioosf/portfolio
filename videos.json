@@ -3,7 +3,7 @@
   "whatsapp": "5521996697004",
   "linkedin": "https://www.linkedin.com/in/mauricioosf/",
   "bunnyHost": "vz-892d060b-7a1.b-cdn.net",
-  "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: inst, doc, curta, sound. Cole o link do player do Bunny Stream no campo de video.",
+  "_ajuda": "Adicione ou edite os videos pelo painel (painel-admin-0504.html) e baixe este arquivo novamente. 'cat' aceita: fauna, agro, social, doc, curta. Cole o link do player do Bunny Stream no campo de video.",
   "about": {
     "name": "Mauricio Ferreira",
     "portrait": "images/foto-mauricio.webp",
@@ -322,7 +322,7 @@
   "projects": [
     {
       "id": "inauguracao-da-nova-fabrica-jucai",
-      "cat": "inst",
+      "cat": "agro",
       "year": 2023,
       "duration": "01:29",
       "client": "Juçaí",
@@ -345,7 +345,7 @@
     },
     {
       "id": "dia-mundial-da-anta",
-      "cat": "inst",
+      "cat": "fauna",
       "year": 2024,
       "duration": "02:20",
       "client": "Centros de Fauna Trijunção",
@@ -368,7 +368,7 @@
     },
     {
       "id": "mobiliario-infantil-potes-jucai",
-      "cat": "inst",
+      "cat": "social",
       "year": 2025,
       "duration": "02:20",
       "client": "Juçaí",
@@ -391,7 +391,7 @@
     },
     {
       "id": "ong-anjos-da-tia-stellinha-upcycling",
-      "cat": "inst",
+      "cat": "social",
       "year": 2024,
       "duration": "02:07",
       "client": "zhouse",
@@ -414,7 +414,7 @@
     },
     {
       "id": "dia-mundial-da-tartaruga",
-      "cat": "inst",
+      "cat": "fauna",
       "year": 2025,
       "duration": "01:44",
       "client": "Centros de Fauna Trijunção",
@@ -437,7 +437,7 @@
     },
     {
       "id": "colheita-de-milho-na-fazenda-candeia",
-      "cat": "inst",
+      "cat": "agro",
       "year": 2025,
       "duration": "02:13",
       "client": "Fazenda Candeia",
@@ -460,7 +460,7 @@
     },
     {
       "id": "ordenha-na-fazenda-candeia",
-      "cat": "inst",
+      "cat": "agro",
       "year": 2025,
       "duration": "04:54",
       "client": "Fazenda Candeia",
@@ -483,7 +483,7 @@
     },
     {
       "id": "chegada-do-tupa",
-      "cat": "inst",
+      "cat": "fauna",
       "year": 2025,
       "duration": "02:49",
       "client": "Centros de Fauna Trijunção",
@@ -506,7 +506,7 @@
     },
     {
       "id": "bicudos-da-trijuncao",
-      "cat": "inst",
+      "cat": "fauna",
       "year": 2026,
       "duration": "05:01",
       "client": "Centros de Fauna Trijunção",
