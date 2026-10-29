@@ -321,6 +321,29 @@
   },
   "projects": [
     {
+      "id": "inauguracao-da-nova-fabrica-jucai",
+      "cat": "inst",
+      "year": 2023,
+      "duration": "01:29",
+      "client": "Juçaí",
+      "tools": "Premiere Pro",
+      "video": "https://player.mediadelivery.net/play/698884/4170ca55-66ac-4342-a57f-84554b2c2568",
+      "thumb": "images/nova-fabrica-jucai.webp",
+      "role": {
+        "pt": "Montagem e Color Grading",
+        "en": "Editing and Color Grading,"
+      },
+      "title": {
+        "pt": "Inauguração da Nova Fábrica Juçaí",
+        "en": "New Juçaí Factory Opening"
+      },
+      "desc": {
+        "pt": "Inauguração da Nova Fábrica Juçaí é um vídeo institucional que celebra o primeiro dia de operação da nova fábrica. Com a fala do diretor de Agrosustentável da zhouse, o filme reconhece o comprometimento da equipe ao longo dos últimos anos e apresenta o que essa expansão representa: mais geração de empregos, fortalecimento das comunidades locais e dos produtores, além de melhorias pros colaboradores. O vídeo reafirma o compromisso da Juçaí com a sustentabilidade e a responsabilidade social, impulsionando seu propósito pelo Brasil e pelo mundo.",
+        "en": "New Juçaí Factory Opening is an institutional video celebrating the first day of operation of the new factory. Featuring a message from zhouse’s Agrosustentável director, the film acknowledges the team’s commitment over the past few years and presents what this expansion represents: more job creation, stronger support for local communities and producers, and improvements for employees. The video reaffirms Juçaí’s commitment to sustainability and social responsibility, driving its purpose forward across Brazil and the world."
+      },
+      "preview": "previews/nova-fabrica-jucai.mp4"
+    },
+    {
       "id": "dia-mundial-da-anta",
       "cat": "inst",
       "year": 2024,
