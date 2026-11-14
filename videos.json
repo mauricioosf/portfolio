@@ -528,6 +528,29 @@
       }
     },
     {
+      "id": "a-morte-da-sauva",
+      "cat": "curta",
+      "year": 2022,
+      "duration": "10:05",
+      "client": "Estácio de Sá",
+      "tools": "Premiere Pro",
+      "video": "https://player.mediadelivery.net/play/698884/1cc4a994-20fc-47ab-8a71-8dbef0624c3f",
+      "thumb": "images/a-morte-da-sauva.webp",
+      "preview": "previews/a-morte-da-sauva.mp4",
+      "role": {
+        "pt": "Captação, Montagem, Color Grading",
+        "en": "Camera Operation, Editing, Color Grading"
+      },
+      "title": {
+        "pt": "A Morte da Saúva",
+        "en": "The Death of the Leafcutter Ant"
+      },
+      "desc": {
+        "pt": "",
+        "en": ""
+      }
+    },
+    {
       "id": "janelas",
       "cat": "curta",
       "year": 2022,
