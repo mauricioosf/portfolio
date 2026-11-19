@@ -153,6 +153,36 @@
     ],
     "licenses": [
       {
+        "year": "NOV 2026",
+        "role": {
+          "pt": "Oficina de Conservação de Filmes",
+          "en": "Film Conservation Workshop"
+        },
+        "place": {
+          "pt": "Arquivo Nacional / CTAv",
+          "en": "Arquivo Nacional / CTAv"
+        },
+        "tag": {
+          "pt": "Workshop",
+          "en": "Workshop"
+        }
+      },
+      {
+        "year": "SET 2026",
+        "role": {
+          "pt": "Gerenciando Mídias Audiovisuais / Logger",
+          "en": "Managing Audiovisual Media / Logger"
+        },
+        "place": {
+          "pt": "ABC Cursos de Cinema",
+          "en": "ABC Cursos de Cinema"
+        },
+        "tag": {
+          "pt": "Curso",
+          "en": "Course"
+        }
+      },
+      {
         "year": "SET 2026",
         "role": {
           "pt": "Criação de roteiros para documentários com Eliane Caffé // Trajetória no Cinema e Documentários com Joel Zito Araújo // A pesquisa em acervo para documentários com Eloá Chouzal // Montagem audiovisual com Cristina Amaral",
